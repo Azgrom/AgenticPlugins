@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "gpt-93c3cf04200c123c0971bae96376e92e",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Tutoria avulsa para provas, graduação, mestrado e doutorado, com explicação, leitura crítica e confronto de entendimento com fontes verificáveis.",
   "author": {
     "name": "RAFAEL LÚCIO",
