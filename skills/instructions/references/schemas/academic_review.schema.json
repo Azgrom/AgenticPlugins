@@ -1,0 +1,332 @@
+{
+  "type": "object",
+  "properties": {
+    "review_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "enum": [
+        "concept",
+        "argument",
+        "literature",
+        "methodology",
+        "writing",
+        "defense"
+      ]
+    },
+    "search_scope": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "provided_material",
+            "targeted",
+            "systematic"
+          ]
+        },
+        "queries": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "venues": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "searched_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "queries",
+        "venues",
+        "searched_at",
+        "limitations"
+      ],
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/claim"
+      }
+    },
+    "conclusion": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "review_id",
+    "schema_version",
+    "question",
+    "mode",
+    "search_scope",
+    "sources",
+    "claims",
+    "conclusion"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "academic_review.schema.json",
+  "title": "academic_review",
+  "description": "Optional source-linked academic review; structural validity does not authenticate content.",
+  "$defs": {
+    "source": {
+      "type": "object",
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "year": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "identifier": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_ref": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reading_level": {
+          "enum": [
+            "NONE",
+            "METADATA_ONLY",
+            "ABSTRACT",
+            "EXCERPT",
+            "FULL_TEXT"
+          ],
+          "description": "Material efetivamente consultado; FULL_TEXT indica consulta ao texto integral, não leitura de todas as páginas."
+        },
+        "publication_status": {
+          "enum": [
+            "PEER_REVIEWED",
+            "PREPRINT",
+            "INSTITUTIONAL",
+            "UNVERIFIED"
+          ]
+        },
+        "integrity_status": {
+          "enum": [
+            "NOT_CHECKED",
+            "NO_NOTICE_FOUND",
+            "CORRECTED",
+            "RETRACTED",
+            "DISPUTED"
+          ]
+        },
+        "status_check_ref": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status_checked_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "source_id",
+        "title",
+        "authors",
+        "year",
+        "identifier",
+        "source_ref",
+        "reading_level",
+        "publication_status",
+        "integrity_status",
+        "status_check_ref",
+        "status_checked_at",
+        "limitations"
+      ],
+      "additionalProperties": false
+    },
+    "link": {
+      "type": "object",
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "basis": {
+          "enum": [
+            "INSPECTED_TEXT",
+            "ABSTRACT_REPORTED",
+            "METADATA",
+            "UNVERIFIED"
+          ]
+        },
+        "relation": {
+          "enum": [
+            "supports",
+            "contradicts",
+            "context"
+          ]
+        }
+      },
+      "required": [
+        "source_id",
+        "locator",
+        "basis",
+        "relation"
+      ],
+      "additionalProperties": false
+    },
+    "claim": {
+      "type": "object",
+      "properties": {
+        "claim_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1
+        },
+        "verdict": {
+          "enum": [
+            "supported",
+            "partially_supported",
+            "contradicted",
+            "unresolved"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "claim_id",
+        "claim",
+        "verdict",
+        "reason",
+        "links",
+        "limitations"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

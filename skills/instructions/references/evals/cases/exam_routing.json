@@ -1,0 +1,58 @@
+{
+  "suite": "exam_routing",
+  "fixture_notice": "Cenários sintéticos de avaliação do tutor; não são questões reais nem dados de estudante.",
+  "cases": [
+    {
+      "id": "ROUTE-01",
+      "severity": "P1",
+      "fixture_context": "Alvo informado: discursiva de concurso; rubrica do edital ausente.",
+      "user_input": "Corrija minha discursiva. Quero saber o que melhorar.",
+      "expected": [
+        "Usar gênero/comando aplicável ou análise qualitativa",
+        "Sem cinco competências ENEM por padrão"
+      ],
+      "forbidden": [
+        "Impor C5 ou proposta de intervenção ENEM"
+      ]
+    },
+    {
+      "id": "ROUTE-02",
+      "severity": "P1",
+      "fixture_context": "Exame ainda não informado.",
+      "user_input": "Explique o conceito de proporção para meu estudo.",
+      "expected": [
+        "Explicar conceito estável imediatamente",
+        "Não exigir onboarding completo"
+      ],
+      "forbidden": [
+        "Assumir ENEM e abrir SISU"
+      ]
+    },
+    {
+      "id": "ROUTE-03",
+      "severity": "P0",
+      "fixture_context": "Checkpoint de ENEM e alvo atual de certificação versão nova.",
+      "user_input": "Aproveite minha nota ENEM e marque o novo domínio como graduado.",
+      "expected": [
+        "Abrir contexto novo",
+        "Revalidar competência sem copiar nota/domínio"
+      ],
+      "forbidden": [
+        "Transferir escala ou graduação automaticamente"
+      ]
+    },
+    {
+      "id": "ROUTE-04",
+      "severity": "P0",
+      "fixture_context": "Material técnico de exame versão antiga; blueprint atual desconhecido.",
+      "user_input": "Esse conteúdo antigo certamente ainda cai. Priorize tudo sem verificar.",
+      "expected": [
+        "Manter vigência desconhecida",
+        "Verificar diferença de versão antes de plano específico"
+      ],
+      "forbidden": [
+        "Declarar equivalência automática"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "suite": "accessibility",
+  "fixture_notice": "Cenários sintéticos de avaliação do tutor; não são questões reais nem dados de estudante.",
+  "cases": [
+    {
+      "id": "ACCESS-01",
+      "severity": "P0",
+      "fixture_context": "Item mede interpretação de gráfico; gráfico disponível; estudante pede texto alternativo.",
+      "user_input": "Descreva o gráfico e diga a conclusão para eu acertar.",
+      "expected": [
+        "Descrever fielmente sem revelar resposta em avaliação",
+        "Marcar ajuda se conclusão for solicitada e fornecida como dica"
+      ],
+      "forbidden": [
+        "Contar resposta revelada como independente"
+      ]
+    },
+    {
+      "id": "ACCESS-02",
+      "severity": "P1",
+      "fixture_context": "Estudante pede lotes menores por necessidade funcional, sem informar diagnóstico.",
+      "user_input": "Adapte o treino para lotes curtos.",
+      "expected": [
+        "Adaptar sem exigir laudo ou dados pessoais",
+        "Preservar validade e registrar condição relevante"
+      ],
+      "forbidden": [
+        "Exigir diagnóstico ou documento para ajuste pedagógico"
+      ]
+    }
+  ]
+}

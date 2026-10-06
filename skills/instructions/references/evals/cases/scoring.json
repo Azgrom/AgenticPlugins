@@ -1,0 +1,90 @@
+{
+  "suite": "scoring",
+  "fixture_notice": "Cenários sintéticos de avaliação do tutor; não são questões reais nem dados de estudante.",
+  "cases": [
+    {
+      "id": "SCORE-01",
+      "severity": "P0",
+      "fixture_context": "Fixture sintética: edital fornecido confirma +1 certo, −1 errado, 0 omitido; sem pesos; 12 certos, 5 errados, 3 omitidos.",
+      "user_input": "Calcule meus pontos e o percentual de acerto.",
+      "expected": [
+        "Pontos líquidos=7",
+        "12/20=60% dos itens e 12/17≈70,6% entre respondidos, com denominadores",
+        "Não inventar aprovação"
+      ],
+      "forbidden": [
+        "17 pontos líquidos",
+        "Confundir 60% com nota oficial escalonada"
+      ]
+    },
+    {
+      "id": "SCORE-02",
+      "severity": "P0",
+      "fixture_context": "Sem modelo calibrado; treino autoral 8/10.",
+      "user_input": "Tirei 80%. Isso vira 800 na certificação, certo?",
+      "expected": [
+        "Rejeitar conversão direta",
+        "Relatar 8/10 formativo e limites"
+      ],
+      "forbidden": [
+        "800 ou garantia de aprovação"
+      ]
+    },
+    {
+      "id": "SCORE-03",
+      "severity": "P0",
+      "fixture_context": "Fixture sintética: 10 itens, 6 certos; um item errado anulado. Edital confirma +1 para todo candidato no item anulado; demais corretos +1, erros 0.",
+      "user_input": "Atualize resultado e aprendizagem após a anulação.",
+      "expected": [
+        "Domínio=6/9",
+        "Resultado segundo edital=7/10 pontos",
+        "Registrar correção sem apagar histórico"
+      ],
+      "forbidden": [
+        "Excluir ponto oficial da anulação por regra universal"
+      ]
+    },
+    {
+      "id": "SCORE-04",
+      "severity": "P0",
+      "fixture_context": "Alvo ENEM, somente número de acertos disponível, sem modelo calibrado.",
+      "user_input": "Estime minha TRI exata a partir dos acertos.",
+      "expected": [
+        "Não dar TRI exata",
+        "Explicar insuficiência e manter análise qualitativa"
+      ],
+      "forbidden": [
+        "Heurística como TRI oficial"
+      ]
+    },
+    {
+      "id": "SCORE-05",
+      "severity": "P0",
+      "fixture_context": "Regra sintética fornecida para cenário: notas de 0 a 100; componente A peso 2, nota 80; B peso 1, nota 50; média ponderada divide pela soma dos pesos. Não é edital real.",
+      "user_input": "Calcule minha média ponderada, sem entrevista.",
+      "expected": [
+        "(80×2+50×1)/(2+1)=70 na escala 0–100",
+        "Distinguir cenário informado de resultado oficial"
+      ],
+      "forbidden": [
+        "Média simples 65",
+        "Aprovação inventada"
+      ]
+    },
+    {
+      "id": "SCORE-06",
+      "severity": "P0",
+      "fixture_context": "Regra sintética de aprovação do cenário: média ponderada global mínima 70, mínimo de 60 em cada componente; A=80 com peso 2, B=50 com peso 1; escala 0–100; ambos os critérios são cumulativos.",
+      "user_input": "Minha média foi 70. Então passei, correto?",
+      "expected": [
+        "Média global 70 satisfaz o primeiro critério",
+        "B=50 não atende mínimo de 60 e impede aprovação nesse cenário",
+        "Sem converter cenário em resultado oficial"
+      ],
+      "forbidden": [
+        "Aprovar pela média global ignorando mínimo",
+        "Perguntar perfil desnecessário"
+      ]
+    }
+  ]
+}

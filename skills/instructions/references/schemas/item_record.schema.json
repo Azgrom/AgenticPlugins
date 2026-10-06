@@ -1,0 +1,306 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "item_record.schema.json",
+  "title": "item_record",
+  "type": "object",
+  "properties": {
+    "item_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "exam_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "domain_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "material_type": {
+      "enum": [
+        "OFFICIAL_PAST",
+        "OFFICIAL_SAMPLE",
+        "LICENSED_PRACTICE",
+        "AUTHORIAL_PRACTICE",
+        "USER_PROVIDED"
+      ]
+    },
+    "format": {
+      "enum": [
+        "single_choice",
+        "multiple_response",
+        "true_false",
+        "written",
+        "oral",
+        "listening",
+        "practical",
+        "lab",
+        "other"
+      ]
+    },
+    "historical_occurrence_verified": {
+      "type": "boolean"
+    },
+    "source_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "answer_status": {
+      "enum": [
+        "official",
+        "corroborated",
+        "authorial",
+        "pedagogical_rubric",
+        "unknown"
+      ]
+    },
+    "answer_ref": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "eligibility": {
+      "enum": [
+        "ACCEPT",
+        "INVESTIGATE",
+        "DISCARD",
+        "TRAINING_ONLY"
+      ]
+    },
+    "rights_status": {
+      "enum": [
+        "permitted",
+        "restricted",
+        "unknown"
+      ]
+    },
+    "essential_elements_available": {
+      "type": "boolean"
+    },
+    "annulled": {
+      "type": "boolean"
+    },
+    "final_status": {
+      "enum": [
+        "final",
+        "preliminary",
+        "not_applicable",
+        "unknown"
+      ]
+    },
+    "solution_checked": {
+      "type": "boolean"
+    },
+    "validation_notes": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "item_id",
+    "exam_key",
+    "profile_version",
+    "domain_ids",
+    "material_type",
+    "format",
+    "historical_occurrence_verified",
+    "source_ids",
+    "answer_status",
+    "answer_ref",
+    "eligibility",
+    "rights_status",
+    "essential_elements_available",
+    "annulled",
+    "final_status",
+    "solution_checked",
+    "validation_notes"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "eligibility": {
+            "const": "ACCEPT"
+          }
+        },
+        "required": [
+          "eligibility"
+        ]
+      },
+      "then": {
+        "properties": {
+          "rights_status": {
+            "const": "permitted"
+          },
+          "essential_elements_available": {
+            "const": true
+          },
+          "annulled": {
+            "const": false
+          },
+          "solution_checked": {
+            "const": true
+          },
+          "answer_status": {
+            "not": {
+              "const": "unknown"
+            }
+          },
+          "answer_ref": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "material_type": {
+            "const": "OFFICIAL_PAST"
+          },
+          "eligibility": {
+            "const": "ACCEPT"
+          }
+        },
+        "required": [
+          "material_type",
+          "eligibility"
+        ]
+      },
+      "then": {
+        "properties": {
+          "historical_occurrence_verified": {
+            "const": true
+          },
+          "source_ids": {
+            "minItems": 1
+          },
+          "answer_status": {
+            "enum": [
+              "official",
+              "corroborated"
+            ]
+          },
+          "final_status": {
+            "const": "final"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "material_type": {
+            "const": "OFFICIAL_SAMPLE"
+          },
+          "eligibility": {
+            "const": "ACCEPT"
+          }
+        },
+        "required": [
+          "material_type",
+          "eligibility"
+        ]
+      },
+      "then": {
+        "properties": {
+          "source_ids": {
+            "minItems": 1
+          },
+          "answer_status": {
+            "const": "official"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "material_type": {
+            "const": "AUTHORIAL_PRACTICE"
+          }
+        },
+        "required": [
+          "material_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "historical_occurrence_verified": {
+            "const": false
+          },
+          "answer_status": {
+            "enum": [
+              "authorial",
+              "pedagogical_rubric",
+              "unknown"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "material_type": {
+            "const": "USER_PROVIDED"
+          }
+        },
+        "required": [
+          "material_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "eligibility": {
+            "enum": [
+              "INVESTIGATE",
+              "DISCARD",
+              "TRAINING_ONLY"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "rights_status": {
+            "const": "restricted"
+          }
+        },
+        "required": [
+          "rights_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "eligibility": {
+            "const": "DISCARD"
+          }
+        }
+      }
+    }
+  ]
+}

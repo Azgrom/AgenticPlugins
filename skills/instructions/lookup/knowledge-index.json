@@ -1,0 +1,381 @@
+{
+  "files": [
+    {
+      "name": "CORE.md",
+      "path": "references/CORE.md",
+      "read_when": "Uma vez ao ativar a skill."
+    },
+    {
+      "name": "acceptance_tests.md",
+      "path": "references/evals/acceptance_tests.md",
+      "read_when": "Consultar somente ao validar ou alterar o tutor. Responsabilidade: critérios de release; não carregar durante aula."
+    },
+    {
+      "name": "adversarial_tests.md",
+      "path": "references/evals/adversarial_tests.md",
+      "read_when": "Consultar somente ao testar resistência do tutor. Responsabilidade: variantes de pressão e controle."
+    },
+    {
+      "name": "academic_tutoring.json",
+      "path": "references/evals/cases/academic_tutoring.json",
+      "read_when": "Somente ao avaliar descoberta e comportamento acadêmico do tutor."
+    },
+    {
+      "name": "accessibility.json",
+      "path": "references/evals/cases/accessibility.json",
+      "read_when": "Somente ao testar o tutor na suite accessibility."
+    },
+    {
+      "name": "authenticity.json",
+      "path": "references/evals/cases/authenticity.json",
+      "read_when": "Somente ao testar o tutor na suite authenticity."
+    },
+    {
+      "name": "certification_security.json",
+      "path": "references/evals/cases/certification_security.json",
+      "read_when": "Somente ao testar o tutor na suite certification_security."
+    },
+    {
+      "name": "exam_routing.json",
+      "path": "references/evals/cases/exam_routing.json",
+      "read_when": "Somente ao testar o tutor na suite exam_routing."
+    },
+    {
+      "name": "pedagogy.json",
+      "path": "references/evals/cases/pedagogy.json",
+      "read_when": "Somente ao testar o tutor na suite pedagogy."
+    },
+    {
+      "name": "scoring.json",
+      "path": "references/evals/cases/scoring.json",
+      "read_when": "Somente ao testar o tutor na suite scoring."
+    },
+    {
+      "name": "standalone_response.json",
+      "path": "references/evals/cases/standalone_response.json",
+      "read_when": "Somente ao testar o tutor na suite standalone_response."
+    },
+    {
+      "name": "state_integrity.json",
+      "path": "references/evals/cases/state_integrity.json",
+      "read_when": "Somente ao testar o tutor na suite state_integrity."
+    },
+    {
+      "name": "tool_failures.json",
+      "path": "references/evals/cases/tool_failures.json",
+      "read_when": "Somente ao testar o tutor na suite tool_failures."
+    },
+    {
+      "name": "written_and_practical.json",
+      "path": "references/evals/cases/written_and_practical.json",
+      "read_when": "Somente ao testar o tutor na suite written_and_practical."
+    },
+    {
+      "name": "evaluation_protocol.md",
+      "path": "references/evals/evaluation_protocol.md",
+      "read_when": "Consultar somente ao executar ou interpretar testes. Entrada: casos e release; saída: evidência auditável."
+    },
+    {
+      "name": "academic_review.json",
+      "path": "references/evals/fixtures/academic_review.json",
+      "read_when": "Somente ao validar contrato acadêmico; exemplo sintético."
+    },
+    {
+      "name": "assessment_event.json",
+      "path": "references/evals/fixtures/assessment_event.json",
+      "read_when": "Somente ao validar o contrato assessment_event; exemplo sintético."
+    },
+    {
+      "name": "evidence_record.json",
+      "path": "references/evals/fixtures/evidence_record.json",
+      "read_when": "Somente ao validar o contrato evidence_record; exemplo sintético."
+    },
+    {
+      "name": "exam_profile.json",
+      "path": "references/evals/fixtures/exam_profile.json",
+      "read_when": "Somente ao validar o contrato exam_profile; exemplo sintético."
+    },
+    {
+      "name": "item_record.json",
+      "path": "references/evals/fixtures/item_record.json",
+      "read_when": "Somente ao validar o contrato item_record; exemplo sintético."
+    },
+    {
+      "name": "session_checkpoint.json",
+      "path": "references/evals/fixtures/session_checkpoint.json",
+      "read_when": "Somente ao validar o contrato session_checkpoint; exemplo sintético."
+    },
+    {
+      "name": "student_state.json",
+      "path": "references/evals/fixtures/student_state.json",
+      "read_when": "Somente ao validar o contrato student_state; exemplo sintético."
+    },
+    {
+      "name": "academic_tutoring.md",
+      "path": "references/knowledge/academic_tutoring.md",
+      "read_when": "Consultar para orientação, esclarecimento ou confronto de entendimento na graduação, no mestrado ou no doutorado, mesmo sem prova. Entrada: demanda e material disponíveis; saída: explicação, crítica fundamentada ou orientação solicitada."
+    },
+    {
+      "name": "accessibility.md",
+      "path": "references/knowledge/accessibility.md",
+      "read_when": "Consultar quando o estudante pedir acessibilidade ou formato alternativo. Saída: material utilizável com validade preservada."
+    },
+    {
+      "name": "answer_explanation.md",
+      "path": "references/knowledge/answer_explanation.md",
+      "read_when": "Consultar ao resolver uma questão ou explicar alternativa marcada. Entrada: enunciado, elementos essenciais, opções/rubrica e resposta do usuário se informada. Saída: solução demonstrada e comparação pertinente."
+    },
+    {
+      "name": "critical_reading.md",
+      "path": "references/knowledge/critical_reading.md",
+      "read_when": "Consultar para esclarecer artigo, capítulo, teorema, resultados ou argumento. Entrada: material acessível e dúvida; saída: interpretação fiel e crítica localizada."
+    },
+    {
+      "name": "enem_humanities.md",
+      "path": "references/knowledge/curriculum/enem_humanities.md",
+      "read_when": "Consultar somente para Humanas no ENEM. Saída: conteúdo e habilidade a verificar na matriz."
+    },
+    {
+      "name": "enem_languages.md",
+      "path": "references/knowledge/curriculum/enem_languages.md",
+      "read_when": "Consultar somente para Linguagens no ENEM. Saída: objetivo de leitura/linguagem a verificar na matriz."
+    },
+    {
+      "name": "enem_mathematics.md",
+      "path": "references/knowledge/curriculum/enem_mathematics.md",
+      "read_when": "Consultar somente para matemática no ENEM. Saída: conteúdo e habilidade a verificar na matriz."
+    },
+    {
+      "name": "enem_natural_sciences.md",
+      "path": "references/knowledge/curriculum/enem_natural_sciences.md",
+      "read_when": "Consultar somente para Natureza no ENEM. Saída: domínio e habilidade a verificar na matriz."
+    },
+    {
+      "name": "curriculum_enem.md",
+      "path": "references/knowledge/curriculum_enem.md",
+      "read_when": "Consultar somente para conteúdo ENEM. Responsabilidade: localizar a área pedida; não carregar o currículo inteiro."
+    },
+    {
+      "name": "curriculum_mapping.md",
+      "path": "references/knowledge/curriculum_mapping.md",
+      "read_when": "Consultar para transformar edital, blueprint ou ementa em plano. Saída: mapa de objetivos por versão."
+    },
+    {
+      "name": "enem_tri.md",
+      "path": "references/knowledge/enem_tri.md",
+      "read_when": "Consultar somente para nota e consistência no ENEM. Entrada: informações verificadas e respostas; saída: análise delimitada."
+    },
+    {
+      "name": "essay_rubric.md",
+      "path": "references/knowledge/essay_rubric.md",
+      "read_when": "Consultar somente para redação ENEM. Saída: estimativa pedagógica ancorada no texto, nunca nota atribuída pela banca."
+    },
+    {
+      "name": "exam_strategy.md",
+      "path": "references/knowledge/exam_strategy.md",
+      "read_when": "Consultar para tempo, omissão, navegação e simulado. Entrada: regras do formato e desempenho; saída: estratégia testável."
+    },
+    {
+      "name": "literature_review.md",
+      "path": "references/knowledge/literature_review.md",
+      "read_when": "Consultar quando o estudante pedir trabalhos externos, comparação, estado do conhecimento ou base para uma afirmação. Entrada: tema/pergunta e restrições declaradas; saída: síntese vinculada às fontes e alcance da busca."
+    },
+    {
+      "name": "pedagogy.md",
+      "path": "references/knowledge/pedagogy.md",
+      "read_when": "Consultar para diagnóstico, progressão ou ajuste de plano. Entrada: objetivo e evidência; saída: intervenção com critério de verificação."
+    },
+    {
+      "name": "practical_assessment.md",
+      "path": "references/knowledge/practical_assessment.md",
+      "read_when": "Consultar para demonstração, OSCE, laboratório, código, procedimento, apresentação ou defesa. Saída: desempenho observado com rubrica e limites."
+    },
+    {
+      "name": "certifications.md",
+      "path": "references/knowledge/profiles/certifications.md",
+      "read_when": "Consultar somente para certificação ou habilitação. Saída: preparação por objetivos públicos e versão."
+    },
+    {
+      "name": "enem.md",
+      "path": "references/knowledge/profiles/enem.md",
+      "read_when": "Consultar somente quando ENEM for o alvo. Responsabilidade: selecionar especializações; não presumir edição vigente."
+    },
+    {
+      "name": "general_assessments.md",
+      "path": "references/knowledge/profiles/general_assessments.md",
+      "read_when": "Consultar para vestibular, prova acadêmica, exame profissional, teste de idioma ou alvo ainda não classificado. Saída: perfil adaptado a documentos disponíveis."
+    },
+    {
+      "name": "public_exams.md",
+      "path": "references/knowledge/profiles/public_exams.md",
+      "read_when": "Consultar somente para concurso ou seleção pública. Saída: regras e currículo do edital, sem defaults por banca."
+    },
+    {
+      "name": "question_methodology.md",
+      "path": "references/knowledge/question_methodology.md",
+      "read_when": "Consultar para diagnóstico, bateria, revisão ou simulado. Entrada: objetivos e materiais; saída: lote elegível e resultado rastreável."
+    },
+    {
+      "name": "academic_rigor.md",
+      "path": "references/knowledge/research/academic_rigor.md",
+      "read_when": "Consultar somente quando a decisão envolver interpretação estatística, reprodução de pesquisa ou relato de revisão sistemática. São referências de método, não evidência de eficácia deste tutor ou de domínio do estudante. Conteúdo e identidade abaixo foram consultados em 2026-10-06; vigência e estado editorial devem ser reconferidos quando a decisão depender deles."
+    },
+    {
+      "name": "distributed_practice.md",
+      "path": "references/knowledge/research/distributed_practice.md",
+      "read_when": "Consultar somente para justificar revisão espaçada ou avaliar a evidência."
+    },
+    {
+      "name": "retrieval_practice.md",
+      "path": "references/knowledge/research/retrieval_practice.md",
+      "read_when": "Consultar somente para justificar pedagogia ou avaliar sua evidência. Não carregar em toda aula."
+    },
+    {
+      "name": "research_methodology.md",
+      "path": "references/knowledge/research_methodology.md",
+      "read_when": "Consultar para escolher, esclarecer ou criticar método, desenho, modelo ou análise de pesquisa. Entrada: objetivo e material disponível; saída: alternativas justificadas, pressupostos e limites."
+    },
+    {
+      "name": "scoring.md",
+      "path": "references/knowledge/scoring.md",
+      "read_when": "Consultar para calcular resultado ou construir meta. Entrada: perfil com regra e eventos elegíveis; saída: medida nomeada com limitações."
+    },
+    {
+      "name": "sisu_methodology.md",
+      "path": "references/knowledge/sisu_methodology.md",
+      "read_when": "Consultar somente quando a finalidade for seleção pelo SISU. Entrada: dados vigentes da opção; saída: cenários pedagógicos auditáveis."
+    },
+    {
+      "name": "spaced_review.md",
+      "path": "references/knowledge/spaced_review.md",
+      "read_when": "Consultar para revisão devida, retenção ou ajuste de intervalos. Saída: próxima revisão pedagógica, sem promessa de notificação."
+    },
+    {
+      "name": "written_response.md",
+      "path": "references/knowledge/written_response.md",
+      "read_when": "Consultar para redação, discursiva, relatório, estudo de caso ou parecer. Saída: avaliação pelos critérios corretos e próxima revisão do texto."
+    },
+    {
+      "name": "academic_evidence.md",
+      "path": "references/operations/academic_evidence.md",
+      "read_when": "Consultar quando o estudante pedir confronto com fatos verificados, referências externas ou exame de um trabalho. Entrada: afirmações e fontes; saída: conclusão rastreável e limite de verificação. Complementar a [política geral](evidence_policy.md), sem importar critérios de gabarito para pesquisa."
+    },
+    {
+      "name": "content_integrity.md",
+      "path": "references/operations/content_integrity.md",
+      "read_when": "Consultar ao reproduzir conteúdo, usar banco fechado ou atender pedido durante avaliação. Saída: material elegível ou alternativa legítima."
+    },
+    {
+      "name": "context_policy.md",
+      "path": "references/operations/context_policy.md",
+      "read_when": "Consultar quando houver múltiplos módulos possíveis ou risco de contexto excessivo. Entrada: pedido atual; saída: conjunto mínimo de referências."
+    },
+    {
+      "name": "evidence_policy.md",
+      "path": "references/operations/evidence_policy.md",
+      "read_when": "Consultar para autenticar origem, verificar regra atual ou resolver conflito. Entrada: afirmação e fontes; saída: evidência classificada e limite de uso."
+    },
+    {
+      "name": "exam_profile.md",
+      "path": "references/operations/exam_profile.md",
+      "read_when": "Consultar para planejar por edital, trocar alvo ou usar regra específica. Entrada: pedido e documentos; saída: perfil parcial ou confirmado."
+    },
+    {
+      "name": "failure_modes.md",
+      "path": "references/operations/failure_modes.md",
+      "read_when": "Consultar ao detectar falha de fonte, ferramenta, estado ou material. Responsabilidade: contenção e alternativa."
+    },
+    {
+      "name": "question_gate.md",
+      "path": "references/operations/question_gate.md",
+      "read_when": "Consultar antes de usar item para diagnóstico, bateria, revisão ou simulado. Saída: ACCEPT, INVESTIGATE, DISCARD ou TRAINING_ONLY."
+    },
+    {
+      "name": "request_policy.md",
+      "path": "references/operations/request_policy.md",
+      "read_when": "Consultar somente para decidir escopo, uso do contexto ou necessidade de esclarecimento. Entrada: demanda declarada e contexto disponível; saída: resposta direta ou uma lacuna essencial delimitada."
+    },
+    {
+      "name": "response_style.md",
+      "path": "references/operations/response_style.md",
+      "read_when": "Consultar somente ao ajustar apresentação ou resolver conflito de tom. Responsabilidade: linguagem; não altera correção, evidência ou regra do exame."
+    },
+    {
+      "name": "state_policy.md",
+      "path": "references/operations/state_policy.md",
+      "read_when": "Consultar somente sob pedido explícito de registro/histórico, interpretação de checkpoint fornecido ou correção de resultado previamente registrado. Entrada: evidência disponível; saída: estado derivado com origem e limites. Não carregar para resposta avulsa."
+    },
+    {
+      "name": "superpowers_policy.md",
+      "path": "references/operations/superpowers_policy.md",
+      "read_when": "Consultar se o estudante pedir Superpowers ou a tarefa exigir um processo complexo beneficiado por ele. Entrada: tarefa e skills efetivamente disponíveis; saída: uso real ou fluxo nativo."
+    },
+    {
+      "name": "tool_policy.md",
+      "path": "references/operations/tool_policy.md",
+      "read_when": "Consultar quando a tarefa depender de pesquisa, leitura, gravação, execução ou lembrete. Saída: ação verificada ou limitação explícita."
+    },
+    {
+      "name": "academic_review.md",
+      "path": "references/schemas/academic_review.md",
+      "read_when": "Somente ao estruturar ou validar revisão acadêmica explicitamente pedida."
+    },
+    {
+      "name": "academic_review.schema.json",
+      "path": "references/schemas/academic_review.schema.json",
+      "read_when": "Somente ao estruturar ou validar revisão acadêmica explicitamente pedida."
+    },
+    {
+      "name": "assessment_event.schema.json",
+      "path": "references/schemas/assessment_event.schema.json",
+      "read_when": "Somente ao estruturar ou validar o objeto assessment_event."
+    },
+    {
+      "name": "evidence_record.schema.json",
+      "path": "references/schemas/evidence_record.schema.json",
+      "read_when": "Somente ao estruturar ou validar o objeto evidence_record."
+    },
+    {
+      "name": "exam_profile.schema.json",
+      "path": "references/schemas/exam_profile.schema.json",
+      "read_when": "Somente ao estruturar ou validar o objeto exam_profile."
+    },
+    {
+      "name": "item_record.schema.json",
+      "path": "references/schemas/item_record.schema.json",
+      "read_when": "Somente ao estruturar ou validar o objeto item_record."
+    },
+    {
+      "name": "migration.md",
+      "path": "references/schemas/migration.md",
+      "read_when": "Consultar somente ao receber checkpoint antigo. Entrada: estrutura antiga efetivamente disponível; saída: estrutura 2.0 com origem e lacunas preservadas."
+    },
+    {
+      "name": "record_contracts.md",
+      "path": "references/schemas/record_contracts.md",
+      "read_when": "Consultar somente ao estruturar ou validar dados. Não carregar todos os schemas em aula."
+    },
+    {
+      "name": "record_integrity.md",
+      "path": "references/schemas/record_integrity.md",
+      "read_when": "Consultar somente ao validar registros relacionados. Entrada: objetos e fontes recuperáveis fornecidos; saída: relações resolvidas ou rejeição explícita. Não carregar em explicação avulsa."
+    },
+    {
+      "name": "session_checkpoint.md",
+      "path": "references/schemas/session_checkpoint.md",
+      "read_when": "Consultar somente quando o usuário fornecer ou pedir checkpoint. Responsabilidade: resumir continuidade, sem copiar histórico. Não gerar checkpoint por encerramento de resposta; contexto e memória do host bastam ao atendimento avulso."
+    },
+    {
+      "name": "session_checkpoint.schema.json",
+      "path": "references/schemas/session_checkpoint.schema.json",
+      "read_when": "Somente ao estruturar ou validar o objeto session_checkpoint."
+    },
+    {
+      "name": "student_state.schema.json",
+      "path": "references/schemas/student_state.schema.json",
+      "read_when": "Somente ao estruturar ou validar o objeto student_state."
+    }
+  ],
+  "guidelines": "Paths in this index are relative to the skill root; Markdown links are relative to their containing document. Read CORE once and only modules necessary for the declared request. No interview, parallel memory or automatic follow-up. Optional references are conditional. This is a locator, not a load-all instruction; instructions.zip is inactive.",
+  "default_entry": "references/CORE.md"
+}

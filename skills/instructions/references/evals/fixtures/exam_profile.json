@@ -1,0 +1,35 @@
+{
+  "profile_version": "fixture.profile.revision1",
+  "context": {
+    "exam_key": "fixture.cert|v1|stage1|pt|BR",
+    "exam_id": "fixture.cert",
+    "family": "certification",
+    "edition_version": "v1",
+    "stage": "stage1",
+    "language": "pt",
+    "jurisdiction": "BR"
+  },
+  "status": "draft",
+  "organizer": null,
+  "blueprint_version": null,
+  "source_ids": [],
+  "formats": [
+    "single_choice"
+  ],
+  "duration_minutes": null,
+  "navigation": "unknown",
+  "scoring": {
+    "model": "unknown",
+    "correct_points": null,
+    "incorrect_points": null,
+    "omitted_points": null,
+    "minimum_rules": [],
+    "annulment_rule": null,
+    "source_ids": [],
+    "component_weights": []
+  },
+  "missing_fields": [
+    "regra oficial"
+  ],
+  "profile_schema_version": "2.0"
+}

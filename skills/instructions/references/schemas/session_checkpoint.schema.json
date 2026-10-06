@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "session_checkpoint.schema.json",
+  "title": "session_checkpoint",
+  "type": "object",
+  "properties": {
+    "checkpoint_version": {
+      "const": "2.0"
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "context": {
+      "$ref": "exam_profile.schema.json#/$defs/context"
+    },
+    "profile_version": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "goal": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "phase": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "active_domain_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "state_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "event_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "pending": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "priority": {
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          }
+        },
+        "required": [
+          "action",
+          "reason",
+          "priority"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "due_reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "domain_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "next_due": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "domain_id",
+          "next_due"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "next_action": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "state_origin": {
+      "enum": [
+        "measured",
+        "user_reported",
+        "external",
+        "inferred"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "verified",
+        "strong",
+        "provisional",
+        "unknown"
+      ]
+    },
+    "missing_data": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "checkpoint_version",
+    "session_id",
+    "created_at",
+    "context",
+    "profile_version",
+    "goal",
+    "phase",
+    "active_domain_id",
+    "state_refs",
+    "event_refs",
+    "pending",
+    "due_reviews",
+    "next_action",
+    "state_origin",
+    "confidence",
+    "missing_data"
+  ],
+  "additionalProperties": false
+}

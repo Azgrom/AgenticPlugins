@@ -1,0 +1,53 @@
+{
+  "review_id": "fixture.review",
+  "schema_version": "1.0",
+  "question": "O estudo sustenta causalidade?",
+  "mode": "argument",
+  "search_scope": {
+    "kind": "provided_material",
+    "queries": [],
+    "venues": [],
+    "searched_at": null,
+    "limitations": [
+      "Material sintético; não é busca bibliográfica."
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "fixture.A",
+      "title": "Fonte sintética A",
+      "authors": [],
+      "year": null,
+      "identifier": null,
+      "source_ref": "urn:fixture:A",
+      "reading_level": "FULL_TEXT",
+      "publication_status": "UNVERIFIED",
+      "integrity_status": "NOT_CHECKED",
+      "status_check_ref": null,
+      "status_checked_at": null,
+      "limitations": [
+        "Não é publicação real."
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "fixture.claim",
+      "claim": "O estudo identifica um efeito causal.",
+      "verdict": "contradicted",
+      "reason": "Desenho antes/depois sem controle.",
+      "links": [
+        {
+          "source_id": "fixture.A",
+          "locator": "Método, seção 2",
+          "basis": "INSPECTED_TEXT",
+          "relation": "contradicts"
+        }
+      ],
+      "limitations": [
+        "Conclusão restrita ao material fornecido."
+      ]
+    }
+  ],
+  "conclusion": "O desenho não sustenta a atribuição causal."
+}

@@ -1,0 +1,16 @@
+{
+  "evidence_id": "fixture.evidence",
+  "claim": "Dado sintético para testar estrutura, não fato externo.",
+  "claim_class": "METHOD_RULE",
+  "origin": "inferred",
+  "confidence": "provisional",
+  "stability": "STATIC",
+  "source_ref": null,
+  "locator": null,
+  "retrieved_at": null,
+  "effective_version": null,
+  "basis_ids": [],
+  "limitations": [
+    "fixture sintética"
+  ]
+}

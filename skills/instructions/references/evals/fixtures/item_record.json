@@ -1,0 +1,21 @@
+{
+  "item_id": "fixture.item",
+  "exam_key": "fixture.cert|v1|stage1|pt|BR",
+  "profile_version": "fixture.profile.revision1",
+  "domain_ids": [
+    "fixture.domain"
+  ],
+  "material_type": "AUTHORIAL_PRACTICE",
+  "format": "single_choice",
+  "historical_occurrence_verified": false,
+  "source_ids": [],
+  "answer_status": "authorial",
+  "answer_ref": "fixture.answer",
+  "eligibility": "ACCEPT",
+  "rights_status": "permitted",
+  "essential_elements_available": true,
+  "annulled": false,
+  "final_status": "not_applicable",
+  "solution_checked": true,
+  "validation_notes": "Fixture sintética de contrato, sem enunciado e sem ocorrência real."
+}

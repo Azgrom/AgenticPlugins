@@ -1,0 +1,38 @@
+{
+  "checkpoint_version": "2.0",
+  "session_id": "fixture.session",
+  "created_at": null,
+  "context": {
+    "exam_key": "fixture.cert|v1|stage1|pt|BR",
+    "exam_id": "fixture.cert",
+    "family": "certification",
+    "edition_version": "v1",
+    "stage": "stage1",
+    "language": "pt",
+    "jurisdiction": "BR"
+  },
+  "profile_version": "fixture.profile.revision1",
+  "goal": "Fixture sintética de retomada",
+  "phase": null,
+  "active_domain_id": "fixture.domain",
+  "state_refs": [
+    "fixture.domain"
+  ],
+  "event_refs": [
+    "fixture.event"
+  ],
+  "pending": [
+    {
+      "action": "nova amostra",
+      "reason": "cobertura insuficiente",
+      "priority": "medium"
+    }
+  ],
+  "due_reviews": [],
+  "next_action": "nova amostra",
+  "state_origin": "measured",
+  "confidence": "provisional",
+  "missing_data": [
+    "estado persistente"
+  ]
+}

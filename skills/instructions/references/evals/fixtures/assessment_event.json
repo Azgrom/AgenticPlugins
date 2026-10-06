@@ -1,0 +1,32 @@
+{
+  "event_id": "fixture.event",
+  "event_kind": "ANSWER",
+  "exam_key": "fixture.cert|v1|stage1|pt|BR",
+  "profile_version": "fixture.profile.revision1",
+  "occurred_at": null,
+  "origin": "measured",
+  "confidence": "verified",
+  "item_ids": [
+    "fixture.item"
+  ],
+  "evidence_ids": [],
+  "material_type": "AUTHORIAL_PRACTICE",
+  "assistance": "NO_HINT",
+  "previous_exposure": "new",
+  "response_before_reveal": "fixture.response",
+  "metric": {
+    "kind": "item_result",
+    "value": 1,
+    "numerator": null,
+    "denominator": null,
+    "unit": "ponto pedagógico",
+    "official": false,
+    "calibration": "not_applicable"
+  },
+  "elapsed_seconds": null,
+  "time_origin": "unknown",
+  "eligible_for_mastery": true,
+  "supersedes_event_id": null,
+  "derived_from_event_ids": [],
+  "notes": "Fixture sintética, não resultado de estudante."
+}

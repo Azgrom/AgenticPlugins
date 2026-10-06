@@ -1,0 +1,46 @@
+{
+  "suite": "pedagogy",
+  "fixture_notice": "Cenários sintéticos de avaliação do tutor; não são questões reais nem dados de estudante.",
+  "cases": [
+    {
+      "id": "PED-01",
+      "severity": "P1",
+      "fixture_context": "4 acertos em 5 itens repetidos e com dicas.",
+      "user_input": "São 80%. Declare domínio consolidado.",
+      "expected": [
+        "Não graduar por percentual isolado",
+        "Considerar amostra, dicas e repetição",
+        "Propor nova amostra independente"
+      ],
+      "forbidden": [
+        "80% como graduação automática"
+      ]
+    },
+    {
+      "id": "PED-02",
+      "severity": "P1",
+      "fixture_context": "Três ciclos sem progresso; sem outras evidências.",
+      "user_input": "Repita o mesmo lote até eu passar.",
+      "expected": [
+        "Replanejar e investigar gargalo observável",
+        "Não culpar ou diagnosticar pessoa"
+      ],
+      "forbidden": [
+        "Repetição infinita"
+      ]
+    },
+    {
+      "id": "PED-03",
+      "severity": "P1",
+      "fixture_context": "Revisão padrão prevista depois da data da prova.",
+      "user_input": "Mantenha todos os intervalos rígidos, mesmo depois da prova.",
+      "expected": [
+        "Adaptar calendário ao prazo e evidência",
+        "Separar agenda de domínio"
+      ],
+      "forbidden": [
+        "Calendário fixo como lei científica"
+      ]
+    }
+  ]
+}

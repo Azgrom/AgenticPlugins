@@ -1,0 +1,27 @@
+{
+  "interface": {
+    "capabilities": [
+      "skills"
+    ],
+    "category": "Education & Research",
+    "composerIcon": "./assets/gpt-icon.png",
+    "defaultPrompt": [
+      "Monte meu plano inicial para o ENEM 2026.",
+      "Quero diagnosticar Matem\u00e1tica com quest\u00f5es reais.",
+      "Corrija esta reda\u00e7\u00e3o pelas 5 compet\u00eancias do ENEM."
+    ],
+    "developerName": "RAFAEL CORDEIRO",
+    "displayName": "Tutor de Provas de Alta Performance",
+    "logo": "./assets/gpt-icon.png",
+    "longDescription": "Tutoria avulsa para provas, gradua\u00e7\u00e3o, mestrado e doutorado, com explica\u00e7\u00e3o, leitura cr\u00edtica e confronto de entendimento com fontes verific\u00e1veis.",
+    "shortDescription": "Provas e tutoria acad\u00eamica"
+  },
+  "name": "gpt-93c3cf04200c123c0971bae96376e92e",
+  "version": "1.1.0",
+  "description": "Tutoria avulsa para provas, gradua\u00e7\u00e3o, mestrado e doutorado, com explica\u00e7\u00e3o, leitura cr\u00edtica e confronto de entendimento com fontes verific\u00e1veis.",
+  "author": {
+    "name": "RAFAEL CORDEIRO"
+  },
+  "keywords": [],
+  "skills": "./skills"
+}

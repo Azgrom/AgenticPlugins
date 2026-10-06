@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "student_state.schema.json",
+  "title": "student_state",
+  "type": "object",
+  "properties": {
+    "state_version": {
+      "const": "2.0"
+    },
+    "exam_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "domain_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "state": {
+      "enum": [
+        "NI",
+        "P",
+        "A",
+        "R",
+        "RT",
+        "GRAD"
+      ]
+    },
+    "origin": {
+      "enum": [
+        "measured",
+        "user_reported",
+        "external",
+        "inferred"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "verified",
+        "strong",
+        "provisional",
+        "unknown"
+      ]
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "applied_event_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "learned_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "next_due": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "review_intervals_days": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "exclusiveMinimum": 0
+      },
+      "minItems": 1
+    },
+    "cycles_without_gain": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "missing_data": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "state_version",
+    "exam_key",
+    "profile_version",
+    "domain_id",
+    "state",
+    "origin",
+    "confidence",
+    "evidence_ids",
+    "applied_event_ids",
+    "learned_at",
+    "next_due",
+    "review_intervals_days",
+    "cycles_without_gain",
+    "missing_data"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "enum": [
+              "A",
+              "R",
+              "GRAD"
+            ]
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "origin": {
+            "const": "measured"
+          },
+          "evidence_ids": {
+            "minItems": 1
+          },
+          "applied_event_ids": {
+            "minItems": 1
+          },
+          "learned_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  ]
+}

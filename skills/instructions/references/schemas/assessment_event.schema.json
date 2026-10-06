@@ -1,0 +1,419 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assessment_event.schema.json",
+  "title": "assessment_event",
+  "type": "object",
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_kind": {
+      "enum": [
+        "ANSWER",
+        "SUMMARY",
+        "CORRECTION",
+        "OFFICIAL_RESULT"
+      ]
+    },
+    "exam_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "occurred_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "origin": {
+      "enum": [
+        "measured",
+        "user_reported",
+        "external",
+        "inferred"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "verified",
+        "strong",
+        "provisional",
+        "unknown"
+      ]
+    },
+    "item_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "material_type": {
+      "anyOf": [
+        {
+          "enum": [
+            "OFFICIAL_PAST",
+            "OFFICIAL_SAMPLE",
+            "LICENSED_PRACTICE",
+            "AUTHORIAL_PRACTICE",
+            "USER_PROVIDED"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "assistance": {
+      "enum": [
+        "NO_HINT",
+        "HINT",
+        "EXPLANATION_AFTER_ANSWER",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "previous_exposure": {
+      "enum": [
+        "new",
+        "seen",
+        "unknown",
+        "not_applicable"
+      ]
+    },
+    "response_before_reveal": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "metric": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "item_result",
+            "raw_accuracy",
+            "net_points",
+            "rubric_points",
+            "scaled_score",
+            "qualitative"
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "numerator": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "denominator": {
+          "anyOf": [
+            {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "official": {
+          "type": "boolean",
+          "description": "True only for an externally verified examination result; applying official criteria in a local calculation does not make the result official."
+        },
+        "calibration": {
+          "enum": [
+            "not_applicable",
+            "validated",
+            "unavailable"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "value",
+        "numerator",
+        "denominator",
+        "unit",
+        "official",
+        "calibration"
+      ],
+      "additionalProperties": false
+    },
+    "elapsed_seconds": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "time_origin": {
+      "enum": [
+        "measured",
+        "user_reported",
+        "unknown",
+        "not_applicable"
+      ]
+    },
+    "eligible_for_mastery": {
+      "type": "boolean"
+    },
+    "supersedes_event_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "derived_from_event_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "event_id",
+    "event_kind",
+    "exam_key",
+    "profile_version",
+    "occurred_at",
+    "origin",
+    "confidence",
+    "item_ids",
+    "evidence_ids",
+    "material_type",
+    "assistance",
+    "previous_exposure",
+    "response_before_reveal",
+    "metric",
+    "elapsed_seconds",
+    "time_origin",
+    "eligible_for_mastery",
+    "supersedes_event_id",
+    "derived_from_event_ids",
+    "notes"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "event_kind": {
+            "const": "CORRECTION"
+          }
+        },
+        "required": [
+          "event_kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "supersedes_event_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "assistance": {
+            "const": "EXPLANATION_AFTER_ANSWER"
+          }
+        },
+        "required": [
+          "assistance"
+        ]
+      },
+      "then": {
+        "properties": {
+          "eligible_for_mastery": {
+            "const": false
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "metric": {
+            "properties": {
+              "kind": {
+                "const": "raw_accuracy"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        },
+        "required": [
+          "metric"
+        ]
+      },
+      "then": {
+        "properties": {
+          "metric": {
+            "properties": {
+              "value": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "numerator": {
+                "type": "number",
+                "minimum": 0
+              },
+              "denominator": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "metric": {
+            "properties": {
+              "kind": {
+                "const": "scaled_score"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "origin": {
+            "const": "inferred"
+          }
+        },
+        "required": [
+          "metric",
+          "origin"
+        ]
+      },
+      "then": {
+        "properties": {
+          "metric": {
+            "properties": {
+              "calibration": {
+                "const": "validated"
+              },
+              "official": {
+                "const": false
+              }
+            }
+          },
+          "evidence_ids": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "metric": {
+            "properties": {
+              "official": {
+                "const": true
+              }
+            },
+            "required": [
+              "official"
+            ]
+          }
+        },
+        "required": [
+          "metric"
+        ]
+      },
+      "then": {
+        "properties": {
+          "event_kind": {
+            "enum": [
+              "OFFICIAL_RESULT",
+              "CORRECTION"
+            ]
+          },
+          "origin": {
+            "const": "external"
+          },
+          "confidence": {
+            "const": "verified"
+          },
+          "evidence_ids": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}
