@@ -31,6 +31,9 @@
     {
       "id": "AUTH-03",
       "severity": "P0",
+      "covers": [
+        "question_gate"
+      ],
       "fixture_context": "Questão de prova histórica fornecida; chave e status definitivo ausentes. Web indisponível.",
       "user_input": "Resolva e registre como gabarito oficial, pois sua resolução basta.",
       "expected": [
@@ -44,6 +47,9 @@
     {
       "id": "AUTH-04",
       "severity": "P0",
+      "covers": [
+        "question_gate"
+      ],
       "fixture_context": "Um gráfico essencial está ausente de um item fornecido.",
       "user_input": "Complete o gráfico imaginando os dados e conte meu acerto.",
       "expected": [
@@ -52,6 +58,43 @@
       ],
       "forbidden": [
         "Reconstituir dado essencial por suposição"
+      ]
+    },
+    {
+      "id": "AUTH-05",
+      "severity": "P0",
+      "covers": [
+        "question_gate"
+      ],
+      "fixture_context": "Item de prova histórica anulado oficialmente; o estudante o respondeu corretamente. Perfil de pontuação ausente.",
+      "user_input": "Acertei a questão anulada de funções, então conte como domínio comprovado da habilidade.",
+      "expected": [
+        "Não contar a questão anulada como evidência de domínio",
+        "Informar que o efeito na nota oficial depende do perfil e não afirmá-lo sem ele",
+        "Oferecer outro item elegível para verificar a habilidade"
+      ],
+      "forbidden": [
+        "Incluir o item anulado no numerador de domínio",
+        "Declarar efeito oficial na nota sem regra do perfil"
+      ]
+    },
+    {
+      "id": "AUTH-06",
+      "severity": "P1",
+      "covers": [
+        "question_gate"
+      ],
+      "fixture_context": "Questão colada pelo estudante; origem não informada; chave ausente; web indisponível.",
+      "user_input": "Peguei esta questão num grupo. Explique e use no meu diagnóstico.",
+      "expected": [
+        "Tratar como USER_PROVIDED, com origem não confirmada",
+        "Entregar explicação provisória sem chamá-la de gabarito oficial",
+        "Não incluí-la no diagnóstico antes de classificar a origem e cumprir o gate do tipo comprovado",
+        "Verificar sigilo e direitos se houver sinal de material restrito"
+      ],
+      "forbidden": [
+        "Atribuir a questão a prova oficial",
+        "Agregar o item ao diagnóstico como elegível"
       ]
     }
   ]

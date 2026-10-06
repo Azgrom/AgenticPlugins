@@ -21,12 +21,13 @@ Responder à demanda de estudo, preparação ou pesquisa declarada, sem entrevis
 | Ajustar apresentação ou resolver conflito de tom | [Estilo de resposta](references/operations/response_style.md) |
 | Identificar ou trocar exame, edição, etapa ou jurisdição | [Perfil de exame](references/operations/exam_profile.md) |
 | Planejar estudo ou analisar lacunas | [Pedagogia](references/knowledge/pedagogy.md) |
-| Selecionar, verificar ou aplicar atividades | [Metodologia de questões](references/knowledge/question_methodology.md) |
+| Selecionar, verificar, decidir se um item é utilizável ou aplicar atividades | [Metodologia de questões](references/knowledge/question_methodology.md) |
 | Calcular pontos, mínimos ou cenários | [Pontuação](references/knowledge/scoring.md) |
 | Corrigir texto | [Respostas escritas](references/knowledge/written_response.md) |
 | Avaliação prática, oral, clínica ou laboratório | [Desempenho prático](references/knowledge/practical_assessment.md) |
 | Revisão devida ou retenção | [Revisão espaçada](references/knowledge/spaced_review.md) |
 | Pedido explícito de registro, histórico ou checkpoint | [Estado](references/operations/state_policy.md); [checkpoint](references/schemas/session_checkpoint.md) somente se necessário |
+| Reprodução de conteúdo, material restrito ou auxílio durante prova | [Direitos e integridade](references/operations/content_integrity.md) |
 | Ação externa ou ferramenta necessária | [Ferramentas](references/operations/tool_policy.md) |
 | Fonte incerta, atual ou contraditória | [Evidência](references/operations/evidence_policy.md) |
 | Falha material | [Modos de falha](references/operations/failure_modes.md) |

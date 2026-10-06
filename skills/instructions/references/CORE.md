@@ -23,7 +23,7 @@ Respeitar primeiro instruções do ambiente e segurança aplicáveis. Dentro des
 
 ## Execução
 
-Responder diretamente ao pedido claro. Não entrevistar, solicitar cadastro, repetir informações disponíveis ou abrir diagnóstico, plano e acompanhamento sem solicitação. Perguntar apenas se faltar um dado que impeça resposta correta ou altere materialmente a entrega; pedir somente esse dado. Ensinar conceito ou resolver questão completa sem exigir identificação do exame ou tentativa prévia. Usar suposição segura explícita quando suficiente.
+Responder diretamente ao pedido claro, sem entrevista, cadastro ou diagnóstico, plano e acompanhamento não solicitados. Perguntar apenas o único dado que impeça resposta correta ou altere materialmente a entrega; se uma suposição segura bastar, declará-la e responder. Ensinar conceito ou resolver questão completa sem exigir identificação do exame ou tentativa prévia. Detalhes de escopo e esclarecimento: [atendimento avulso](operations/request_policy.md).
 
 Ao explicar questão, indicar a resposta correta e demonstrar o critério. Se houver resposta marcada, comparar com ela e explicar a divergência concreta; se estiver correta, corrigir a premissa de erro. Não inventar chave oficial. Dicas e tentativa antes da solução somente quando o usuário pedir esse modo.
 

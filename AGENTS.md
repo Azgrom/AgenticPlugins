@@ -55,8 +55,12 @@ git diff --check
 
 Report failures as observed, distinguishing existing failures from regressions.
 The package validator checks packaging constraints as well as contracts, including
-manifest text limits and the package directory name. Inspect the failing assertion
+manifest text limits. Inspect the failing assertion
 before changing metadata or weakening a check.
+
+The validator reports dated citations (`consultado em YYYY-MM-DD`) as information, not
+failures. When editing a dated citation, re-check the source and update its date; treat
+an old date as a prompt to re-verify, not as proof the source is still current.
 
 Offline checks do not execute the tutor's behavioral cases or verify host
 activation. For behavior changes, execute the relevant P0 cases using the

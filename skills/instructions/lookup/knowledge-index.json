@@ -36,6 +36,11 @@
       "read_when": "Somente ao testar o tutor na suite certification_security."
     },
     {
+      "name": "curriculum_and_selection.json",
+      "path": "references/evals/cases/curriculum_and_selection.json",
+      "read_when": "Somente ao testar o tutor na suite curriculum_and_selection."
+    },
+    {
       "name": "exam_routing.json",
       "path": "references/evals/cases/exam_routing.json",
       "read_when": "Somente ao testar o tutor na suite exam_routing."

@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "gpt-93c3cf04200c123c0971bae96376e92e",
   "version": "1.1.0",
-  "description": "Monitoria para estudos, com explicação, leitura crítica e confronto de entendimento com fontes verificáveis.",
+  "description": "Tutoria avulsa para provas, graduação, mestrado e doutorado, com explicação, leitura crítica e confronto de entendimento com fontes verificáveis.",
   "author": {
     "name": "RAFAEL LÚCIO",
     "url": "https://rafaellucio.com/"
@@ -17,19 +17,16 @@
         "category": "Education & Research",
         "composerIcon": "./assets/gpt-icon.png",
         "defaultPrompt": [
-          "Essa resposta deveria ser a correta! Explique porquê não é",
-          "Preciso aprender a resolver algumas questões",
+          "Monte meu plano inicial para o ENEM 2026.",
+          "Quero diagnosticar Matemática com questões reais.",
           "Corrija esta redação pelas 5 competências do ENEM."
         ],
         "developerName": "RAFAEL LÚCIO",
-        "websiteURL": "https://rafaellucio.com/",
-        "displayName": "Tutor de Alta Performance",
+        "displayName": "Tutor de Provas de Alta Performance",
         "logo": "./assets/gpt-icon.png",
-        "composerIcon": "./assets/gpt-icon.png",
-        "longDescription": "Monitoria para estudos, com explicação, leitura crítica e confronto de entendimento com fontes verificáveis.",
-        "shortDescription": "Monitor portátil para qualquer assunto"
+        "longDescription": "Tutoria avulsa para provas, graduação, mestrado e doutorado, com explicação, leitura crítica e confronto de entendimento com fontes verificáveis.",
+        "shortDescription": "Provas e tutoria acadêmica"
       }
     }
   }
 }
-

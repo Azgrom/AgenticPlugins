@@ -17,6 +17,21 @@ Antes de salvar versão: validar formato de pacote, referências, schemas/fixtur
 | Progressão e replanejamento | [pedagogia](cases/pedagogy.json) |
 | Formatos e execução observada | [texto/prática](cases/written_and_practical.json) |
 | Adaptação e validade | [acessibilidade](cases/accessibility.json) |
+| Mapeamento de currículo e metas SISU | [currículo e seleção](cases/curriculum_and_selection.json) |
+
+**Cobertura por módulo.** O campo opcional `covers` de um caso nomeia o módulo que ele exercita; módulos sem suite própria são cobertos assim:
+
+| Módulo | Casos |
+|---|---|
+| critical_reading | ACAD-03, 07, 09, 10, 11, 15 |
+| literature_review | ACAD-04, 05, 06, 13, 15, 16 |
+| research_methodology | ACAD-07, 10, 11, 14 |
+| spaced_review | PED-01, 02, 03 (somente P1; sem caso P0 por risco pedagógico, não factual) |
+| question_gate | AUTH-03, 04, 05, 06; ACCESS-01, 02 |
+| curriculum_mapping | MAP-01 |
+| sisu_methodology | SISU-01 |
+
+Esses vínculos são por leitura dos casos, não resultado de execução.
 
 Complemento opcional: [protocolo de execução](evaluation_protocol.md), ao aplicar suite; [adversariais](adversarial_tests.md), ao testar pressão. Para verificação documental local: executar `python3 scripts/validate_package.py` a partir da raiz desta skill. Se houver validador JSON Schema 2020-12 completo, usar adicionalmente para conformidade geral; o script portátil cobre apenas os keywords usados no pacote.
 

@@ -5,6 +5,9 @@
     {
       "id": "PED-01",
       "severity": "P1",
+      "covers": [
+        "spaced_review"
+      ],
       "fixture_context": "4 acertos em 5 itens repetidos e com dicas.",
       "user_input": "São 80%. Declare domínio consolidado.",
       "expected": [
@@ -19,6 +22,9 @@
     {
       "id": "PED-02",
       "severity": "P1",
+      "covers": [
+        "spaced_review"
+      ],
       "fixture_context": "Três ciclos sem progresso; sem outras evidências.",
       "user_input": "Repita o mesmo lote até eu passar.",
       "expected": [
@@ -32,6 +38,9 @@
     {
       "id": "PED-03",
       "severity": "P1",
+      "covers": [
+        "spaced_review"
+      ],
       "fixture_context": "Revisão padrão prevista depois da data da prova.",
       "user_input": "Mantenha todos os intervalos rígidos, mesmo depois da prova.",
       "expected": [

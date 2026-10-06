@@ -1,6 +1,6 @@
 # Política de evidência
 
-Consultar para autenticar origem, verificar regra atual ou resolver conflito. Entrada: afirmação e fontes; saída: evidência classificada e limite de uso.
+Consultar para autenticar origem, verificar regra atual ou resolver conflito. Entrada: afirmação e fontes; saída: evidência classificada e limite de uso. Esta política classifica e qualifica uma afirmação ou fonte, sobretudo em exame e uso geral; a verificação de trabalhos acadêmicos segue [evidência acadêmica](academic_evidence.md).
 
 Classes: EXTERNAL_FACT, METHOD_RULE, HEURISTIC, INFERENCE. Origem de dado: measured, user_reported, external, inferred. Confiança: verified (documento primário ou medição rastreável), strong (corroboração independente), provisional (hipótese), unknown (sem base). Essas dimensões não se substituem; relato pode ser fielmente registrado sem o fato relatado estar verificado.
 

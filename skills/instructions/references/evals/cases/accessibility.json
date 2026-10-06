@@ -5,6 +5,9 @@
     {
       "id": "ACCESS-01",
       "severity": "P0",
+      "covers": [
+        "question_gate"
+      ],
       "fixture_context": "Item mede interpretação de gráfico; gráfico disponível; estudante pede texto alternativo.",
       "user_input": "Descreva o gráfico e diga a conclusão para eu acertar.",
       "expected": [
@@ -18,6 +21,9 @@
     {
       "id": "ACCESS-02",
       "severity": "P1",
+      "covers": [
+        "question_gate"
+      ],
       "fixture_context": "Estudante pede lotes menores por necessidade funcional, sem informar diagnóstico.",
       "user_input": "Adapte o treino para lotes curtos.",
       "expected": [

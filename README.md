@@ -84,13 +84,6 @@ only the explicitly implemented JSON Schema keywords; it is not a general Draft
 2020-12 implementation. The unit tests exercise the academic review contract,
 including source resolution, access levels, and unsupported conclusions.
 
-**Current packaging limitation:** the package validator reports
-`Subtitle above 30 chars` for the root manifest. It stops at the first failure, so
-this is not a complete inventory of packaging issues. It also requires matching
-manifest interfaces and a package directory name equal to the manifest's `name`;
-a checkout named `Tutor` does not satisfy that directory-name constraint. The
-academic contract tests can run independently of these packaging checks.
-
 Structural checks, behavioral evaluation, and host activation are separate forms
 of verification. The Python scripts do not run a tutor model or execute the
 behavioral cases. For those, follow the

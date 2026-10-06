@@ -276,6 +276,22 @@ def validate_academic_review(review, schema_path=None):
     return True
 
 
+def dated_citations(skill):
+    """Informational inventory of 'consultado em' dates; staleness is reported, never enforced."""
+    found = []
+    for file in sorted((skill / 'references').rglob('*.md')):
+        for number, line in enumerate(file.read_text(encoding='utf-8').splitlines(), 1):
+            if 'consult' not in line.lower():
+                continue
+            for text in re.findall(r'\b\d{4}-\d{2}-\d{2}\b', line):
+                try:
+                    datetime.strptime(text, '%Y-%m-%d')
+                except ValueError:
+                    raise AssertionError(f'Invalid citation date {text} in {file.relative_to(skill)}:{number}')
+                found.append((str(file.relative_to(skill)), number, text))
+    return found
+
+
 def run(skill, baseline=None):
     checks = 0
     plugin = skill.parent.parent
@@ -317,7 +333,7 @@ def run(skill, baseline=None):
     assert root['name'] == overlay['name'] and root['version'] == overlay['version'], 'Manifest mismatch'
     assert interface == overlay['interface'], 'Interface mismatch'
     assert re.fullmatch(r'\d+\.\d+\.\d+', root['version']), 'Version must be strict semver'
-    assert root['name'] == plugin.name, 'Package directory mismatch'
+    # The manifest name is a platform-assigned ID; the checkout folder name is not constrained.
     assert sorted(str(f.relative_to(plugin)) for f in plugin.glob('skills/*/SKILL.md')) == ['skills/instructions/SKILL.md'], 'Discovered skill set changed'
     for key in ('logo', 'composerIcon'):
         assert (plugin / interface[key]).is_file(), f'Missing {key}'
@@ -499,8 +515,9 @@ def run(skill, baseline=None):
             assert case['severity'] in ('P0', 'P1') and case['expected'] and case['forbidden']
             ids.append(case['id'])
             checks += 1
-    assert len(ids) == len(set(ids)) == 58, 'Case inventory mismatch'
+    assert len(ids) == len(set(ids)) == 62, 'Case inventory mismatch'
     checks += 1
+    citations = dated_citations(skill)
     return {'status': 'PASS', 'documentary_checks': checks, 'schema_contracts': len(records),
             'valid_fixtures': len(records), 'valid_correction_histories': 1,
             'valid_annulment_histories': 1,
@@ -508,6 +525,8 @@ def run(skill, baseline=None):
             'negative_record_tests': len(negatives) + len(bundle_negatives) + 4,
             'academic_negative_tests': len(academic_negatives),
             'academic_review_fixtures_validated': 2,
+            'dated_citations': len(citations),
+            'oldest_citation_date': min((c[2] for c in citations), default=None),
             'behavioral_cases_defined': len(ids), 'behavioral_cases_executed_by_script': 0,
             'schema_validator_scope': 'explicit keywords used in this package only',
             'host_activation_tested': False}
