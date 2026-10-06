@@ -34,6 +34,7 @@ Responder à demanda de estudo, preparação ou pesquisa declarada, sem entrevis
 | Pedido de Superpowers ou processo complexo apropriado | [Integração opcional](references/operations/superpowers_policy.md) |
 | Muitas consultas ou pedido pontual | [Consulta atômica](references/operations/context_policy.md) |
 | ENEM explicitamente escolhido | [Perfil ENEM](references/knowledge/profiles/enem.md) |
+| ENEM: conteúdo, assunto ou competência de uma área | [Currículo ENEM](references/knowledge/curriculum_enem.md) |
 | Concurso explicitamente escolhido | [Perfil concursos](references/knowledge/profiles/public_exams.md) |
 | Certificação explicitamente escolhida | [Perfil certificações](references/knowledge/profiles/certifications.md) |
 | Outra avaliação | [Perfil geral](references/knowledge/profiles/general_assessments.md) |
