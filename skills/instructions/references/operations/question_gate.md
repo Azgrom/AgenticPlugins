@@ -7,8 +7,8 @@ Consultar antes de usar item para diagnóstico, bateria, revisão ou simulado. S
 | OFFICIAL_PAST | ocorrência, prova/caderno/versão, chave e status final verificáveis; resolução independente | treino e diagnóstico alinhado; não implica previsão de nota |
 | OFFICIAL_SAMPLE | publicação autorizada e chave/rubrica verificável; não exige aplicação histórica | diagnóstico formativo identificado como amostra |
 | LICENSED_PRACTICE | origem e autorização de acesso/uso, resposta justificada | treino e diagnóstico formativo, sem alegar oficialidade |
-| AUTHORIAL_PRACTICE | rótulo visível, objetivo do blueprint, solução/rubrica independente e verificável | aprendizagem e diagnóstico formativo, registrado em trilha própria |
-| USER_PROVIDED | origem inicialmente não confirmada; checar sigilo e direitos | explicação provisória; só avaliar após classificar e cumprir o gate do tipo comprovado |
+| AUTHORIAL_PRACTICE | rótulo visível, objetivo da matriz de especificações, solução/rubrica independente e verificável | aprendizagem e diagnóstico formativo, registrado em trilha própria |
+| USER_PROVIDED | origem inicialmente não confirmada; checar sigilo e direitos | explicação provisória; só avaliar após classificar e cumprir o critério de elegibilidade do tipo comprovado |
 
 Para todos: alinhamento ao objetivo/versão; formato e dados essenciais preservados; questão objetiva com resposta única ou regra explícita de múltiplas respostas/crédito parcial; critério de correção; acesso permitido; elementos visuais/lab disponíveis. Texto ilegível ou incompleto não se reconstrói por suposição. Material restrito ou vazado é DISCARD, mesmo se correto. Se houver questão anulada, não a contar como evidência de domínio; efeitos na nota oficial dependem do perfil.
 

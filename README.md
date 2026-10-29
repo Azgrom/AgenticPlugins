@@ -1,76 +1,130 @@
 # Tutor
 
-Tutor is an instruction-based AI tutoring plugin for exam preparation and academic
-study. This repository contains its modular instructions, plugin metadata,
-structured record contracts, and evaluation material. It is intended for
-contributors, reviewers, and developers inspecting or adapting the tutor.
+Tutor é um plugin de tutoria com IA baseado em instruções, voltado à preparação
+para provas e ao estudo acadêmico. Este repositório contém suas instruções
+modulares, metadados do plugin, contratos de registros estruturados e materiais de
+avaliação. Destina-se a colaboradores, revisores e desenvolvedores que examinam ou
+adaptam o tutor.
 
-The tutoring instructions are primarily written in Brazilian Portuguese. They
-cover conceptual explanations, question analysis, written and practical
-assessments, critical reading, and research guidance at undergraduate, master's,
-and doctoral levels. ENEM, public examinations, and professional certifications
-have dedicated profiles; academic tutoring also works outside an exam context.
+As instruções de tutoria são escritas principalmente em português brasileiro.
+Abrangem explicações conceituais, análise de questões, avaliações escritas e
+práticas, leitura crítica e orientação de pesquisa nos níveis de graduação,
+mestrado e doutorado. ENEM, concursos públicos e certificações profissionais têm
+perfis específicos; a tutoria acadêmica também atende a demandas fora do contexto
+de provas.
 
-## Architecture
+O nome de exibição é **Tutor**, definido nos dois manifestos e nos metadados da
+habilidade principal. O campo `name` dos manifestos mantém o identificador técnico
+`gpt-93c3cf04200c123c0971bae96376e92e`, distinto do nome exibido.
 
-The package exposes one skill, [instructions](skills/instructions/SKILL.md). Its
-entry point routes requests to focused reference modules:
+## Arquitetura
 
-1. [CORE](skills/instructions/references/CORE.md) defines the shared mission,
-   precedence rules, and factual and operational constraints.
-2. Operational policies and knowledge modules supply the guidance needed for the
-   specific request. They are loaded conditionally to keep unrelated material out
-   of the active context.
-3. JSON schemas define optional records for evidence, assessments, student state,
-   checkpoints, and academic reviews. Fixtures and Python checks exercise these
-   contracts separately from the tutor's conversational behavior.
+O pacote disponibiliza duas habilidades: [instructions](skills/instructions/SKILL.md),
+para tutoria, e [language](skills/language/SKILL.md), para redação e revisão de
+documentação. Ambas são descobertas em `skills/`; o manifesto de compatibilidade
+do Codex aponta para esse diretório. O tutor encaminha pedidos de documentação,
+relatórios e comentários explicativos no código à habilidade `language`.
 
-The [knowledge index](skills/instructions/lookup/knowledge-index.json) records
-reference paths and their loading conditions. The legacy ZIP is retained as an
-inactive artifact; the extracted Markdown modules contain the active guidance.
+O ponto de entrada de `instructions` encaminha as solicitações de tutoria a módulos
+de referência específicos:
 
-This repository does not provide a standalone application, model runtime,
-database, or tool backend. Model execution, external-source access, memory, and
-other capabilities depend on the host. The schemas alone do not implement
-persistence, and local validation does not establish host compatibility.
+1. [CORE](skills/instructions/references/CORE.md) define a missão comum, as regras
+   de precedência e as restrições factuais e operacionais.
+2. As políticas operacionais e os módulos de conhecimento fornecem as orientações
+   necessárias para cada solicitação. Seu carregamento é condicional, para manter
+   materiais sem relação com a solicitação fora do contexto ativo.
+3. Os esquemas JSON definem registros opcionais de evidências, avaliações, estado
+   do estudante, pontos de controle e revisões acadêmicas. Fixtures e verificações
+   em Python testam esses contratos separadamente do comportamento conversacional
+   do tutor.
 
-## Repository layout
+O [índice de conhecimento](skills/instructions/lookup/knowledge-index.json) registra
+os caminhos das referências e suas condições de carregamento. O ZIP legado é
+mantido como artefato inativo; os módulos Markdown extraídos contêm as orientações
+ativas.
 
-| Location | Responsibility |
+O carregamento segue a divulgação progressiva descrita na
+[especificação Agent Skills](https://agentskills.io/specification): descrição para
+descoberta, ponto de entrada com CORE na ativação e referências sob demanda.
+O ponto de entrada separa entregas, políticas condicionais e perfis de exame,
+com links diretos aos módulos. As rotas são alternativas; uma referência só é
+carregada quando seu gatilho se aplica. `language` concentra as orientações de
+documentação e é consultada por referência, sem copiar suas regras para o tutor.
+
+A recuperação de informações externas segue o
+[roteamento de fontes acadêmicas](skills/instructions/references/operations/academic_sources.md).
+Crossref fornece identificação bibliográfica e avisos editoriais; Semantic Scholar
+permite descobrir fontes e navegar por citações e referências; Europe PMC é
+restrito a solicitações biomédicas nesta arquitetura. Essas rotas de consulta às
+fontes são condicionais e usam ferramentas MCP elegíveis disponibilizadas pelo
+ambiente hospedeiro ou seus recursos nativos de busca e leitura.
+
+O pacote adiciona uma conexão MCP remota documentada em [mcp.json](mcp.json):
+Firecrawl Keyless, sem cabeçalhos, chaves ou autenticação de conta. Apenas as
+operações anônimas Search, Scrape e Parse integram seu fluxo normal de recuperação.
+Nenhum endpoint MCP hospedado dos outros três provedores é declarado ou presumido
+como instalado. Uma API pública anônima não comprova que um conector MCP específico
+seja anônimo. A configuração da conexão e a disponibilização efetiva das
+ferramentas dependem do ambiente hospedeiro.
+
+A habilidade mantém a responsabilidade pela classificação de evidências, seleção
+de fontes, vinculação entre afirmações e evidências, avaliação crítica, explicação
+pedagógica e comparação com a resposta do estudante. Uma ferramenta de recuperação
+não é responsável pelo julgamento acadêmico. A
+[política de autenticação](skills/instructions/references/operations/tool_policy.md#end_user_authentication)
+exclui do fluxo normal dependências que exijam do estudante criar contas, fazer
+login, fornecer chaves ou credenciais, iniciar períodos de teste ou contratar
+assinaturas. Quando a capacidade anônima é insuficiente, o fluxo recorre a outra
+rota anônima ou às ferramentas nativas do ambiente hospedeiro.
+
+Este repositório não fornece aplicação autônoma, ambiente de execução de modelos,
+banco de dados ou backend próprio de recuperação hospedado. Os esquemas, por si
+sós, não implementam persistência, e a validação local não comprova compatibilidade
+com o ambiente hospedeiro.
+
+## Estrutura do repositório
+
+| Localização | Responsabilidade |
 | --- | --- |
-| [plugin.json](plugin.json) | Plugin identity and OpenAI interface metadata |
-| [.codex-plugin/plugin.json](.codex-plugin/plugin.json) | Codex plugin manifest and skill discovery |
-| [skills/instructions/SKILL.md](skills/instructions/SKILL.md) | Skill entry point and conditional routing |
-| [agents/openai.yaml](skills/instructions/agents/openai.yaml) | Skill presentation metadata |
-| [references/operations](skills/instructions/references/operations/) | Evidence, context, state, tools, and response policies |
-| [references/knowledge](skills/instructions/references/knowledge/) | Teaching methods, research guidance, curricula, and exam profiles |
-| [references/schemas](skills/instructions/references/schemas/) | JSON schemas and record-contract documentation |
-| [references/evals](skills/instructions/references/evals/) | Acceptance criteria, behavioral cases, and synthetic fixtures |
-| [scripts](skills/instructions/scripts/) | Offline package validation and academic contract tests |
+| [plugin.json](plugin.json) | Identidade do plugin e metadados da interface OpenAI |
+| [.codex-plugin/plugin.json](.codex-plugin/plugin.json) | Manifesto do plugin para Codex e descoberta de habilidades |
+| [mcp.json](mcp.json) | Configuração de endpoint verificado; recuperação anônima com Firecrawl |
+| [skills/instructions/SKILL.md](skills/instructions/SKILL.md) | Ponto de entrada da habilidade e roteamento condicional |
+| [skills/language/SKILL.md](skills/language/SKILL.md) | Redação e revisão da linguagem da documentação |
+| [agents/openai.yaml](skills/instructions/agents/openai.yaml) | Metadados de apresentação da habilidade |
+| [references/operations](skills/instructions/references/operations/) | Políticas de evidências, contexto, estado, ferramentas e respostas |
+| [references/knowledge](skills/instructions/references/knowledge/) | Métodos de ensino, orientação de pesquisa, currículos e perfis de provas |
+| [references/schemas](skills/instructions/references/schemas/) | Esquemas JSON e documentação dos contratos de registros |
+| [references/evals](skills/instructions/references/evals/) | Critérios de aceitação, casos comportamentais e fixtures sintéticas |
+| [scripts](skills/instructions/scripts/) | Validação offline do pacote e testes de contratos acadêmicos |
 
-## Design constraints
+## Restrições de projeto
 
-- **Direct, on-demand tutoring.** A clear question should receive an answer without
-  mandatory onboarding, profiling, or an unsolicited study plan.
-- **Explicit provenance.** Official questions, published samples, licensed
-  practice, authored exercises, and user-provided material have distinct origins.
-  Generated practice must not be represented as a historical exam question.
-- **Evidence proportional to the claim.** Bibliographic metadata, inspected text,
-  and support for a conclusion are separate checks. Research guidance must retain
-  uncertainty and disclose limits of source access.
-- **Context-specific assessment.** Exam rules, scoring systems, and student
-  records remain tied to their relevant context. Internal teaching defaults are
-  not official scoring rules.
-- **Optional records.** Tutoring does not require a parallel student database.
-  Structured history and checkpoints are used only when explicitly requested.
+- **Tutoria direta, sob demanda.** Uma pergunta clara deve receber resposta sem
+  integração inicial obrigatória, levantamento obrigatório de perfil ou plano de
+  estudos não solicitado.
+- **Proveniência explícita.** Questões oficiais, amostras publicadas, materiais de
+  prática licenciados, exercícios autorais e materiais fornecidos pelo usuário
+  têm origens distintas. Exercícios gerados não devem ser apresentados como
+  questões de provas anteriores.
+- **Evidências proporcionais à afirmação.** Metadados bibliográficos, texto
+  examinado e sustentação de uma conclusão exigem verificações distintas. A
+  orientação de pesquisa deve preservar as incertezas e informar os limites de
+  acesso às fontes.
+- **Avaliação específica ao contexto.** Regras de provas, sistemas de pontuação e
+  registros do estudante permanecem vinculados ao contexto pertinente. Padrões
+  pedagógicos internos não são regras oficiais de pontuação.
+- **Registros opcionais.** A tutoria não exige um banco de dados paralelo de
+  estudantes. Histórico estruturado e pontos de controle são usados apenas quando
+  solicitados explicitamente.
 
-The authoritative details live in CORE and the policy modules linked by the skill
-entry point.
+CORE e os módulos de políticas vinculados pelo ponto de entrada da habilidade
+contêm os detalhes normativos.
 
-## Local validation
+## Validação local
 
-The validation scripts use Python 3 and its standard library. From the repository
-root, run:
+Os scripts de validação usam Python 3 e sua biblioteca padrão. Na raiz do
+repositório, execute:
 
 ```sh
 python3 -B skills/instructions/scripts/validate_package.py
@@ -78,38 +132,47 @@ python3 -B -m unittest discover -s skills/instructions/scripts -p 'test*.py'
 git diff --check
 ```
 
-The package validator checks Markdown references, the knowledge index, manifest
-constraints, schemas, fixtures, and record integrity. Its schema validator supports
-only the explicitly implemented JSON Schema keywords; it is not a general Draft
-2020-12 implementation. The unit tests exercise the academic review contract,
-including source resolution, access levels, and unsupported conclusions.
+O validador do pacote verifica referências Markdown, índice de conhecimento,
+restrições dos manifestos, esquemas, fixtures e integridade dos registros. Seu
+validador de esquemas aceita apenas as palavras-chave de JSON Schema implementadas
+explicitamente; não é uma implementação geral do Draft 2020-12. Os testes unitários
+verificam a integridade das revisões acadêmicas e rejeitam configurações MCP com
+credenciais, endpoints OAuth e servidores não verificados. Eles não comprovam que
+um provedor permanecerá anônimo ou acessível.
 
-Structural checks, behavioral evaluation, and host activation are separate forms
-of verification. The Python scripts do not run a tutor model or execute the
-behavioral cases. For those, follow the
-[acceptance criteria](skills/instructions/references/evals/acceptance_tests.md)
-and [evaluation protocol](skills/instructions/references/evals/evaluation_protocol.md),
-capture actual responses, and report unexecuted cases as `NOT_RUN` or `BLOCKED`.
-Fixtures are synthetic test material, not authenticated exam content or research
-evidence.
+Verificações estruturais, avaliação comportamental e ativação no ambiente
+hospedeiro são formas distintas de verificação. Os scripts Python não executam um
+modelo de tutoria nem os casos comportamentais. Para esses casos, siga os
+[critérios de aceitação](skills/instructions/references/evals/acceptance_tests.md)
+e o [protocolo de avaliação](skills/instructions/references/evals/evaluation_protocol.md),
+registre as respostas efetivas e informe os casos não executados como `NOT_RUN` ou
+`BLOCKED`. Fixtures são materiais sintéticos de teste, não conteúdo autenticado de
+provas nem evidências de pesquisa.
 
-## Contributing
+A [revisão de estrutura de 2026-10-28](skills/instructions/references/evals/results/context_structure_2026_10_28.json)
+registra a fundamentação, as medidas de tamanho textual, as saídas de cinco casos
+offline e os limites da avaliação. A redução de palavras não mede diretamente
+tokens, atenção ou desempenho do modelo.
 
-Start with [AGENTS.md](AGENTS.md) for repository editing and verification guidance.
-For behavior changes, read the skill entry point, CORE, and the affected modules.
-Keep detailed policy in its owning module and update routing links and the
-knowledge index when adding, moving, or removing references.
+## Como contribuir
 
-Schema changes should include aligned fixtures and validator coverage for both
-accepted and rejected records. Metadata changes should account for both plugin
-manifests and the skill presentation metadata. Preserve the Portuguese language
-of tutor-facing instructions and keep identity or branding changes scoped to the
-intended contribution.
+Comece por [AGENTS.md](AGENTS.md) para consultar as orientações de edição e
+verificação do repositório. Para alterações de comportamento, leia o ponto de
+entrada da habilidade, CORE e os módulos afetados. Mantenha cada política
+detalhada no módulo responsável por ela e atualize os links de roteamento e o
+índice de conhecimento ao adicionar, mover ou remover referências.
 
-In a pull request, explain the behavior or contract being changed, list the checks
-and relevant behavioral cases actually executed, and distinguish existing failures
-from regressions. Report host activation separately when it has been tested.
+Alterações nos esquemas devem incluir fixtures alinhadas e cobertura do validador
+para registros aceitos e rejeitados. Alterações de metadados devem considerar os
+dois manifestos do plugin e os metadados de apresentação da habilidade. Preserve o
+português das instruções voltadas ao tutor e restrinja alterações de identidade ou
+marca ao escopo da contribuição pretendida.
 
-## License
+Em um pull request, explique o comportamento ou contrato alterado, liste as
+verificações e os casos comportamentais pertinentes efetivamente executados e
+distinga falhas existentes de regressões. Informe separadamente os resultados da
+ativação no ambiente hospedeiro quando ela tiver sido testada.
+
+## Licença
 
 [MIT](LICENSE).

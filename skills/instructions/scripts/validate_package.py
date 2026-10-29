@@ -217,9 +217,9 @@ def validate_bundle(records):
 
 
 def resolve_link(file, target, skill):
-    """Markdown paths are relative to the document containing them."""
+    """Resolve document-relative links, allowing sibling skills in this package."""
     resolved = (file.parent / target.partition('#')[0]).resolve()
-    assert resolved.is_relative_to(skill.resolve()), f'Link leaves skill: {file} → {target}'
+    assert resolved.is_relative_to(skill.parent.resolve()), f'Link leaves package skills: {file} → {target}'
     assert resolved.is_file(), f'Broken link: {file} → {target}'
     return resolved
 
@@ -292,6 +292,41 @@ def dated_citations(skill):
     return found
 
 
+def validate_anonymous_mcp(config):
+    """Check this release's verified remote connection, without credentials.
+
+    Provider expansion requires a reviewed endpoint and updated acceptance tests.
+    This is a packaging check, not an MCP handshake or availability guarantee.
+    """
+    assert set(config) == {'$schema', 'mcpServers'}, 'Unexpected MCP configuration fields'
+    assert config['$schema'] == 'https://agent-plugins.org/schemas/1.0.0/mcp.schema.json'
+    servers = config['mcpServers']
+    assert set(servers) == {'firecrawl-keyless'}, 'Unverified MCP server configured'
+    server = servers['firecrawl-keyless']
+    assert set(server) == {'type', 'url'}, 'Credentials or unsupported MCP options configured'
+    assert server['type'] == 'streamable-http', 'Unexpected MCP transport'
+    assert server['url'] == 'https://mcp.firecrawl.dev/v2/mcp', 'Not the verified keyless endpoint'
+    return True
+
+
+def validate_mcp_package(plugin, overlay):
+    """Accept the publisher's equivalent legacy file, never credential expansion."""
+    canonical = load(plugin / 'mcp.json')
+    validate_anonymous_mcp(canonical)
+    reference = overlay.get('mcpServers')
+    assert reference in ('./mcp.json', './.mcp.json'), 'Unexpected legacy MCP route'
+    if reference == './.mcp.json':
+        legacy = deepcopy(load(plugin / '.mcp.json'))
+        assert set(legacy) in ({'mcpServers'}, {'$schema', 'mcpServers'}), 'Unexpected legacy MCP fields'
+        legacy.setdefault('$schema', canonical['$schema'])
+        for server in legacy['mcpServers'].values():
+            if 'headers' in server and server['headers'] == {}:
+                del server['headers']
+        validate_anonymous_mcp(legacy)
+        assert legacy == canonical, 'Legacy and canonical MCP configurations differ'
+    return True
+
+
 def run(skill, baseline=None):
     checks = 0
     plugin = skill.parent.parent
@@ -302,7 +337,7 @@ def run(skill, baseline=None):
     assert len(entry.split()) < 650, 'Entry point too large'
     assert len(core.read_text().split()) < 800, 'CORE too large'
     checks += 3
-    for file in skill.rglob('*.md'):
+    for file in (plugin / 'skills').rglob('*.md'):
         body = file.read_text()
         assert len(re.findall(r'^\s*```', body, re.M)) % 2 == 0, f'Open fence: {file}'
         assert not re.search(r'\b(?:TODO|TBD|FIXME)\b', body), f'Placeholder: {file}'
@@ -320,10 +355,11 @@ def run(skill, baseline=None):
     assert len(paths) == len(set(paths)), 'Duplicate index paths'
     for path in paths:
         assert not path.endswith('.zip'), 'Legacy ZIP still active'
-        assert (skill / path).is_file(), f'Unresolvable index: {path}'
+        resolve_link(skill / 'SKILL.md', path, skill)
         checks += 1
     inventory = {str(f.relative_to(skill)) for f in (skill / 'references').rglob('*')
                  if f.is_file() and f.suffix in ('.md', '.json')}
+    inventory.add('../language/SKILL.md')
     assert inventory == set(paths), 'Index inventory incomplete'
     checks += 1
     root = load(plugin / 'plugin.json')
@@ -334,10 +370,15 @@ def run(skill, baseline=None):
     assert interface == overlay['interface'], 'Interface mismatch'
     assert re.fullmatch(r'\d+\.\d+\.\d+', root['version']), 'Version must be strict semver'
     # The manifest name is a platform-assigned ID; the checkout folder name is not constrained.
-    assert sorted(str(f.relative_to(plugin)) for f in plugin.glob('skills/*/SKILL.md')) == ['skills/instructions/SKILL.md'], 'Discovered skill set changed'
+    assert sorted(str(f.relative_to(plugin)) for f in plugin.glob('skills/*/SKILL.md')) == [
+        'skills/instructions/SKILL.md', 'skills/language/SKILL.md'
+    ], 'Discovered skill set changed'
+    assert overlay['skills'] == './skills', 'Unexpected skill discovery route'
     for key in ('logo', 'composerIcon'):
         assert (plugin / interface[key]).is_file(), f'Missing {key}'
-    checks += 8
+    checks += 9
+    validate_mcp_package(plugin, overlay)
+    checks += 2
     if baseline:
         old = load(baseline / '.codex-plugin/plugin.json')
         assert root['name'] == old['name'] and root['author'] == old['author'], 'Identity lost'
@@ -515,7 +556,7 @@ def run(skill, baseline=None):
             assert case['severity'] in ('P0', 'P1') and case['expected'] and case['forbidden']
             ids.append(case['id'])
             checks += 1
-    assert len(ids) == len(set(ids)) == 62, 'Case inventory mismatch'
+    assert len(ids) == len(set(ids)) == 78, 'Case inventory mismatch'
     checks += 1
     citations = dated_citations(skill)
     return {'status': 'PASS', 'documentary_checks': checks, 'schema_contracts': len(records),

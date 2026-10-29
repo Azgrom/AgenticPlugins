@@ -161,7 +161,7 @@
         },
         "official": {
           "type": "boolean",
-          "description": "True only for an externally verified examination result; applying official criteria in a local calculation does not make the result official."
+          "description": "Verdadeiro somente para um resultado de exame verificado externamente; aplicar critérios oficiais em um cálculo local não torna o resultado oficial."
         },
         "calibration": {
           "enum": [

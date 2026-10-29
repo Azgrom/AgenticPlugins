@@ -12,4 +12,4 @@ Classificar estabilidade STATIC, PERIODIC ou CURRENT; registrar retrieved_at e e
 
 Para confronto acadêmico, aplicar [evidência acadêmica](academic_evidence.md). A confiança aqui qualifica a afirmação efetivamente verificada: identidade bibliográfica confirmada não torna um resultado publicado verdadeiro ou universal. Duas fontes convergentes podem corroborar um gabarito, mas não certificam consenso científico. Não aplicar critérios de exame a teorias, interpretações ou hipóteses abertas.
 
-Complementos opcionais: [proveniência](../schemas/evidence_record.schema.json) ao registrar evidência; [gate de item](question_gate.md) ao selecionar questão; [falhas](failure_modes.md) quando a evidência não puder ser obtida.
+Complementos opcionais: [proveniência](../schemas/evidence_record.schema.json) ao registrar evidência; [critério de elegibilidade de item](question_gate.md) ao selecionar questão; [falhas](failure_modes.md) quando a evidência não puder ser obtida.

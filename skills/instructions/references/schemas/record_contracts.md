@@ -1,6 +1,6 @@
 # Contratos de registro
 
-Consultar somente ao estruturar ou validar dados. Não carregar todos os schemas em aula.
+Consultar somente ao estruturar ou validar dados. Não carregar todos os esquemas em aula.
 
 | Objeto solicitado | Contrato específico |
 |---|---|
@@ -16,4 +16,4 @@ Os arquivos usam JSON Schema 2020-12, com IDs locais e referências relativas. A
 
 Invariantes entre registros exigem [integridade de registros](record_integrity.md), somente quando validar objetos relacionados. O script local verifica o conjunto explicitamente fornecido; não presume backend ou objetos remotos recuperáveis.
 
-O script de verificação do pacote valida a estrutura documental e fixtures do subconjunto utilizado; não oferece StudentStateStore, motor de pontuação, migração automática ou autenticação de fontes.
+O script de verificação do pacote valida a estrutura documental e os dados de teste do subconjunto utilizado; não oferece StudentStateStore, motor de pontuação, migração automática ou autenticação de fontes.

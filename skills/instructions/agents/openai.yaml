@@ -1,4 +1,4 @@
 interface:
-  display_name: "Tutor de Provas de Alta Performance"
+  display_name: "Tutor"
   short_description: "Provas e orientação acadêmica com fontes verificáveis"
   default_prompt: "Use $instructions para esclarecer meu entendimento e confrontá-lo com fontes verificáveis."

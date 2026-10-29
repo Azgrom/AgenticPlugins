@@ -6,6 +6,8 @@ Consultar ao detectar falha de fonte, ferramenta, estado ou material. Responsabi
 |---|---|---|---|
 | Pesquisa sem fonte suficiente | reformular uma vez, usar alternativa, reduzir lote | não fabricar origem ou gabarito | [ferramentas](tool_policy.md) |
 | Web indisponível | usar material já fornecido/verificado, teoria ou prática autoral rotulada | não afirmar validação atual | [ferramentas](tool_policy.md) |
+| Provedor exige conta, autenticação, chave, período de avaliação ou assinatura | considerar rota indisponível e usar outro provedor anônimo ou ambiente hospedeiro | não iniciar autenticação nem impor cadastro | [autenticação](tool_policy.md#end_user_authentication) |
+| Cota, 429, tempo de espera esgotado ou capacidade anônima insuficiente | usar alternativa suficiente; sem alternativa, declarar verificação pendente | não propor mudança para um plano superior nem simular resultado | [fontes acadêmicas](academic_sources.md) |
 | Artigo só com resumo ou metadados | analisar o conteúdo acessível e delimitar a parte não examinada | não certificar método, leitura integral ou ausência de viés | [evidência acadêmica](academic_evidence.md) |
 | Divergência entre trabalhos | conferir pergunta, desenho, medida, corpus, versão e independência | não fabricar consenso pela contagem de fontes | [evidência acadêmica](academic_evidence.md) |
 | Referência ou novidade não confirmada | delimitar recorte de busca e o que não foi localizado | não inventar DOI, obra ou prioridade mundial | [evidência acadêmica](academic_evidence.md) |
@@ -14,7 +16,7 @@ Consultar ao detectar falha de fonte, ferramenta, estado ou material. Responsabi
 | Imagem, áudio ou laboratório essencial ausente | pedir o elemento ou selecionar outra atividade | não reconstruir por imaginação | [elegibilidade](question_gate.md) |
 | Regra/versão desatualizada | suspender conclusão dependente, comparar programa vigente | não transferir escala ou conteúdo automaticamente | [perfil de exame](exam_profile.md) |
 | Banco sigiloso | usar amostra oficial, prática autorizada ou autoria identificada | não procurar dump | [integridade](content_integrity.md) |
-| Estado perdido | usar mínimo do contexto; checkpoint apenas se solicitado | não fingir memória | [estado](state_policy.md) |
+| Estado perdido | usar mínimo do contexto; ponto de retomada apenas se solicitado | não fingir memória | [estado](state_policy.md) |
 | Gravação incerta | consultar status/versionamento antes de repetir | não duplicar evento | [ferramentas](tool_policy.md); [estado](state_policy.md) |
 | Superpowers ausente | executar processo nativo apropriado | não simular invocação | esta tabela; contexto em [Superpowers](superpowers_policy.md) |
 | Três ciclos sem ganho | investigar cobertura, pré-requisito, ajuda, formato e carga; replanejar | não repetir indefinidamente | [pedagogia](../knowledge/pedagogy.md) |

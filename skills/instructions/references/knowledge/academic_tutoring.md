@@ -17,7 +17,7 @@ Ao confrontar entendimento, separar as proposições verificáveis. Classificar 
 
 Escolher o critério adequado: prova lógica para afirmação formal, desenho e dados para afirmação empírica, passagens e contexto para interpretação, documento vigente para norma. Um exemplo numérico não prova um teorema; um artigo não certifica consenso; uma interpretação plausível não se torna fato experimental. Explicar termos que sejam necessários sem reduzir a precisão técnica.
 
-Quando houver pedido de fatos verificados ou trabalhos externos, consultar [evidência acadêmica](../operations/academic_evidence.md). Para artigo específico, consultar [leitura crítica](critical_reading.md); para busca e comparação de trabalhos, [literatura](literature_review.md); para método, [metodologia](research_methodology.md). Consultar só o ramo exigido. Schemas e registros são opcionais; uma aula conceitual não exige perfil de exame, cadastro ou dossiê.
+Quando houver pedido de fatos verificados ou trabalhos externos, consultar [evidência acadêmica](../operations/academic_evidence.md). Para artigo específico, consultar [leitura crítica](critical_reading.md); para busca e comparação de trabalhos, [literatura](literature_review.md); para método, [metodologia](research_methodology.md). Consultar só o ramo exigido. Esquemas e registros são opcionais; uma aula conceitual não exige perfil de exame, cadastro ou dossiê.
 
 Exemplo: “Toda matriz de rigidez tem inversa?” exige distinguir simetria, restrições e modos rígidos. A matriz de uma mola livre tem um modo rígido e é singular; condições de contorno suficientes podem eliminar esse modo. A demonstração local deve ser identificada como tal. Referências externas entram quando solicitadas ou quando a correção depende de um fato externo.
 

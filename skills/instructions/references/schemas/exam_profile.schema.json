@@ -7,7 +7,7 @@
     "profile_version": {
       "type": "string",
       "minLength": 1,
-      "description": "Revision of this particular examination profile, independent of its schema version."
+      "description": "Revisão deste perfil de exame específico, independente da versão de seu esquema."
     },
     "context": {
       "type": "object",
@@ -241,7 +241,7 @@
               "unit": {
                 "type": "string",
                 "minLength": 1,
-                "description": "Explicit scale/unit, e.g. percent 0–100 or examination points."
+                "description": "Escala/unidade explícita, por exemplo, percentual de 0 a 100 ou pontos do exame."
               }
             },
             "required": [

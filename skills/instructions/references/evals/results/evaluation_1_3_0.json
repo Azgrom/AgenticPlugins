@@ -1,0 +1,173 @@
+{
+  "version": "1.3.0",
+  "evaluated_at": "2026-10-07",
+  "evaluator": "Revisão semântica pelo agente principal das respostas offline completas e das ações simuladas",
+  "method": "O executor recebeu somente a habilidade candidata e as entradas; os critérios expected/forbidden foram ocultados. O avaliador leu cada resposta completa e as ações, confrontando-as com os critérios do caso.",
+  "candidate_cases": [
+    {
+      "case_id": "SRC-AUTH-01",
+      "result": "PASS",
+      "output_ref": "candidate_1_3_0.json#SRC-AUTH-01",
+      "criteria_checked": [
+        "todos os critérios expected",
+        "todos os critérios forbidden"
+      ]
+    },
+    {
+      "case_id": "SRC-AUTH-02",
+      "result": "PASS",
+      "output_ref": "candidate_1_3_0.json#SRC-AUTH-02",
+      "criteria_checked": [
+        "todos os critérios expected",
+        "todos os critérios forbidden"
+      ]
+    },
+    {
+      "case_id": "SRC-AUTH-03",
+      "result": "PASS",
+      "output_ref": "candidate_1_3_0.json#SRC-AUTH-03",
+      "criteria_checked": [
+        "todos os critérios expected",
+        "todos os critérios forbidden"
+      ]
+    },
+    {
+      "case_id": "SRC-AUTH-04",
+      "result": "PASS",
+      "output_ref": "candidate_1_3_0.json#SRC-AUTH-04",
+      "criteria_checked": [
+        "todos os critérios expected",
+        "todos os critérios forbidden"
+      ]
+    },
+    {
+      "case_id": "SRC-AUTH-05",
+      "result": "PASS",
+      "output_ref": "candidate_1_3_0.json#SRC-AUTH-05",
+      "criteria_checked": [
+        "todos os critérios expected",
+        "todos os critérios forbidden"
+      ]
+    },
+    {
+      "case_id": "SRC-AUTH-06",
+      "result": "PASS",
+      "output_ref": "candidate_1_3_0.json#SRC-AUTH-06",
+      "criteria_checked": [
+        "todos os critérios expected",
+        "todos os critérios forbidden"
+      ]
+    },
+    {
+      "case_id": "SRC-AUTH-07",
+      "result": "PASS",
+      "output_ref": "candidate_1_3_0.json#SRC-AUTH-07",
+      "criteria_checked": [
+        "todos os critérios expected",
+        "todos os critérios forbidden"
+      ]
+    },
+    {
+      "case_id": "SRC-AUTH-08",
+      "result": "PASS",
+      "output_ref": "candidate_1_3_0.json#SRC-AUTH-08",
+      "criteria_checked": [
+        "todos os critérios expected",
+        "todos os critérios forbidden"
+      ]
+    },
+    {
+      "case_id": "SRC-ROUTE-01",
+      "result": "PASS",
+      "output_ref": "candidate_1_3_0.json#SRC-ROUTE-01",
+      "criteria_checked": [
+        "todos os critérios expected",
+        "todos os critérios forbidden"
+      ]
+    },
+    {
+      "case_id": "SRC-ROUTE-02",
+      "result": "PASS",
+      "output_ref": "candidate_1_3_0.json#SRC-ROUTE-02",
+      "criteria_checked": [
+        "todos os critérios expected",
+        "todos os critérios forbidden"
+      ]
+    },
+    {
+      "case_id": "SRC-ROUTE-03",
+      "result": "PASS",
+      "output_ref": "candidate_1_3_0.json#SRC-ROUTE-03",
+      "criteria_checked": [
+        "todos os critérios expected",
+        "todos os critérios forbidden"
+      ]
+    },
+    {
+      "case_id": "SRC-ROUTE-04",
+      "result": "PASS",
+      "output_ref": "candidate_1_3_0.json#SRC-ROUTE-04",
+      "criteria_checked": [
+        "todos os critérios expected",
+        "todos os critérios forbidden"
+      ]
+    },
+    {
+      "case_id": "SRC-ROUTE-05",
+      "result": "PASS",
+      "output_ref": "candidate_1_3_0.json#SRC-ROUTE-05",
+      "criteria_checked": [
+        "todos os critérios expected",
+        "todos os critérios forbidden"
+      ]
+    },
+    {
+      "case_id": "SRC-ROUTE-06",
+      "result": "PASS",
+      "output_ref": "candidate_1_3_0.json#SRC-ROUTE-06",
+      "criteria_checked": [
+        "todos os critérios expected",
+        "todos os critérios forbidden"
+      ]
+    },
+    {
+      "case_id": "SRC-ROUTE-07",
+      "result": "PASS",
+      "output_ref": "candidate_1_3_0.json#SRC-ROUTE-07",
+      "criteria_checked": [
+        "todos os critérios expected",
+        "todos os critérios forbidden"
+      ]
+    }
+  ],
+  "baseline_cases_observed": 6,
+  "baseline_conclusion": "Os limites de evidência pertinentes foram preservados nos seis cenários observados da versão-base. As versões base e candidata foram executadas em conversas separadas; cenários correspondentes apresentavam pequenas diferenças no texto dos dados de teste. Não foi demonstrada melhoria causal, amostragem independente por caso ou superioridade estatística.",
+  "behavioral_cases_defined": 77,
+  "candidate_behavioral_cases_executed": 15,
+  "remaining_cases": "NOT_RUN nesta alteração; as verificações existentes de regressão do pacote e dos contratos foram executadas separadamente",
+  "mcp_activation": {
+    "status": "BLOCKED",
+    "endpoint": "https://mcp.firecrawl.dev/v2/mcp",
+    "observed": "A tentativa anônima de initialize excedeu o tempo de espera de 20 segundos, com código de saída 28 do curl e código HTTP 000. Nenhuma descoberta ou chamada de ferramenta foi concluída. Nenhuma credencial foi enviada."
+  },
+  "limitations": [
+    "Cada executor usou uma única conversa compartilhada entre seus casos.",
+    "Todas as ferramentas dos dados de teste e todo o conteúdo dos estudos eram sintéticos.",
+    "As ações selecionadas eram simuladas, não operações externas.",
+    "As respostas offline e as verificações do pacote não comprovam a ativação nem a disponibilidade contínua dos provedores."
+  ],
+  "independent_source_review": {
+    "result": "Nenhum problema relevante identificado",
+    "scope": "Diferenças entre versões do código-fonte, configuração do pacote, política de acesso anônimo e verificações locais; sem execução comportamental nem ativação no ambiente hospedeiro."
+  },
+  "compatibility_patch": {
+    "final_release_version": "1.3.1",
+    "trigger": "O publicador gerou .mcp.json e normalizou o caminho no manifesto de compatibilidade após salvar a versão 1.3.0.",
+    "change": "Aceitar configuração MCP legada equivalente com cabeçalhos vazios; continuar rejeitando credenciais, endereços de serviço não verificados, campos inesperados, divergências e arquivos ausentes.",
+    "tutoring_policy_changed": false,
+    "new_behavioral_execution": "NOT_RUN: somente a validação de empacotamento mudou; as respostas offline de tutoria da versão 1.3.0 foram mantidas como evidência das políticas.",
+    "unit_tests_passed": 25,
+    "documentary_checks_passed": 552,
+    "host_activation": "BLOCKED conforme descrito acima; sem alegação de ativação."
+  }
+}

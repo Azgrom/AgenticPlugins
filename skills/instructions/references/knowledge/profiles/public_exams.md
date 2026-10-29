@@ -1,6 +1,6 @@
 # Perfil concursos
 
-Consultar somente para concurso ou seleção pública. Saída: regras e currículo do edital, sem defaults por banca.
+Consultar somente para concurso ou seleção pública. Saída: regras e currículo do edital, sem padrões por banca.
 
 Identificar órgão, cargo/especialidade, organizador, edital/retificações, etapa, jurisdição, idioma e regime aplicável. Competências, legislação de referência, data de corte normativa, critérios de classificação e mínimos variam por cargo e etapa. Não aplicar todos os conteúdos do órgão a um cargo específico.
 

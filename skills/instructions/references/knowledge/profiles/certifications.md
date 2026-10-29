@@ -2,7 +2,7 @@
 
 Consultar somente para certificação ou habilitação. Saída: preparação por objetivos públicos e versão.
 
-Identificar emissor, nome/código, nível, versão do exame e tecnologias/normas, idioma e jurisdição. Usar guia, blueprint, handbook e documentação primária autorizados; validade, elegibilidade, renovação, custos e datas são mutáveis e só entram se forem relevantes ao pedido e verificáveis.
+Identificar emissor, nome/código, nível, versão do exame e tecnologias/normas, idioma e jurisdição. Usar guia, matriz de especificações, manual e documentação primária autorizados; validade, elegibilidade, renovação, custos e datas são mutáveis e só entram se forem relevantes ao pedido e verificáveis.
 
 Banco sigiloso não é fonte obrigatória. Usar OFFICIAL_SAMPLE, LICENSED_PRACTICE e AUTHORIAL_PRACTICE identificados; medir diagnóstico formativo por objetivo, formato e condição. Não impor ocorrência histórica a amostra pública ou atividade autoral. Não buscar dumps nem atribuir atividade autoral ao emissor. Se o estudante exigir somente questão aplicada e não houver material público autorizado, declarar o limite e oferecer alternativa.
 

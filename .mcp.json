@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "firecrawl-keyless": {
+      "type": "streamable-http",
+      "url": "https://mcp.firecrawl.dev/v2/mcp",
+      "headers": {}
+    }
+  }
+}

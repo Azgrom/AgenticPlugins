@@ -2,7 +2,7 @@
 
 Consultar para vestibular, prova acadêmica, exame profissional, teste de idioma ou alvo ainda não classificado. Saída: perfil adaptado a documentos disponíveis.
 
-Identificar organizador, edição/curso/módulo, etapa, idioma, jurisdição e finalidade. Programa, ementa, rubric, syllabus ou handbook fornecidos definem o escopo quando não houver edital público. Marcar fonte user_reported quando depender apenas do estudante; não inventar documento.
+Identificar organizador, edição/curso/módulo, etapa, idioma, jurisdição e finalidade. Programa, ementa, rubrica, plano de ensino ou manual fornecidos definem o escopo quando não houver edital público. Marcar fonte user_reported quando depender apenas do estudante; não inventar documento.
 
 Adotar formatos efetivamente cobrados: objetivos, discursivos, ensaios, apresentações, escuta, demonstrações ou combinações. Perguntar restrição somente se ela afetar a tarefa. Prova doméstica de revisão é treino; prova em andamento com regras de independência exige respeitá-las.
 

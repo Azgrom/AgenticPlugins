@@ -106,7 +106,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "academic_review.schema.json",
   "title": "academic_review",
-  "description": "Optional source-linked academic review; structural validity does not authenticate content.",
+  "description": "Revisão acadêmica opcional vinculada a fontes; a validade estrutural não autentica o conteúdo.",
   "$defs": {
     "source": {
       "type": "object",

@@ -4,7 +4,7 @@ Consultar somente quando o usuário pedir um registro estruturado de análise ou
 
 `schema_version` identifica o formato. `sources` descreve identidade, nível real de leitura e estado editorial conhecido. Campos bibliográficos desconhecidos ficam nulos ou vazios; identificador ausente não é fabricado. `claims` liga cada proposição à fonte, localizador, relação e base da leitura. A razão e os limites distinguem a análise do tutor do que o autor relata.
 
-`search_scope.kind` é `provided_material`, `targeted` ou `systematic`. Busca efetiva exige termos, locais e data; declarar `systematic` exige também escopo e processo documentados nas limitações/relato associado. O schema não prova exaustividade nem avalia a qualidade da busca. Não mudar o rótulo para passar um teste.
+`search_scope.kind` é `provided_material`, `targeted` ou `systematic`. Busca efetiva exige termos, locais e data; declarar `systematic` exige também escopo e processo documentados nas limitações/relato associado. O esquema não prova exaustividade nem avalia a qualidade da busca. Não mudar o rótulo para passar um teste.
 
 As invariantes verificadas por `python3 scripts/validate_package.py` incluem IDs únicos, vínculo resolvido, localizador para texto inspecionado, resumo usado apenas no nível declarado e referência/data para consulta de status editorial. Registro editorial ou metadados não dão suporte a uma afirmação sobre conteúdo lido. Uma proposição sem evidência pode ser `unresolved`, com razão explícita. Fonte retratada não sustenta afirmação sem ressalva material.
 

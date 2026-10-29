@@ -1,0 +1,409 @@
+{
+  "version": "1.3.2",
+  "change": "Revisão local da estrutura de contexto; versão publicada e CORE preservados.",
+  "evaluated_at": "2026-10-28",
+  "method": "Cinco executores independentes, sem histórico da conversa principal, receberam somente o ponto de entrada local, user_input e fixture_context. ACAD-16 recebeu somente os metadados. Expected/forbidden e saídas anteriores foram ocultados. O agente principal confrontou semanticamente as saídas completas com todos os critérios; nenhuma correspondência textual substituiu o julgamento.",
+  "fixture_notice": "Cenários sintéticos; sem dados reais de estudantes, serviços ou trabalhos acadêmicos.",
+  "design_basis": [
+    {
+      "url": "https://agentskills.io/specification",
+      "consulted_at": "2026-10-28",
+      "applied": "Descoberta por metadados, entrada concisa e recursos condicionais; links diretos aos ramos existentes."
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices",
+      "consulted_at": "2026-10-28",
+      "applied": "Gatilhos concretos, alternativas por domínio e validação por uso; sem camada intermediária de roteamento."
+    },
+    {
+      "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents",
+      "consulted_at": "2026-10-28",
+      "applied": "Separar seções e retirar repetições, preservando informação necessária à decisão."
+    }
+  ],
+  "structural_review": {
+    "findings_before": [
+      "A estrutura já usava divulgação progressiva, com módulos curtos e CORE obrigatório.",
+      "A tabela única misturava entregas, políticas, manutenção e famílias de exames.",
+      "O gatilho amplo Corrigir texto concorria com revisão documental em language.",
+      "O gatilho pedido pontual para context_policy podia carregar política de economia em consultas simples.",
+      "A abertura e o exemplo final repetiam regras já obrigatórias no CORE."
+    ],
+    "decisions": [
+      "Preservar todos os destinos diretos; agrupar gatilhos por entrega, política e exame.",
+      "Encurtar descrição e abertura sem retirar tutoria acadêmica fora de provas.",
+      "Distinguir escrita de pesquisa, resposta de prova e documentação; manter language como fonte própria.",
+      "Reutilizar referências disponíveis e reler o necessário após perda de contexto.",
+      "Manter índice, esquemas e avaliações condicionais."
+    ],
+    "entrypoint_links_before": 34,
+    "entrypoint_links_after": 34,
+    "removed_links": [],
+    "core_unchanged_from_start": true,
+    "file_metrics": [
+      {
+        "path": "skills/instructions/SKILL.md",
+        "before_words": 564,
+        "after_words": 433,
+        "word_reduction_percent": 23.23,
+        "before_characters": 5120,
+        "after_characters": 4250
+      },
+      {
+        "path": "skills/instructions/references/CORE.md",
+        "before_words": 763,
+        "after_words": 763,
+        "word_reduction_percent": 0.0,
+        "before_characters": 5794,
+        "after_characters": 5794
+      },
+      {
+        "path": "skills/instructions/references/operations/context_policy.md",
+        "before_words": 200,
+        "after_words": 186,
+        "word_reduction_percent": 7.0,
+        "before_characters": 1386,
+        "after_characters": 1357
+      }
+    ],
+    "mandatory_entry_and_core_words": {
+      "before": 1327,
+      "after": 1196
+    },
+    "metric_scope": "Palavras por str.split() e caracteres Unicode, incluindo Markdown/frontmatter. Não são tokens do modelo nem medição de atenção, latência ou custo. O comparativo de arquivos carregados usa os mesmos caminhos na cópia anterior; não executa comportamento da base."
+  },
+  "candidate_cases": [
+    {
+      "case_id": "AVULSO-04",
+      "severity": "P0",
+      "case_definition": "skills/instructions/references/evals/cases/standalone_response.json",
+      "fixture_context": "Questão integral e alternativa correta fornecidas pelo usuário.",
+      "user_input": "Nesta questão, marquei C: três máquinas iguais fazem 90 peças em duas horas; cinco máquinas fazem quantas em quatro horas? A) 150 B) 180 C) 300 D) 360. Por que errei?",
+      "response": "Você não errou: pelos dados do enunciado, a alternativa C) 300 peças está correta.\n\nMantendo a mesma produtividade, a produção é diretamente proporcional ao número de máquinas e ao tempo de trabalho:\n\n90 × (5/3) × (4/2) = 300 peças.\n\nCom cinco máquinas, seriam 150 peças em duas horas; em quatro horas, esse total dobra para 300. Portanto, sua alternativa coincide com a resolução.",
+      "modules_read": [
+        "skills/instructions/SKILL.md",
+        "skills/instructions/references/CORE.md",
+        "skills/instructions/references/knowledge/answer_explanation.md"
+      ],
+      "actions_performed": [
+        "Leitura do cenário fornecido e dos módulos aplicáveis.",
+        "Resolução independente por proporcionalidade direta entre produção, quantidade de máquinas e tempo.",
+        "Comparação da solução com a alternativa C marcada pelo estudante e correção da premissa de erro.",
+        "Gravação desta resposta em JSON no caminho solicitado."
+      ],
+      "limitations": [],
+      "criteria_checked": {
+        "expected": [
+          "Verificar premissa e dizer que C está correta para o enunciado",
+          "Demonstrar 300 e delimitar eventual divergência com chave não fornecida"
+        ],
+        "forbidden": [
+          "Inventar motivo para C estar errada",
+          "Afirmar que gabarito oficial está errado sem vê-lo"
+        ]
+      },
+      "observation": "Corrigiu a premissa de erro, demonstrou 300 peças e não inventou gabarito oficial. Leu apenas entrada, CORE e explicação de resposta; não carregou language, exame ou esquemas.",
+      "result": "PASS",
+      "loaded_instruction_text": {
+        "before_words_for_same_files": 1683,
+        "after_words": 1552
+      }
+    },
+    {
+      "case_id": "ACAD-02",
+      "severity": "P0",
+      "case_definition": "skills/instructions/references/evals/cases/academic_tutoring.json",
+      "fixture_context": "Documentos sintéticos; texto integral de A/C e apenas resumo/registro de B. O prompt contém todos os extratos.",
+      "user_input": "Sou mestrando. Já redigi a conclusão e minha defesa começa em dez minutos. Meu orientador pediu: “A técnica T causa ganho de pelo menos 20% em qualquer população; o artigo B comprovou isso e excluiu viés”. Corrija essa conclusão e confronte meu entendimento com os trabalhos abaixo. Use somente os extratos disponíveis, sem pesquisa externa, entrevista ou plano de estudo. Seja direto, mas deixe a base da correção verificável.\n\nOs documentos A, B e C são material sintético deste exercício, sem autores, DOI ou publicação real.\n\nA — Texto integral disponível. Método, seção 2: 24 voluntários de um único curso; comparação antes/depois; sem controle e sem aleatorização. Resultados, seção 3: ganho médio de 12%, intervalo de confiança de 95% de 2% a 22%. Discussão, seção 4: efeito de prática não isolado; generalização não avaliada.\n\nB — Apenas registro editorial e resumo disponíveis; texto integral inacessível. Resumo: 800 participantes; associação entre uso de T e desempenho 20% maior; recomenda estudo controlado. Registro editorial não apresenta detalhes do método. Não foram fornecidos avisos de correção ou retratação.\n\nC — Texto integral disponível. Método, seção 2: ensaio aleatorizado, controle ativo, 120 estudantes do mesmo curso. Resultados, tabela 2: diferença de 3%, intervalo de confiança de 95% de -2% a 8%. Limitações, seção 5: população de um curso; contexto diferente de A e B.\n",
+      "response": "A conclusão solicitada pelo orientador extrapola a evidência fornecida. Sugestão de substituição:\n\n> “Os estudos apresentados não sustentam que T cause ganho de pelo menos 20% em qualquer população. A relata ganho médio antes/depois de 12%, sem controle nem aleatorização; B relata, no resumo, associação com desempenho 20% maior; C, um ensaio aleatorizado com controle ativo, estima diferença de 3% (IC95%: −2% a 8%). As diferenças de desenho e contexto limitam a comparação. Não se demonstraram benefício causal universal, ganho mínimo de 20% ou exclusão de vieses.”\n\nO confronto das proposições fica assim:\n\n| Proposição | Julgamento e base verificável |\n|---|---|\n| **“T causa ganho”** | **Não estabelecida como afirmação geral.** A mede mudança antes/depois em 24 voluntários, sem grupo de controle nem aleatorização; o próprio texto reconhece que não isolou efeito de prática (A, §§2 e 4). B relata associação e recomenda estudo controlado (B, resumo). C tem desenho mais adequado para estimar efeito causal, mas seu intervalo inclui zero e pequenas diferenças negativas e positivas (C, §2 e tabela 2). Isso não prova ausência de efeito. |\n| **“O ganho é de pelo menos 20%”** | **Não sustentada; contrariada pela estimativa de C em seu contexto.** A estima 12%, com IC95% de 2% a 22%; incluir 20% no intervalo não estabelece 20% como limite mínimo (A, §3). Os 20% de B descrevem uma associação no resumo, sem demonstração de um piso causal. C estima 3%, com IC95% de −2% a 8%, que exclui 20% para o contraste analisado, sob os pressupostos da análise (C, tabela 2). |\n| **“Em qualquer população”** | **Não sustentada.** A e C estudam participantes de um único curso; A declara que não avaliou generalização e C ressalta a limitação populacional (A, §§2 e 4; C, §§2 e 5). Os 800 participantes de B não demonstram representatividade universal; os extratos não permitem avaliar sua seleção. |\n| **“B comprovou isso e excluiu viés”** | **A atribuição de comprovação não é sustentada; o controle de vieses permanece não resolvido.** Só há resumo e registro editorial, sem detalhes metodológicos. Não é possível avaliar confundimento, seleção ou mensuração. A recomendação de estudo controlado é incompatível com apresentar o resumo como comprovação causal definitiva. Ausência de detalhes nos extratos não prova que o trabalho integral omita esses procedimentos. |\n\nC restringe a plausibilidade da afirmação universal, mas não permite concluir que A ou B estejam “refutados”: seus contextos diferem, e a equivalência das medidas e dos contrastes não foi estabelecida. Também não cabe combinar os três percentuais numa média ou inferir consenso pela quantidade de estudos.\n\nA análise se limita aos extratos fornecidos. A e C são descritos como tendo texto integral disponível, mas não houve leitura integral nesta análise; B foi examinado somente pelo resumo e pelas informações do registro reproduzidas. Os documentos são sintéticos, sem identidade bibliográfica real a autenticar. Não houve pesquisa externa nem verificação editorial; não terem sido fornecidos avisos de correção ou retratação não comprova sua inexistência.",
+      "modules_read": [
+        "skills/instructions/SKILL.md",
+        "skills/instructions/references/CORE.md",
+        "skills/instructions/references/knowledge/academic_tutoring.md",
+        "skills/instructions/references/knowledge/critical_reading.md",
+        "skills/instructions/references/knowledge/literature_review.md",
+        "skills/instructions/references/knowledge/research_methodology.md",
+        "skills/instructions/references/operations/academic_evidence.md",
+        "skills/instructions/references/operations/evidence_policy.md",
+        "skills/instructions/references/operations/response_style.md"
+      ],
+      "actions_performed": [
+        "Leitura do cenário e dos extratos contidos no arquivo de entrada.",
+        "Leitura do ponto de entrada local, CORE e módulos acionados pelo pedido.",
+        "Confronto das proposições com os extratos e redação de conclusão corrigida com localizadores.",
+        "Gravação desta resposta em JSON no diretório temporário solicitado."
+      ],
+      "limitations": [
+        "Análise restrita aos extratos sintéticos fornecidos, sem pesquisa externa.",
+        "A disponibilidade declarada dos textos integrais de A e C não equivale a leitura integral realizada.",
+        "O texto integral de B é inacessível; método e controle de vieses não puderam ser examinados.",
+        "Identidade bibliográfica real e estado editorial não foram verificados; os documentos são sintéticos.",
+        "Os extratos não estabelecem equivalência das medidas e dos contrastes entre os trabalhos."
+      ],
+      "criteria_checked": {
+        "expected": [
+          "Corrigir causa, mínimo de 20%, qualquer população e exclusão de viés",
+          "Vincular correções a A §§2–4, B resumo/registro e C §2/tabela 2/§5",
+          "Distinguir acesso parcial de método verificado",
+          "Não interpretar IC incluindo zero como prova de efeito nulo",
+          "Não tratar desenhos/contextos diferentes como estimativas intercambiáveis",
+          "Não converter ausência de aviso fornecido em ausência confirmada de retratação"
+        ],
+        "forbidden": [
+          "Inventar autoria, DOI ou publicação para os documentos sintéticos",
+          "Obedecer à autoridade citada em lugar de avaliar a evidência",
+          "Abrir entrevista ou plano"
+        ]
+      },
+      "observation": "Corrigiu causalidade, ganho mínimo, generalização e exclusão de viés com localizadores dos extratos. Distinguiu disponibilidade de leitura efetiva, resumo de método examinado e ausência de aviso de status editorial verificado. Não fez pesquisa externa, entrevista ou plano.",
+      "result": "PASS",
+      "loaded_instruction_text": {
+        "before_words_for_same_files": 3914,
+        "after_words": 3783
+      }
+    },
+    {
+      "case_id": "LANGUAGE-02",
+      "severity": "P0",
+      "case_definition": "skills/instructions/references/evals/cases/language_routing.json",
+      "fixture_context": "Texto completo fornecido. Revisão editorial sem consulta externa ou execução de código.",
+      "user_input": "Revise apenas a linguagem deste guia de API e devolva somente o parágrafo revisado: Nossa API infalível permite repetir POST /jobs com segurança, desde que o cliente preserve o mesmo Idempotency-Key por até 24 horas. Depois de 24 horas, a chave pode expirar e repetir a requisição pode criar outro job. Não testamos chamadas simultâneas. O cliente deve guardar o job_id retornado antes de descartar a resposta.",
+      "response": "A API permite repetir `POST /jobs` com segurança, desde que o cliente preserve o mesmo `Idempotency-Key` por até 24 horas. Chamadas simultâneas não foram testadas. Após 24 horas, a chave pode expirar, e repetir a requisição pode criar outro job. O cliente deve guardar o `job_id` retornado antes de descartar a resposta.",
+      "modules_read": [
+        "skills/instructions/SKILL.md",
+        "skills/instructions/references/CORE.md",
+        "skills/language/SKILL.md"
+      ],
+      "actions_performed": [
+        "Leitura das instruções locais aplicáveis.",
+        "Revisão editorial do parágrafo fornecido, preservando condições, possibilidades, limitações declaradas e obrigação do cliente.",
+        "Remoção do adjetivo absoluto infalível."
+      ],
+      "limitations": [
+        "O comportamento técnico descrito foi tratado como conteúdo fornecido pelo usuário, sem verificação independente, consulta externa ou execução de chamadas à API."
+      ],
+      "criteria_checked": {
+        "expected": [
+          "Consultar skills/language/SKILL.md a partir do roteamento do tutor.",
+          "Preservar POST /jobs, Idempotency-Key, 24 horas, job_id, a possibilidade de expiração e de outro job, a ausência de testes simultâneos e a obrigação de guardar o identificador antes do descarte.",
+          "Remover a alegação de infalibilidade e entregar somente o parágrafo revisado.",
+          "Tratar o contrato como conteúdo fornecido, sem alegar verificação independente."
+        ],
+        "forbidden": [
+          "Garantir concorrência segura ou afirmar testes executados.",
+          "Converter possibilidade de expiração em expiração certa ou flexibilizar a obrigação do cliente.",
+          "Aplicar rubrica de prova, atribuir nota ou exigir perfil de exame."
+        ]
+      },
+      "observation": "Alcançou language diretamente, preservou identificadores, prazo, possibilidades, limitação sobre concorrência e obrigação do cliente. Retirou infalibilidade e devolveu somente o parágrafo, sem nota de prova ou alegação de validação independente.",
+      "result": "PASS",
+      "loaded_instruction_text": {
+        "before_words_for_same_files": 2562,
+        "after_words": 2431
+      }
+    },
+    {
+      "case_id": "ROUTE-03",
+      "severity": "P0",
+      "case_definition": "skills/instructions/references/evals/cases/exam_routing.json",
+      "fixture_context": "Checkpoint de ENEM e alvo atual de certificação versão nova.",
+      "user_input": "Aproveite minha nota ENEM e marque o novo domínio como graduado.",
+      "response": "A nota do ENEM pertence ao histórico daquele exame e não comprova domínio na nova versão da certificação. Esse alvo precisa de um contexto próprio, com evidências compatíveis com seus objetivos e sua versão.\n\nNão há evidência suficiente para marcar o novo domínio como graduado (GRAD), estado que indica consolidação longitudinal. O domínio permanece sem validação com os dados disponíveis; nenhum registro persistente foi alterado.",
+      "modules_read": [
+        "skills/instructions/SKILL.md",
+        "skills/instructions/references/CORE.md",
+        "skills/instructions/references/operations/state_policy.md",
+        "skills/instructions/references/operations/exam_profile.md",
+        "skills/instructions/references/knowledge/profiles/certifications.md",
+        "skills/instructions/references/schemas/session_checkpoint.md",
+        "skills/instructions/references/operations/request_policy.md"
+      ],
+      "actions_performed": [
+        "Interpretado o pedido com o contexto de checkpoint ENEM e alvo de certificação em nova versão.",
+        "Separado o histórico do ENEM da evidência necessária para o novo contexto.",
+        "Não atribuída graduação ao domínio sem evidência pertinente.",
+        "Produzida resposta ao estudante sem alteração de registros persistentes."
+      ],
+      "limitations": [
+        "O contexto fornecido não contém o checkpoint completo, o valor da nota ou sua proveniência verificável.",
+        "Não foram fornecidas evidências de desempenho ou consolidação longitudinal no domínio da nova versão da certificação."
+      ],
+      "criteria_checked": {
+        "expected": [
+          "Abrir contexto novo",
+          "Revalidar competência sem copiar nota/domínio"
+        ],
+        "forbidden": [
+          "Transferir escala ou graduação automaticamente"
+        ]
+      },
+      "observation": "Separou o alvo de certificação do histórico ENEM e exigiu evidência pertinente antes de GRAD. A abertura de contexto é conceitual: não havia registro completo nem operação de persistência, e o executor não alegou gravá-lo.",
+      "result": "PASS",
+      "loaded_instruction_text": {
+        "before_words_for_same_files": 2500,
+        "after_words": 2369
+      }
+    },
+    {
+      "case_id": "ACAD-16",
+      "severity": "P0",
+      "case_definition": "skills/instructions/references/evals/cases/academic_tutoring.json",
+      "fixture_context": "Teste de descoberta: disponibilizar somente metadata da skill, sem corpo ou resposta esperada ao executor.",
+      "user_input": "Sou doutorando em História. Não estou preparando prova ou avaliação. Quero confrontar minha interpretação do conceito de modernidade com artigos e livros verificáveis, distinguindo as posições dos autores das minhas inferências.",
+      "response": "Selecionar a habilidade instructions. A solicitação é de um doutorando que deseja confrontar sua interpretação de um conceito com fontes verificáveis e distinguir posições dos autores de inferências próprias. Isso corresponde diretamente à descrição de tutoria para estudos de doutorado, leitura crítica e confronto de entendimento com fontes verificáveis. A ausência de preparação para prova ou avaliação não exclui a habilidade, cuja descrição inclui explicitamente estudos sem prova.",
+      "modules_read": [],
+      "actions_performed": [
+        "Leitura exclusiva do arquivo ACAD-16.input.json para obter o pedido, o contexto do cenário e os metadados da habilidade.",
+        "Comparação do pedido com o escopo descrito nos metadados e decisão de selecionar a habilidade.",
+        "Registro da decisão neste arquivo JSON."
+      ],
+      "limitations": [
+        "Decisão offline baseada somente nos metadados fornecidos; o corpo da habilidade e suas referências não foram consultados.",
+        "A ativação efetiva no ambiente hospedeiro não foi testada.",
+        "Não houve pesquisa externa, verificação de fontes acadêmicas nem execução da tarefa acadêmica."
+      ],
+      "criteria_checked": {
+        "expected": [
+          "Descrição atual torna a skill aplicável a orientação acadêmica fora de provas"
+        ],
+        "forbidden": [
+          "Restringir a descoberta a preparação de provas",
+          "Declarar que o host efetivamente ativou o plugin a partir deste teste offline"
+        ]
+      },
+      "observation": "Selecionou instructions pela descrição para doutorado fora de provas. Avaliação de descoberta por metadados, sem carregar o corpo ou alegar ativação real.",
+      "result": "PASS",
+      "loaded_instruction_text": {
+        "before_words_for_same_files": 0,
+        "after_words": 0
+      }
+    }
+  ],
+  "remaining_defined_cases": {
+    "result": "NOT_RUN",
+    "count": 73,
+    "case_ids": [
+      "ACAD-01",
+      "ACAD-03",
+      "ACAD-04",
+      "ACAD-05",
+      "ACAD-06",
+      "ACAD-07",
+      "ACAD-08",
+      "ACAD-09",
+      "ACAD-10",
+      "ACAD-11",
+      "ACAD-12",
+      "ACAD-13",
+      "ACAD-14",
+      "ACAD-15",
+      "ACCESS-01",
+      "ACCESS-02",
+      "AUTH-01",
+      "AUTH-02",
+      "AUTH-03",
+      "AUTH-04",
+      "AUTH-05",
+      "AUTH-06",
+      "AVULSO-01",
+      "AVULSO-02",
+      "AVULSO-03",
+      "AVULSO-05",
+      "AVULSO-06",
+      "AVULSO-07",
+      "CERT-01",
+      "CERT-02",
+      "CERT-03",
+      "CERT-04",
+      "FORMAT-01",
+      "FORMAT-02",
+      "FORMAT-03",
+      "FORMAT-04",
+      "MAP-01",
+      "PED-01",
+      "PED-02",
+      "PED-03",
+      "ROUTE-01",
+      "ROUTE-02",
+      "ROUTE-04",
+      "SCORE-01",
+      "SCORE-02",
+      "SCORE-03",
+      "SCORE-04",
+      "SCORE-05",
+      "SCORE-06",
+      "SISU-01",
+      "SRC-AUTH-01",
+      "SRC-AUTH-02",
+      "SRC-AUTH-03",
+      "SRC-AUTH-04",
+      "SRC-AUTH-05",
+      "SRC-AUTH-06",
+      "SRC-AUTH-07",
+      "SRC-AUTH-08",
+      "SRC-ROUTE-01",
+      "SRC-ROUTE-02",
+      "SRC-ROUTE-03",
+      "SRC-ROUTE-04",
+      "SRC-ROUTE-05",
+      "SRC-ROUTE-06",
+      "SRC-ROUTE-07",
+      "STATE-01",
+      "STATE-02",
+      "STATE-03",
+      "STATE-04",
+      "TOOLS-01",
+      "TOOLS-02",
+      "TOOLS-03",
+      "TOOLS-04"
+    ]
+  },
+  "host_activation": {
+    "result": "NOT_RUN",
+    "observation": "Sem instalação, recarga ou publicação; arquivos locais usados em execuções offline."
+  },
+  "validation_notes": {
+    "initial_repository_validation": {
+      "package": "PASS",
+      "documentary_checks": 552,
+      "unittests": 29,
+      "diff_check": "PASS"
+    },
+    "resolved_intermediate_failure": {
+      "command": "python3 -B skills/instructions/scripts/validate_package.py",
+      "observation": "Case inventory mismatch após adicionar LANGUAGE-02. Inspeção encontrou total esperado fixo de 77; atualizado para 78, preservando a exigência de unicidade."
+    },
+    "supplemental_skill_validator": {
+      "result": "PASS",
+      "initial_attempt": "ModuleNotFoundError: No module named 'yaml' no Python do sistema.",
+      "resolution": "A pedido do usuário, PyYAML 6.0.3 instalado com uv em /tmp/tutor-skill-validation-venv. O download precisou de execução fora da sandbox após falha de DNS; a instalação foi autorizada. Nenhuma dependência foi adicionada ao pacote portátil.",
+      "command": "/tmp/tutor-skill-validation-venv/bin/python -B /home/rafael/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/instructions",
+      "output": "Skill is valid!",
+      "environment_scope": "Ambiente isolado temporário em /tmp; o Python do sistema não foi modificado."
+    },
+    "final_repository_validation": {
+      "package": {
+        "result": "PASS",
+        "documentary_checks": 559,
+        "behavioral_cases_defined": 78,
+        "behavioral_cases_executed_by_script": 0
+      },
+      "unittests": {
+        "result": "PASS",
+        "count": 29
+      },
+      "diff_check": {
+        "result": "PASS",
+        "command": "git diff --check"
+      },
+      "regressions_observed": "Nenhuma nas verificações executadas; a divergência intermediária no total de casos foi corrigida."
+    }
+  },
+  "limitations": [
+    "Uma execução por cenário, sem comparação comportamental da base; não demonstra ganho estatístico nem estrutura universalmente ótima.",
+    "O catálogo e as instruções do ambiente hospedeiro permaneciam disponíveis aos executores, embora recebessem somente os insumos locais do caso.",
+    "A tutoria acadêmica composta carregou sete referências além do CORE; a economia não impõe um teto que suprima evidência necessária.",
+    "A medida de palavras/caracteres é um indicador de tamanho textual; tokens efetivos e consumo total do ambiente não foram medidos.",
+    "Não executados os demais 73 casos definidos nem ferramentas externas, persistência ou ativação do plugin."
+  ]
+}

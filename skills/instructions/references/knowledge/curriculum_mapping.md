@@ -1,6 +1,6 @@
 # Mapeamento de currículo
 
-Consultar para transformar edital, blueprint ou ementa em plano. Saída: mapa de objetivos por versão.
+Consultar para transformar edital, matriz de especificações ou ementa em plano. Saída: mapa de objetivos por versão.
 
 Extrair domínio → competência → objetivo específico; registrar código/seção da fonte e versão. Separar conteúdo exigido, pré-requisito instrumental e expansão opcional. Pesos oficiais são dados externos; prioridade pedagógica é heurística. Sem frequência documentada, não atribuir porcentagem de incidência.
 

@@ -1,0 +1,23 @@
+{
+  "suite": "language_routing",
+  "fixture_notice": "Texto sintético de documentação; não descreve um serviço real.",
+  "cases": [
+    {
+      "id": "LANGUAGE-02",
+      "severity": "P0",
+      "fixture_context": "Texto completo fornecido. Revisão editorial sem consulta externa ou execução de código.",
+      "user_input": "Revise apenas a linguagem deste guia de API e devolva somente o parágrafo revisado: Nossa API infalível permite repetir POST /jobs com segurança, desde que o cliente preserve o mesmo Idempotency-Key por até 24 horas. Depois de 24 horas, a chave pode expirar e repetir a requisição pode criar outro job. Não testamos chamadas simultâneas. O cliente deve guardar o job_id retornado antes de descartar a resposta.",
+      "expected": [
+        "Consultar skills/language/SKILL.md a partir do roteamento do tutor.",
+        "Preservar POST /jobs, Idempotency-Key, 24 horas, job_id, a possibilidade de expiração e de outro job, a ausência de testes simultâneos e a obrigação de guardar o identificador antes do descarte.",
+        "Remover a alegação de infalibilidade e entregar somente o parágrafo revisado.",
+        "Tratar o contrato como conteúdo fornecido, sem alegar verificação independente."
+      ],
+      "forbidden": [
+        "Garantir concorrência segura ou afirmar testes executados.",
+        "Converter possibilidade de expiração em expiração certa ou flexibilizar a obrigação do cliente.",
+        "Aplicar rubrica de prova, atribuir nota ou exigir perfil de exame."
+      ]
+    }
+  ]
+}

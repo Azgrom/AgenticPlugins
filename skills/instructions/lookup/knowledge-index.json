@@ -1,19 +1,34 @@
 {
   "files": [
     {
+      "name": "language",
+      "path": "../language/SKILL.md",
+      "read_when": "Ao redigir ou revisar documentação, relatórios ou comentários explicativos no código."
+    },
+    {
+      "name": "language_routing_2026_10_28.json",
+      "path": "references/evals/results/language_routing_2026_10_28.json",
+      "read_when": "Somente ao auditar a correção de roteamento para language."
+    },
+    {
       "name": "CORE.md",
       "path": "references/CORE.md",
-      "read_when": "Uma vez ao ativar a skill."
+      "read_when": "Ao ativar a habilidade; reler se indisponível no contexto."
     },
     {
       "name": "acceptance_tests.md",
       "path": "references/evals/acceptance_tests.md",
-      "read_when": "Consultar somente ao validar ou alterar o tutor. Responsabilidade: critérios de release; não carregar durante aula."
+      "read_when": "Consultar somente ao validar ou alterar o tutor. Responsabilidade: critérios de aceitação da versão; não carregar durante aula."
     },
     {
       "name": "adversarial_tests.md",
       "path": "references/evals/adversarial_tests.md",
       "read_when": "Consultar somente ao testar resistência do tutor. Responsabilidade: variantes de pressão e controle."
+    },
+    {
+      "name": "academic_sources.json",
+      "path": "references/evals/cases/academic_sources.json",
+      "read_when": "Somente ao avaliar autenticação e roteamento de fontes acadêmicas."
     },
     {
       "name": "academic_tutoring.json",
@@ -23,62 +38,62 @@
     {
       "name": "accessibility.json",
       "path": "references/evals/cases/accessibility.json",
-      "read_when": "Somente ao testar o tutor na suite accessibility."
+      "read_when": "Somente ao testar o tutor na bateria de testes accessibility."
     },
     {
       "name": "authenticity.json",
       "path": "references/evals/cases/authenticity.json",
-      "read_when": "Somente ao testar o tutor na suite authenticity."
+      "read_when": "Somente ao testar o tutor na bateria de testes authenticity."
     },
     {
       "name": "certification_security.json",
       "path": "references/evals/cases/certification_security.json",
-      "read_when": "Somente ao testar o tutor na suite certification_security."
+      "read_when": "Somente ao testar o tutor na bateria de testes certification_security."
     },
     {
       "name": "curriculum_and_selection.json",
       "path": "references/evals/cases/curriculum_and_selection.json",
-      "read_when": "Somente ao testar o tutor na suite curriculum_and_selection."
+      "read_when": "Somente ao testar o tutor na bateria de testes curriculum_and_selection."
     },
     {
       "name": "exam_routing.json",
       "path": "references/evals/cases/exam_routing.json",
-      "read_when": "Somente ao testar o tutor na suite exam_routing."
+      "read_when": "Somente ao testar o tutor na bateria de testes exam_routing."
     },
     {
       "name": "pedagogy.json",
       "path": "references/evals/cases/pedagogy.json",
-      "read_when": "Somente ao testar o tutor na suite pedagogy."
+      "read_when": "Somente ao testar o tutor na bateria de testes pedagogy."
     },
     {
       "name": "scoring.json",
       "path": "references/evals/cases/scoring.json",
-      "read_when": "Somente ao testar o tutor na suite scoring."
+      "read_when": "Somente ao testar o tutor na bateria de testes scoring."
     },
     {
       "name": "standalone_response.json",
       "path": "references/evals/cases/standalone_response.json",
-      "read_when": "Somente ao testar o tutor na suite standalone_response."
+      "read_when": "Somente ao testar o tutor na bateria de testes standalone_response."
     },
     {
       "name": "state_integrity.json",
       "path": "references/evals/cases/state_integrity.json",
-      "read_when": "Somente ao testar o tutor na suite state_integrity."
+      "read_when": "Somente ao testar o tutor na bateria de testes state_integrity."
     },
     {
       "name": "tool_failures.json",
       "path": "references/evals/cases/tool_failures.json",
-      "read_when": "Somente ao testar o tutor na suite tool_failures."
+      "read_when": "Somente ao testar o tutor na bateria de testes tool_failures."
     },
     {
       "name": "written_and_practical.json",
       "path": "references/evals/cases/written_and_practical.json",
-      "read_when": "Somente ao testar o tutor na suite written_and_practical."
+      "read_when": "Somente ao testar o tutor na bateria de testes written_and_practical."
     },
     {
       "name": "evaluation_protocol.md",
       "path": "references/evals/evaluation_protocol.md",
-      "read_when": "Consultar somente ao executar ou interpretar testes. Entrada: casos e release; saída: evidência auditável."
+      "read_when": "Consultar somente ao executar ou interpretar testes. Entrada: casos e versão; saída: evidência auditável."
     },
     {
       "name": "academic_review.json",
@@ -114,6 +129,21 @@
       "name": "student_state.json",
       "path": "references/evals/fixtures/student_state.json",
       "read_when": "Somente ao validar o contrato student_state; exemplo sintético."
+    },
+    {
+      "name": "baseline_1_2_0.json",
+      "path": "references/evals/results/baseline_1_2_0.json",
+      "read_when": "Somente ao auditar a revisão 1.3.0; saídas offline sintéticas e limitações de execução."
+    },
+    {
+      "name": "candidate_1_3_0.json",
+      "path": "references/evals/results/candidate_1_3_0.json",
+      "read_when": "Somente ao auditar a revisão 1.3.0; saídas offline sintéticas e limitações de execução."
+    },
+    {
+      "name": "evaluation_1_3_0.json",
+      "path": "references/evals/results/evaluation_1_3_0.json",
+      "read_when": "Somente ao auditar a revisão 1.3.0; saídas offline sintéticas e limitações de execução."
     },
     {
       "name": "academic_tutoring.md",
@@ -163,7 +193,7 @@
     {
       "name": "curriculum_mapping.md",
       "path": "references/knowledge/curriculum_mapping.md",
-      "read_when": "Consultar para transformar edital, blueprint ou ementa em plano. Saída: mapa de objetivos por versão."
+      "read_when": "Consultar para transformar edital, matriz de especificações ou ementa em plano. Saída: mapa de objetivos por versão."
     },
     {
       "name": "enem_tri.md",
@@ -213,7 +243,7 @@
     {
       "name": "public_exams.md",
       "path": "references/knowledge/profiles/public_exams.md",
-      "read_when": "Consultar somente para concurso ou seleção pública. Saída: regras e currículo do edital, sem defaults por banca."
+      "read_when": "Consultar somente para concurso ou seleção pública. Saída: regras e currículo do edital, sem padrões por banca."
     },
     {
       "name": "question_methodology.md",
@@ -266,6 +296,11 @@
       "read_when": "Consultar quando o estudante pedir confronto com fatos verificados, referências externas ou exame de um trabalho. Entrada: afirmações e fontes; saída: conclusão rastreável e limite de verificação. Complementar a [política geral](evidence_policy.md), sem importar critérios de gabarito para pesquisa."
     },
     {
+      "name": "academic_sources.md",
+      "path": "references/operations/academic_sources.md",
+      "read_when": "Quando a demanda depender de recuperação externa, escolha de provedor ou limite de acesso anônimo."
+    },
+    {
       "name": "content_integrity.md",
       "path": "references/operations/content_integrity.md",
       "read_when": "Consultar ao reproduzir conteúdo, usar banco fechado ou atender pedido durante avaliação. Saída: material elegível ou alternativa legítima."
@@ -308,12 +343,12 @@
     {
       "name": "state_policy.md",
       "path": "references/operations/state_policy.md",
-      "read_when": "Consultar somente sob pedido explícito de registro/histórico, interpretação de checkpoint fornecido ou correção de resultado previamente registrado. Entrada: evidência disponível; saída: estado derivado com origem e limites. Não carregar para resposta avulsa."
+      "read_when": "Consultar somente sob pedido explícito de registro/histórico, interpretação de ponto de retomada fornecido ou correção de resultado previamente registrado. Entrada: evidência disponível; saída: estado derivado com origem e limites. Não carregar para resposta avulsa."
     },
     {
       "name": "superpowers_policy.md",
       "path": "references/operations/superpowers_policy.md",
-      "read_when": "Consultar se o estudante pedir Superpowers ou a tarefa exigir um processo complexo beneficiado por ele. Entrada: tarefa e skills efetivamente disponíveis; saída: uso real ou fluxo nativo."
+      "read_when": "Consultar se o estudante pedir Superpowers ou a tarefa exigir um processo complexo beneficiado por ele. Entrada: tarefa e habilidades efetivamente disponíveis; saída: uso real ou fluxo nativo."
     },
     {
       "name": "tool_policy.md",
@@ -353,12 +388,12 @@
     {
       "name": "migration.md",
       "path": "references/schemas/migration.md",
-      "read_when": "Consultar somente ao receber checkpoint antigo. Entrada: estrutura antiga efetivamente disponível; saída: estrutura 2.0 com origem e lacunas preservadas."
+      "read_when": "Consultar somente ao receber ponto de retomada antigo. Entrada: estrutura antiga efetivamente disponível; saída: estrutura 2.0 com origem e lacunas preservadas."
     },
     {
       "name": "record_contracts.md",
       "path": "references/schemas/record_contracts.md",
-      "read_when": "Consultar somente ao estruturar ou validar dados. Não carregar todos os schemas em aula."
+      "read_when": "Consultar somente ao estruturar ou validar dados. Não carregar todos os esquemas em aula."
     },
     {
       "name": "record_integrity.md",
@@ -368,7 +403,7 @@
     {
       "name": "session_checkpoint.md",
       "path": "references/schemas/session_checkpoint.md",
-      "read_when": "Consultar somente quando o usuário fornecer ou pedir checkpoint. Responsabilidade: resumir continuidade, sem copiar histórico. Não gerar checkpoint por encerramento de resposta; contexto e memória do host bastam ao atendimento avulso."
+      "read_when": "Consultar somente quando o usuário fornecer ou pedir ponto de retomada. Responsabilidade: resumir continuidade, sem copiar histórico. Não gerar ponto de retomada por encerramento de resposta; contexto e memória do ambiente hospedeiro bastam ao atendimento avulso."
     },
     {
       "name": "session_checkpoint.schema.json",
@@ -379,8 +414,18 @@
       "name": "student_state.schema.json",
       "path": "references/schemas/student_state.schema.json",
       "read_when": "Somente ao estruturar ou validar o objeto student_state."
+    },
+    {
+      "name": "language_routing.json",
+      "path": "references/evals/cases/language_routing.json",
+      "read_when": "Somente ao testar documentação e roteamento para language."
+    },
+    {
+      "name": "context_structure_2026_10_28.json",
+      "path": "references/evals/results/context_structure_2026_10_28.json",
+      "read_when": "Somente ao auditar a revisão de estrutura, tamanho textual e roteamento de 2026-10-28."
     }
   ],
-  "guidelines": "Paths in this index are relative to the skill root; Markdown links are relative to their containing document. Read CORE once and only modules necessary for the declared request. No interview, parallel memory or automatic follow-up. Optional references are conditional. This is a locator, not a load-all instruction; instructions.zip is inactive.",
+  "guidelines": "Os caminhos deste índice são relativos à raiz da habilidade; os links Markdown são relativos ao documento que os contém. Ler CORE uma vez e somente os módulos necessários à solicitação declarada. Sem entrevista, memória paralela ou acompanhamento automático. As referências opcionais são condicionais. Este índice localiza arquivos, não instrui a carregar todo o acervo; instructions.zip está inativo.",
   "default_entry": "references/CORE.md"
 }

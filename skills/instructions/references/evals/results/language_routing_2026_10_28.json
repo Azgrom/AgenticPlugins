@@ -1,0 +1,88 @@
+{
+  "version": "1.3.2",
+  "change": "Roteamento local para a habilidade language; versão publicada não alterada.",
+  "evaluated_at": "2026-10-28",
+  "method": "Executores independentes receberam o ponto de entrada local, user_input e fixture_context, sem critérios esperados ou saídas anteriores. O agente principal avaliou semanticamente as respostas completas e os módulos efetivamente lidos. Caminhos abaixo normalizados em relação à raiz do plugin.",
+  "fixture_notice": "Entradas sintéticas; nenhum dado real de estudante ou resultado de pesquisa autenticado.",
+  "baseline": {
+    "case_id": "LANGUAGE-01",
+    "source": "Cópia local de skills anterior à alteração de roteamento.",
+    "response": "Em uma execução no ambiente de homologação, a latência mediana caiu de 80 ms para 65 ms. Esse resultado não permite afirmar que o cache sempre reduzirá o tempo de resposta do serviço. Não temos medições em produção.",
+    "modules_read": [
+      "skills/instructions/SKILL.md",
+      "skills/instructions/references/CORE.md",
+      "skills/instructions/references/knowledge/written_response.md",
+      "skills/instructions/references/operations/response_style.md"
+    ],
+    "actions_performed": [
+      "Leitura do ponto de entrada e dos módulos listados.",
+      "Revisão da linguagem do texto fornecido, preservando os dados e os limites declarados das evidências.",
+      "Nenhuma consulta a fontes externas e nenhuma alteração de arquivos."
+    ],
+    "observation": "A resposta já preservava os limites das evidências, mas o executor não alcançou language pelo roteamento do tutor. Isso não demonstra falha na descoberta da habilidade pelo ambiente hospedeiro."
+  },
+  "candidate_cases": [
+    {
+      "case_id": "LANGUAGE-01",
+      "severity": "P0",
+      "fixture_context": "Texto sintético de documentação fornecido integralmente; nenhuma fonte externa foi consultada.",
+      "user_input": "Revise apenas a linguagem deste relatório de projeto, preservando os limites das evidências. Devolva somente o texto revisado: Nosso cache brilhante prova que o serviço sempre responderá mais rápido. Em uma execução no ambiente de homologação, a latência mediana caiu de 80 ms para 65 ms; não temos medições em produção.",
+      "response": "Em uma execução no ambiente de homologação, a latência mediana caiu de 80 ms para 65 ms. Não há medições disponíveis em produção. Essa observação isolada não permite atribuir a redução ao cache nem garantir que o serviço sempre responderá mais rápido.",
+      "modules_read": [
+        "skills/instructions/SKILL.md",
+        "skills/instructions/references/CORE.md",
+        "skills/language/SKILL.md"
+      ],
+      "actions_performed": [
+        "Leitura do ponto de entrada, do CORE e do módulo de linguagem indicado pelo roteamento.",
+        "Revisão do texto fornecido, preservando os valores medidos, o ambiente de homologação e a ausência de medições em produção.",
+        "Remoção da qualificação promocional e delimitação das conclusões às evidências fornecidas.",
+        "Nenhuma consulta a fontes externas e nenhuma alteração de arquivos."
+      ],
+      "criteria_checked": [
+        "Alcançou skills/language/SKILL.md a partir do ponto de entrada do tutor.",
+        "Preservou valores, ambiente e ausência de medições em produção.",
+        "Não transformou uma observação em garantia ou evidência causal.",
+        "Entregou somente a revisão, sem alegar verificação externa."
+      ],
+      "result": "PASS"
+    },
+    {
+      "case_id": "AVULSO-02",
+      "severity": "P0",
+      "fixture_context": "Usuário solicita solução, não avaliação independente.",
+      "user_input": "Não quero diagnóstico nem treino agora. Três máquinas iguais produzem 90 peças em 2 horas. Cinco em 4 horas produzem quanto? A) 150 B) 180 C) 300 D) 360. Dê a resposta e a explicação completa, sem esperar eu responder.",
+      "response": "**C) 300 peças.**\n\nConsiderando que as máquinas trabalham com produtividade constante, a quantidade produzida é diretamente proporcional tanto ao número de máquinas quanto ao tempo de funcionamento.\n\nTrês máquinas trabalhando durante 2 horas correspondem a:\n\n\\[\n3 \\times 2 = 6\\text{ horas-máquina}.\n\\]\n\nComo produzem 90 peças nesse período, cada máquina produz, por hora:\n\n\\[\n\\frac{90}{3 \\times 2} = 15\\text{ peças}.\n\\]\n\nPortanto, cinco máquinas trabalhando durante 4 horas produzem:\n\n\\[\n5 \\times 4 \\times 15 = \\boxed{300\\text{ peças}}.\n\\]\n\nTambém podemos calcular diretamente a partir da produção inicial:\n\n\\[\n90 \\times \\frac{5}{3} \\times \\frac{4}{2} = 300\\text{ peças}.\n\\]\n\nO fator \\(5/3\\) representa o aumento do número de máquinas, e o fator \\(4/2\\) representa a duplicação do tempo de produção.",
+      "modules_read": [
+        "skills/instructions/SKILL.md",
+        "skills/instructions/references/CORE.md",
+        "skills/instructions/references/knowledge/answer_explanation.md"
+      ],
+      "actions_performed": [
+        "Leitura do ponto de entrada e dos módulos CORE e Explicação de resposta.",
+        "Resolução independente do enunciado fornecido por produtividade por máquina e por hora.",
+        "Entrega imediata da alternativa e da explicação completa."
+      ],
+      "criteria_checked": [
+        "Todos os critérios expected e forbidden de cases/standalone_response.json#AVULSO-02: C, 300 e mecanismo imediato, sem exigir tentativa, diagnóstico ou plano.",
+        "A resposta de tutoria geral não carregou language."
+      ],
+      "result": "PASS"
+    }
+  ],
+  "remaining_defined_cases": {
+    "result": "NOT_RUN",
+    "count": 76,
+    "observation": "Dos 77 casos existentes no diretório cases, somente AVULSO-02 foi executado nesta alteração. LANGUAGE-01 é o cenário adicional de roteamento registrado neste relatório."
+  },
+  "host_activation": {
+    "result": "NOT_RUN",
+    "observation": "Não houve instalação, recarga ou publicação do plugin; os executores leram arquivos locais."
+  },
+  "limitations": [
+    "Uma execução por cenário e por variante; não demonstra confiabilidade estatística nem validação completa da bateria.",
+    "Os executores receberam instruções para usar apenas o tutor local; o catálogo de habilidades do ambiente continuava disponível.",
+    "O caso de documentação é próximo de um exemplo da habilidade language; verifica alcance da rota e preservação de evidência nesse caso, não generalização editorial.",
+    "A resposta da base já preservava evidências; a mudança observada foi o acesso à habilidade language."
+  ]
+}

@@ -11,3 +11,5 @@ Criticar a proposição ou o passo da resolução, nunca a capacidade ou o valor
 Preferir prosa conectada e concisa. Listas para passos ou alternativas comparáveis; tabelas para comparação precisa; fórmulas quando esclareçam o mecanismo. Respeitar o idioma e ajustes de formato pedidos pelo usuário. Sem bordões, emojis ou perguntas finais automáticas.
 
 Complemento opcional: [explicação de resposta](../knowledge/answer_explanation.md), para aplicar o tom à correção de uma questão.
+
+Ao redigir ou revisar documentação, relatórios ou comentários explicativos no código, consultar [Linguagem da documentação](../../../language/SKILL.md). Para respostas de tutoria em geral, aplicar as orientações deste módulo.
