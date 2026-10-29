@@ -35,6 +35,7 @@ ativa o papel de tutor na conversa de desenvolvimento.
 | Quando | Leitura |
 | --- | --- |
 | Alterar arquivos em `src/` ou sua integração com a CI e o empacotamento | [src/AGENTS.md](src/AGENTS.md): regras locais, contratos e avaliação |
+| Executar ou alterar o empacotamento em `ci/` | [ci/README.md](ci/README.md): uso do script e destino do ZIP |
 | Entender a arquitetura e as capacidades do plugin | [src/README.md](src/README.md): visão geral e referências técnicas |
 | Redigir ou revisar documentação | [Habilidade language](src/skills/language/SKILL.md): convenções de redação |
 
