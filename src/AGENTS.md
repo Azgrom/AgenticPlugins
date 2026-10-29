@@ -10,7 +10,7 @@ ao tutor e o idioma existente no código e nos identificadores.
 ## Leitura prévia às alterações
 
 - Para alterações no comportamento ou no roteamento do tutor, leia
-  `skills/instructions/SKILL.md` e `skills/instructions/references/CORE.md`; depois,
+  `skills/instructions/SKILL.md` e `skills`; depois,
   leia apenas os módulos pertinentes à alteração. CORE define as invariantes do
   tutor; mantenha cada política detalhada no módulo responsável por ela, sem
   duplicá-la no ponto de entrada.
@@ -19,7 +19,7 @@ ao tutor e o idioma existente no código e nos identificadores.
   ponto de entrada e no índice são relativos à raiz da habilidade; os links nos
   módulos de referência são relativos ao arquivo que os contém.
 - Para alterações nos registros, consulte a documentação pertinente em
-  `skills/instructions/references/schemas/` e mantenha esquemas, fixtures e
+  `skills/instructions/references/schemas` e mantenha esquemas, fixtures e
   verificações do validador alinhados. Os esquemas descrevem contratos, não um
   serviço de persistência implementado.
 - Para alterações no tutor e validação de versões, leia
@@ -37,8 +37,8 @@ ao tutor e o idioma existente no código e nos identificadores.
   as instruções ativas pertencem aos módulos Markdown extraídos. Não o adicione ao
   roteamento ativo nem o descompacte para consultas rotineiras de contexto.
 - O empacotamento tem dois manifestos distintos: `plugin.json` e
-  `.codex-plugin/plugin.json`; a apresentação da habilidade também consta em
-  `skills/instructions/agents/openai.yaml`. Ao alterar metadados, examine todos os
+  `.codex-plugin`; a apresentação da habilidade também consta em
+  `skills`. Ao alterar metadados, examine todos os
   locais pertinentes e preserve suas diferentes estruturas. Altere identidade,
   dados de autoria, prompts, recursos e versões apenas dentro do escopo solicitado.
 - O validador Python usa a biblioteca padrão e aceita um subconjunto explícito das

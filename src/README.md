@@ -21,7 +21,7 @@ habilidade principal. O campo `name` dos manifestos mantém o identificador téc
 
 O pacote disponibiliza duas habilidades: [instructions](skills/instructions/SKILL.md),
 para tutoria, e [language](skills/language/SKILL.md), para redação e revisão de
-documentação. Ambas são descobertas em `skills/`; o manifesto de compatibilidade
+documentação. Ambas são descobertas em `skills`; o manifesto de compatibilidade
 do Codex aponta para esse diretório. O tutor encaminha pedidos de documentação,
 relatórios e comentários explicativos no código à habilidade `language`.
 
