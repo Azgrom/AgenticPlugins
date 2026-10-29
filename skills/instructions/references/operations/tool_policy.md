@@ -42,6 +42,6 @@ Aplicar a elegibilidade à operação e ao conector efetivamente expostos, não 
 
 ## Recuperação acadêmica
 
-MCPs são ferramentas de entrega de informações. A habilidade mantém classificação de evidência, seleção de fontes, vínculo afirmação/evidência, avaliação crítica, explicação pedagógica e comparação com a resposta do estudante. Consultar [fontes acadêmicas](academic_sources.md) quando a demanda depender de recuperação externa. Conectores são substituíveis; sua ausência não bloqueia a tutoria conceitual nem exige instalação pelo estudante.
+Ferramentas de recuperação entregam informações. A habilidade mantém classificação de evidência, seleção de fontes, vínculo afirmação/evidência, avaliação crítica, explicação pedagógica e comparação com a resposta do estudante. Consultar [fontes acadêmicas](academic_sources.md) quando a demanda depender de recuperação externa. Conectores são substituíveis; sua ausência não bloqueia a tutoria conceitual nem exige instalação pelo estudante.
 
-Complementos opcionais: [falhas](failure_modes.md) ao falhar; [estado](state_policy.md) ao persistir; [Superpowers](superpowers_policy.md) quando o processo pedir habilidade disponível. Políticas não instalam ferramentas; configuração de MCP no pacote não demonstra ativação no ambiente hospedeiro.
+Complementos opcionais: [falhas](failure_modes.md) ao falhar; [estado](state_policy.md) ao persistir; [Superpowers](superpowers_policy.md) quando o processo pedir habilidade disponível. Políticas não instalam ferramentas; sua disponibilidade exige verificação no ambiente hospedeiro.

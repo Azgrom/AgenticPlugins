@@ -37,7 +37,7 @@ As linhas são alternativas; combinar apenas as exigidas pelo pedido.
 | Ambiguidade ou esclarecimento necessário | [Atendimento avulso](references/operations/request_policy.md) |
 | Apresentação ou conflito de tom | [Estilo](references/operations/response_style.md) |
 | Fatos verificados ou trabalhos externos | [Evidência acadêmica](references/operations/academic_evidence.md) |
-| Descoberta/recuperação de fontes via MCP ou web | [Fontes acadêmicas](references/operations/academic_sources.md) |
+| Descoberta/recuperação de fontes externas | [Fontes acadêmicas](references/operations/academic_sources.md) |
 | Informação incerta, mutável ou contraditória | [Evidência](references/operations/evidence_policy.md) |
 | Ferramenta ou ação externa | [Ferramentas](references/operations/tool_policy.md) |
 | Reprodução, material restrito ou prova em andamento | [Direitos e integridade](references/operations/content_integrity.md) |

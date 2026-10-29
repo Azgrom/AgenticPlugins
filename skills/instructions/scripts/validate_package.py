@@ -292,38 +292,12 @@ def dated_citations(skill):
     return found
 
 
-def validate_anonymous_mcp(config):
-    """Check this release's verified remote connection, without credentials.
-
-    Provider expansion requires a reviewed endpoint and updated acceptance tests.
-    This is a packaging check, not an MCP handshake or availability guarantee.
-    """
-    assert set(config) == {'$schema', 'mcpServers'}, 'Unexpected MCP configuration fields'
-    assert config['$schema'] == 'https://agent-plugins.org/schemas/1.0.0/mcp.schema.json'
-    servers = config['mcpServers']
-    assert set(servers) == {'firecrawl-keyless'}, 'Unverified MCP server configured'
-    server = servers['firecrawl-keyless']
-    assert set(server) == {'type', 'url'}, 'Credentials or unsupported MCP options configured'
-    assert server['type'] == 'streamable-http', 'Unexpected MCP transport'
-    assert server['url'] == 'https://mcp.firecrawl.dev/v2/mcp', 'Not the verified keyless endpoint'
-    return True
-
-
-def validate_mcp_package(plugin, overlay):
-    """Accept the publisher's equivalent legacy file, never credential expansion."""
-    canonical = load(plugin / 'mcp.json')
-    validate_anonymous_mcp(canonical)
-    reference = overlay.get('mcpServers')
-    assert reference in ('./mcp.json', './.mcp.json'), 'Unexpected legacy MCP route'
-    if reference == './.mcp.json':
-        legacy = deepcopy(load(plugin / '.mcp.json'))
-        assert set(legacy) in ({'mcpServers'}, {'$schema', 'mcpServers'}), 'Unexpected legacy MCP fields'
-        legacy.setdefault('$schema', canonical['$schema'])
-        for server in legacy['mcpServers'].values():
-            if 'headers' in server and server['headers'] == {}:
-                del server['headers']
-        validate_anonymous_mcp(legacy)
-        assert legacy == canonical, 'Legacy and canonical MCP configurations differ'
+def validate_skills_only_package(plugin, root, overlay):
+    """Keep auto-discovered files and manifest server declarations out of the package."""
+    for filename in ('mcp.json', '.mcp.json'):
+        assert not (plugin / filename).exists(), f'Unexpected server configuration file: {filename}'
+    for manifest in (root, root.get('extensions', {}).get('com.openai', {}), overlay):
+        assert 'mcpServers' not in manifest, 'Unexpected server declaration in skills-only package'
     return True
 
 
@@ -377,8 +351,8 @@ def run(skill, baseline=None):
     for key in ('logo', 'composerIcon'):
         assert (plugin / interface[key]).is_file(), f'Missing {key}'
     checks += 9
-    validate_mcp_package(plugin, overlay)
-    checks += 2
+    validate_skills_only_package(plugin, root, overlay)
+    checks += 1
     if baseline:
         old = load(baseline / '.codex-plugin/plugin.json')
         assert root['name'] == old['name'] and root['author'] == old['author'], 'Identity lost'

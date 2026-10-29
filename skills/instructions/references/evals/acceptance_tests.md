@@ -15,7 +15,7 @@ Antes de salvar versão: validar formato de pacote, referências, esquemas, dado
 | Pontos, anulação e escalas | [pontuação](cases/scoring.json) |
 | Duplicação, revelação e memória | [estado](cases/state_integrity.json) |
 | Capacidades, injeção de instruções e falha | [ferramentas](cases/tool_failures.json) |
-| Autenticação do estudante, fontes e fronteira MCP | [fontes acadêmicas](cases/academic_sources.json) |
+| Autenticação do estudante, fontes e limites de recuperação | [fontes acadêmicas](cases/academic_sources.json) |
 | Progressão e replanejamento | [pedagogia](cases/pedagogy.json) |
 | Formatos e execução observada | [texto/prática](cases/written_and_practical.json) |
 | Adaptação e validade | [acessibilidade](cases/accessibility.json) |
@@ -37,7 +37,9 @@ Esses vínculos são por leitura dos casos, não resultado de execução.
 
 Revisão da estrutura e do roteamento: [resultados de 2026-10-28](results/context_structure_2026_10_28.json), com saídas efetivas, referências lidas e casos não executados. Consultar somente ao auditar essa alteração.
 
-Auditoria da revisão 1.3.0: [resultados e limites](results/evaluation_1_3_0.json), [saídas da candidata](results/candidate_1_3_0.json) e [observação da base](results/baseline_1_2_0.json). Foram avaliados semanticamente os 15 novos cenários offline; isso não executa as 77 definições nem comprova ativação MCP. Consultar esses arquivos somente ao auditar a revisão.
+Distribuição sem declarações de servidores: [resultados de 2026-10-29](results/skills_only_2026_10_29.json), com três cenários de recuperação executados em contextos independentes, saídas completas e limites. Consultar somente ao auditar essa alteração.
+
+Auditoria histórica da revisão 1.3.0: [resultados e limites](results/evaluation_1_3_0.json), [saídas da candidata](results/candidate_1_3_0.json) e [observação da base](results/baseline_1_2_0.json). Foram avaliados semanticamente os 15 novos cenários offline; isso não executa as 77 definições nem comprova ativação no ambiente hospedeiro. Os registros preservam as configurações e saídas daquela revisão; não descrevem dependências do pacote atual. Consultar esses arquivos somente ao auditar a revisão.
 
 Complemento opcional: [protocolo de execução](evaluation_protocol.md), ao aplicar a bateria de testes; [adversariais](adversarial_tests.md), ao testar pressão. Para verificação documental local: executar `python3 scripts/validate_package.py` a partir da raiz desta habilidade. Se houver validador JSON Schema 2020-12 completo, usar adicionalmente para conformidade geral; o script portátil cobre apenas as palavras-chave usadas no pacote.
 

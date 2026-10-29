@@ -56,16 +56,11 @@ A recuperação de informações externas segue o
 Crossref fornece identificação bibliográfica e avisos editoriais; Semantic Scholar
 permite descobrir fontes e navegar por citações e referências; Europe PMC é
 restrito a solicitações biomédicas nesta arquitetura. Essas rotas de consulta às
-fontes são condicionais e usam ferramentas MCP elegíveis disponibilizadas pelo
-ambiente hospedeiro ou seus recursos nativos de busca e leitura.
-
-O pacote adiciona uma conexão MCP remota documentada em [mcp.json](mcp.json):
-Firecrawl Keyless, sem cabeçalhos, chaves ou autenticação de conta. Apenas as
-operações anônimas Search, Scrape e Parse integram seu fluxo normal de recuperação.
-Nenhum endpoint MCP hospedado dos outros três provedores é declarado ou presumido
-como instalado. Uma API pública anônima não comprova que um conector MCP específico
-seja anônimo. A configuração da conexão e a disponibilização efetiva das
-ferramentas dependem do ambiente hospedeiro.
+fontes são condicionais e usam ferramentas elegíveis disponibilizadas pelo
+ambiente hospedeiro, incluindo seus recursos nativos de busca e leitura.
+O pacote distribui habilidades, sem configurar conexões com servidores externos.
+A disponibilidade e a elegibilidade de cada ferramenta devem ser verificadas no
+ambiente hospedeiro.
 
 A habilidade mantém a responsabilidade pela classificação de evidências, seleção
 de fontes, vinculação entre afirmações e evidências, avaliação crítica, explicação
@@ -88,7 +83,6 @@ com o ambiente hospedeiro.
 | --- | --- |
 | [plugin.json](plugin.json) | Identidade do plugin e metadados da interface OpenAI |
 | [.codex-plugin/plugin.json](.codex-plugin/plugin.json) | Manifesto do plugin para Codex e descoberta de habilidades |
-| [mcp.json](mcp.json) | Configuração de endpoint verificado; recuperação anônima com Firecrawl |
 | [skills/instructions/SKILL.md](skills/instructions/SKILL.md) | Ponto de entrada da habilidade e roteamento condicional |
 | [skills/language/SKILL.md](skills/language/SKILL.md) | Redação e revisão da linguagem da documentação |
 | [agents/openai.yaml](skills/instructions/agents/openai.yaml) | Metadados de apresentação da habilidade |
@@ -136,9 +130,9 @@ O validador do pacote verifica referências Markdown, índice de conhecimento,
 restrições dos manifestos, esquemas, fixtures e integridade dos registros. Seu
 validador de esquemas aceita apenas as palavras-chave de JSON Schema implementadas
 explicitamente; não é uma implementação geral do Draft 2020-12. Os testes unitários
-verificam a integridade das revisões acadêmicas e rejeitam configurações MCP com
-credenciais, endpoints OAuth e servidores não verificados. Eles não comprovam que
-um provedor permanecerá anônimo ou acessível.
+verificam a integridade das revisões acadêmicas e a ausência de declarações de
+servidores no pacote. Eles não comprovam a disponibilidade das ferramentas do
+ambiente hospedeiro nem o acesso anônimo às fontes.
 
 Verificações estruturais, avaliação comportamental e ativação no ambiente
 hospedeiro são formas distintas de verificação. Os scripts Python não executam um

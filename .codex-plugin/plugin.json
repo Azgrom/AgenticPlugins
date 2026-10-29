@@ -25,6 +25,5 @@
   },
   "keywords": [],
   "license": "MIT",
-  "skills": "./skills",
-  "mcpServers": "./.mcp.json"
+  "skills": "./skills"
 }

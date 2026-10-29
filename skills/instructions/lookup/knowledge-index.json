@@ -424,6 +424,11 @@
       "name": "context_structure_2026_10_28.json",
       "path": "references/evals/results/context_structure_2026_10_28.json",
       "read_when": "Somente ao auditar a revisão de estrutura, tamanho textual e roteamento de 2026-10-28."
+    },
+    {
+      "name": "skills_only_2026_10_29.json",
+      "path": "references/evals/results/skills_only_2026_10_29.json",
+      "read_when": "Somente ao auditar a distribuição sem declarações de servidores e os três cenários de recuperação avaliados em 2026-10-29."
     }
   ],
   "guidelines": "Os caminhos deste índice são relativos à raiz da habilidade; os links Markdown são relativos ao documento que os contém. Ler CORE uma vez e somente os módulos necessários à solicitação declarada. Sem entrevista, memória paralela ou acompanhamento automático. As referências opcionais são condicionais. Este índice localiza arquivos, não instrui a carregar todo o acervo; instructions.zip está inativo.",
