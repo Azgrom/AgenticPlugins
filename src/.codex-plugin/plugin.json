@@ -14,7 +14,11 @@
     "displayName": "Tutor AZ",
     "logo": "./assets/gpt-icon.png",
     "longDescription": "Tutoria sob demanda para aprender qualquer assunto e testar seu entendimento, com explica\u00e7\u00f5es, perguntas e fontes verific\u00e1veis.",
-    "shortDescription": "Aprenda e teste-se de A a Z"
+    "shortDescription": "Aprenda e teste-se de A a Z",
+    "websiteURL": "https://rafaellucio.com/",
+    "supportURL": "https://github.com/Azgrom/Tutor/issues",
+    "privacyPolicyURL": "https://rafaellucio.com/legal/#license",
+    "termsOfServiceURL": "https://github.com/Azgrom/Tutor/blob/main/LICENSE"
   },
   "name": "gpt-93c3cf04200c123c0971bae96376e92e",
   "version": "1.3.2",
