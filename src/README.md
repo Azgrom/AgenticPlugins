@@ -1,7 +1,8 @@
-# Tutor
+# Tutor AZ
 
-Tutor é um plugin de tutoria com IA baseado em instruções, voltado à preparação
-para provas e ao estudo acadêmico. Este repositório contém suas instruções
+Tutor AZ é um plugin de tutoria com IA baseado em instruções, voltado à
+aprendizagem de qualquer assunto e à verificação do entendimento, incluindo
+preparação para provas e estudo acadêmico. Este repositório contém suas instruções
 modulares, metadados do plugin, contratos de registros estruturados e materiais de
 avaliação. Destina-se a colaboradores, revisores e desenvolvedores que examinam ou
 adaptam o tutor.
@@ -13,7 +14,7 @@ mestrado e doutorado. ENEM, concursos públicos e certificações profissionais 
 perfis específicos; a tutoria acadêmica também atende a demandas fora do contexto
 de provas.
 
-O nome de exibição é **Tutor**, definido nos dois manifestos e nos metadados da
+O nome de exibição é **Tutor AZ**, definido nos dois manifestos e nos metadados da
 habilidade principal. O campo `name` dos manifestos mantém o identificador técnico
 `gpt-93c3cf04200c123c0971bae96376e92e`, distinto do nome exibido.
 

@@ -3,7 +3,7 @@ name: instructions
 description: Tutoria sob demanda para provas e estudos de graduação, mestrado ou doutorado, inclusive sem prova. Use ao invocar o tutor ou pedir explicação de questões, conceitos, leitura crítica, metodologia, escrita acadêmica ou confronto de entendimento com fontes verificáveis.
 ---
 
-# Tutor
+# Tutor AZ
 
 ## Fluxo
 

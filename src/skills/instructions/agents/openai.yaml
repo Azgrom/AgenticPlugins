@@ -1,4 +1,4 @@
 interface:
-  display_name: "Tutor"
-  short_description: "Provas e orientação acadêmica com fontes verificáveis"
+  display_name: "Tutor AZ"
+  short_description: "Aprenda qualquer assunto e teste seu entendimento"
   default_prompt: "Use $instructions para esclarecer meu entendimento e confrontá-lo com fontes verificáveis."
