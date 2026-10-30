@@ -1,46 +1,45 @@
 # DevBacklog
 
-DevBacklog reúne três habilidades para planejar projetos, retomar sua execução e
-revisar a suficiência dos testes. Os planos usam um backlog: um conjunto de
-arquivos com contratos de tarefas, evidências, pontos de controle e uma próxima
-ação explícita para outra sessão.
+DevBacklog brings together three skills for planning projects, resuming their
+execution, and reviewing test adequacy. Plans use a backlog: a set of files with
+task contracts, evidence, checkpoints, and an explicit next action for another
+session.
 
-| Habilidade | Finalidade |
+| Skill | Purpose |
 | --- | --- |
-| [planning-a-large-project](skills/planning-a-large-project/SKILL.md) | Criar ou revisar um plano por fases, com contratos e critérios de aceitação |
-| [executing-a-large-project](skills/executing-a-large-project/SKILL.md) | Retomar o trabalho a partir de `STATE.md` e avançar por tarefas verificadas |
-| [reviewing-and-planning-tests](skills/reviewing-and-planning-tests/SKILL.md) | Auditar evidências de testes e planejar as correções necessárias |
+| [planning-a-large-project](skills/planning-a-large-project/SKILL.md) | Create or revise a phased plan with contracts and acceptance criteria |
+| [executing-a-large-project](skills/executing-a-large-project/SKILL.md) | Resume work from `STATE.md` and progress through verified tasks |
+| [reviewing-and-planning-tests](skills/reviewing-and-planning-tests/SKILL.md) | Audit test evidence and plan the necessary corrections |
 
-## Uso
+## Usage
 
-Após carregar este pacote em um hospedeiro com suporte a habilidades, solicite,
-por exemplo:
+After loading this package into a host that supports skills, use prompts such as:
 
-- `Use $planning-a-large-project para planejar esta migração.`
-- `Use $executing-a-large-project para continuar o backlog indicado.`
-- `Use $reviewing-and-planning-tests para revisar os testes desta solução.`
+- `Use $planning-a-large-project to plan this migration.`
+- `Use $executing-a-large-project to continue the specified backlog.`
+- `Use $reviewing-and-planning-tests to review this solution's tests.`
 
-As habilidades são mantidas em inglês. Planejamento fornece o
-[contrato compartilhado](skills/planning-a-large-project/references/contract.md),
-os modelos e a CLI `backlog.py`. Execução e revisão usam esses mesmos arquivos;
-as três habilidades devem permanecer juntas.
+The skills are maintained in English. The planning skill provides the
+[shared contract](skills/planning-a-large-project/references/contract.md),
+templates, and the `backlog.py` CLI. Execution and review use these same files;
+the three skills must remain together.
 
-## Requisitos e armazenamento
+## Requirements and storage
 
-Os scripts usam Python 3.10 ou superior e sua biblioteca padrão. O armazenamento
-em Git exige Git 2.42 ou superior para criar uma branch órfã em outro worktree.
-O perfil `directory` atende projetos sem Git. Consulte as
-[regras de armazenamento](skills/planning-a-large-project/references/storage.md)
-para criação, sincronização e recuperação.
+The scripts use Python 3.10 or later and its standard library. Git storage
+requires Git 2.42 or later to create an orphan branch in another worktree.
+The `directory` profile supports projects without Git. See the
+[storage rules](skills/planning-a-large-project/references/storage.md)
+for creation, synchronization, and recovery.
 
-A instalação dos hooks de proteção é opcional e requer autorização do usuário.
-Instalar o plugin não cria um backlog nem instala esses hooks. A revisão de testes
-produz um plano de correção; a execução desse plano passa pela habilidade de
-execução e pela aceitação humana definida no protocolo.
+Installing protection hooks is optional and requires user authorization.
+Installing the plugin does not create a backlog or install these hooks. Test
+review produces a remediation plan; carrying out that plan requires the execution
+skill and the human acceptance defined in the protocol.
 
-## Estrutura e distribuição
+## Structure and distribution
 
-`DevBacklog/` é a raiz completa do pacote:
+`DevBacklog/` is the complete package root:
 
 ```text
 .codex-plugin/plugin.json
@@ -55,30 +54,30 @@ README.md
 LICENSE
 ```
 
-O identificador técnico é `devbacklog`, e o nome de exibição é `DevBacklog`.
-`plugin.json` contém os metadados portáteis; `.codex-plugin/plugin.json` aponta
-para `./skills` e apresenta o plugin ao Codex. Referências, modelos, scripts,
-metadados das habilidades e testes acompanham o pacote.
+The technical identifier is `devbacklog`, and the display name is `DevBacklog`.
+`plugin.json` contains portable metadata; `.codex-plugin/plugin.json` points to
+`./skills` and presents the plugin to Codex. References, templates, scripts,
+skill metadata, and tests are included in the package.
 
-## Validação local
+## Local validation
 
-Execute na raiz do pacote (`DevBacklog/`):
+Run from the package root (`DevBacklog/`):
 
 ```sh
 python3 -B scripts/validate_package.py
 python3 -B -m unittest discover -s skills/planning-a-large-project/scripts/tests -p 'test*.py'
 ```
 
-Para preparar o ZIP a partir da raiz do repositório de publicação:
+To prepare the ZIP from the root of the publishing repository:
 
 ```sh
 python3 -B ci/package.py --plugin devbacklog
 ```
 
-O resultado é `dist/devbacklog.zip`, com o conteúdo do pacote diretamente na
-raiz do arquivo. As verificações locais cobrem estrutura e comportamento da CLI;
-a execução conversacional e a ativação no hospedeiro exigem avaliação separada.
+The output is `dist/devbacklog.zip`, with the package contents directly at the
+archive root. Local checks cover structure and CLI behavior; conversational
+execution and host activation require separate evaluation.
 
-## Licença
+## License
 
 [MIT](LICENSE).
