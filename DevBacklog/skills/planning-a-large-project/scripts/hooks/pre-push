@@ -1,0 +1,28 @@
+#!/bin/sh
+# ledger-guard: installed by planning-a-large-project (scripts/ledger.py init --install-hooks).
+# Keeps ledger branches, refs/ledger/* and commits that touch .ledger/ off remotes.
+remote="$1"
+allowed=$(git config --get ledger.allowedRemote)
+status=0
+is_ledger_ref() {
+  case "$1" in refs/heads/ledger/*|refs/ledger/*) return 0 ;; *) return 1 ;; esac
+}
+while read -r local_ref local_sha remote_ref remote_sha; do
+  case "$local_sha" in *[!0]*) ;; *) continue ;; esac
+  if is_ledger_ref "$local_ref" || is_ledger_ref "$remote_ref"; then
+    if [ -z "$allowed" ] || [ "$remote" != "$allowed" ]; then
+      echo "ledger-guard: refusing to push $local_ref to $remote; set ledger.allowedRemote to a private remote to allow it" >&2
+      status=1
+    fi
+  fi
+  if [ -n "$(printf '%s' "$remote_sha" | tr -d 0)" ] && git cat-file -e "$remote_sha^{commit}" 2>/dev/null; then
+    touched=$(git log --format=%H --full-history -m "$remote_sha..$local_sha" -- ':(top).ledger') || exit 1
+  else
+    touched=$(git log --format=%H --full-history -m "$local_sha" --not --remotes="$remote" -- ':(top).ledger') || exit 1
+  fi
+  if [ -n "$touched" ]; then
+    echo "ledger-guard: $local_ref contains commits that touch .ledger/; refusing to push to $remote" >&2
+    status=1
+  fi
+done
+exit $status

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Planning a Large Project"
+  short_description: "Plan phased work with durable session recovery"

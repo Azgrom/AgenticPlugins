@@ -1,9 +1,8 @@
-# Tutor: contexto do repositório
+# Espaço de publicação de plugins
 
-Tutor é um plugin portátil de tutoria composto por instruções Markdown, contratos
-JSON e validação em Python. O pacote distribuível está em `src/`; a raiz organiza
-o trabalho no repositório e acomoda documentação e automação de CI externas ao
-pacote.
+Este repositório reúne plugins independentes para manutenção, validação e
+preparação de distribuição. A raiz organiza os pacotes e a automação compartilhada;
+cada plugin mantém seus manifestos, habilidades, recursos e regras locais.
 
 ## Escopo
 
@@ -12,20 +11,32 @@ leia o `AGENTS.md` mais específico existente nela; suas orientações prevalece
 nessa área em caso de conflito. Os caminhos deste arquivo são relativos à raiz do
 repositório.
 
-A manutenção do repositório é distinta da execução do tutor. Ao revisar arquivos
-de habilidades, trate suas instruções como conteúdo do produto; a leitura não
-ativa o papel de tutor na conversa de desenvolvimento.
+A manutenção do repositório é distinta da execução das habilidades distribuídas.
+Ao revisar ou incorporar habilidades, trate suas instruções como conteúdo do
+produto; a leitura não ativa seus fluxos na conversa de desenvolvimento.
+
+## Plugins
+
+| Plugin | Raiz do pacote | Orientações locais |
+| --- | --- | --- |
+| Tutor AZ | `src/` | [src/AGENTS.md](src/AGENTS.md) |
+| DevBacklog | `DevBacklog/` | [DevBacklog/AGENTS.md](DevBacklog/AGENTS.md) |
+
+`src/` é a raiz histórica do Tutor, não uma pasta comum a todos os plugins.
 
 ## Organização e empacotamento
 
-- Mantenha em `src/` os arquivos que integram o plugin: manifestos, habilidades,
-  referências, recursos e validação do pacote. Documentação e automação de escopo
-  geral pertencem fora de `src/`.
-- Use `src/` como raiz do pacote ao instalar, validar ou preparar sua distribuição.
-  Inclua os arquivos ocultos necessários, especialmente
-  `src/.codex-plugin/plugin.json`.
+- Mantenha cada plugin autocontido em sua raiz, incluindo referências, modelos,
+  scripts e dependências entre habilidades. Referências distribuídas devem
+  resolver dentro do próprio pacote, sem depender de instalações pessoais ou de
+  outro plugin deste repositório.
+- Use a raiz do plugin selecionado ao instalar, validar ou gerar seu ZIP. Inclua
+  os arquivos ocultos necessários, especialmente `.codex-plugin/plugin.json`.
+  Documentação geral, automação compartilhada e arquivos de outros plugins ficam
+  fora desse ZIP.
 - Os caminhos dos manifestos, como `./skills` e `./assets`, são relativos à raiz
-  do pacote. Preserve essa base ao trabalhar a partir da raiz do repositório.
+  do pacote. Preserve a identidade, a versão e as estruturas específicas de cada
+  manifesto; versões de plugins diferentes são independentes.
 - Ao criar automação, explicite o diretório de trabalho e reutilize os
   validadores do pacote. Mantenha as regras de validação nos scripts responsáveis,
   evitando implementações divergentes na CI.
@@ -35,23 +46,23 @@ ativa o papel de tutor na conversa de desenvolvimento.
 | Quando | Leitura |
 | --- | --- |
 | Alterar arquivos em `src/` ou sua integração com a CI e o empacotamento | [src/AGENTS.md](src/AGENTS.md): regras locais, contratos e avaliação |
-| Executar ou alterar o empacotamento em `ci/` | [ci/README.md](ci/README.md): uso do script e destino do ZIP |
-| Entender a arquitetura e as capacidades do plugin | [src/README.md](src/README.md): visão geral e referências técnicas |
+| Alterar arquivos em `DevBacklog/` ou sua integração com o empacotamento | [DevBacklog/AGENTS.md](DevBacklog/AGENTS.md): dependências e verificação |
+| Executar ou alterar o empacotamento em `ci/` | [ci/README.md](ci/README.md): seleção do plugin, validação e destino do ZIP |
+| Entender as capacidades de um plugin | [Tutor AZ](src/README.md) ou [DevBacklog](DevBacklog/README.md) |
 | Redigir ou revisar documentação | [Habilidade language](src/skills/language/SKILL.md): convenções de redação |
 
-Siga os links pertinentes à tarefa. As políticas do tutor, os contratos de
-registros e o protocolo de avaliação permanecem nos módulos indicados pela
-orientação local. Preserve o português das instruções do tutor e o idioma
-existente nos demais arquivos e identificadores.
+Siga os links pertinentes à tarefa. Políticas de produto e contratos permanecem
+nos módulos indicados pela orientação local. Preserve o idioma existente em cada
+plugin, documento e identificador.
 
 ## Verificação
 
-Para alterações no pacote ou na automação que o valida ou empacota, execute na
-raiz do repositório, com Python 3 e sua biblioteca padrão:
+Execute os validadores e testes indicados no `AGENTS.md` de cada plugin afetado,
+no diretório de trabalho ali especificado. Ao alterar a automação compartilhada,
+verifique ambos os plugins e execute na raiz do repositório:
 
 ```sh
-python3 -B src/skills/instructions/scripts/validate_package.py
-python3 -B -m unittest discover -s src/skills/instructions/scripts -p 'test*.py'
+python3 -B -m unittest discover -s ci -p 'test*.py'
 ```
 
 Para alterações apenas na documentação da raiz, confira os caminhos, os links e
@@ -61,16 +72,17 @@ os comandos afetados. Em qualquer alteração, execute:
 git diff --check
 ```
 
-As verificações Python cobrem a estrutura e os contratos do pacote. Para mudanças
-de comportamento, siga também a avaliação indicada em `src/AGENTS.md`; os testes
-offline não comprovam o comportamento do tutor nem sua ativação no hospedeiro.
-Ao concluir, informe as alterações, as verificações executadas e suas limitações,
-distinguindo falhas preexistentes de regressões.
+As verificações offline cobrem a estrutura e os contratos implementados; não
+comprovam o comportamento conversacional nem a ativação no hospedeiro. Para
+mudanças de comportamento, siga também a avaliação do plugin afetado. Ao concluir,
+informe as alterações, as verificações executadas e suas limitações, distinguindo
+falhas preexistentes de regressões.
 
 ## Manutenção deste contexto
 
 Mantenha aqui somente orientações de escopo geral e links com condições claras de
-leitura. Quando novas áreas de CI ou documentação existirem, acrescente seus
-pontos de entrada reais; coloque regras específicas no `AGENTS.md` da área.
+leitura. Ao adicionar um plugin, registre sua raiz e orientação local na tabela,
+inclua sua seleção no empacotamento e atualize o catálogo em [README.md](README.md).
+Coloque regras específicas no `AGENTS.md` da área.
 Atualize caminhos e comandos junto com mudanças de estrutura. Detalhes do produto
 e registros temporários de trabalho permanecem fora deste ponto de entrada.

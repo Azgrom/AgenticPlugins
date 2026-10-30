@@ -1,0 +1,30 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "devbacklog",
+  "version": "0.1.0",
+  "description": "Plan large projects, resume work through verified checkpoints, and review test evidence.",
+  "author": {
+    "name": "RAFAEL LÚCIO",
+    "url": "https://rafaellucio.com/"
+  },
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "DevBacklog",
+        "shortDescription": "Plan projects and review tests",
+        "longDescription": "Plan large projects, resume work through verified checkpoints, and review test evidence.",
+        "developerName": "RAFAEL LÚCIO",
+        "category": "Developer Tools",
+        "capabilities": [
+          "skills"
+        ],
+        "defaultPrompt": [
+          "Plan this project as a phased execution ledger.",
+          "Resume work from the ledger checkpoint.",
+          "Review the test evidence and plan remediation."
+        ]
+      }
+    }
+  }
+}

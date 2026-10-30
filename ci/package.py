@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate and zip the contents of src/ using only the standard library."""
+"""Validate and zip one plugin using only the standard library."""
 
 import argparse
 from pathlib import Path
@@ -8,23 +8,33 @@ import subprocess
 import sys
 
 
+PACKAGES = {
+    'tutor': ('src', 'skills/instructions/scripts/validate_package.py'),
+    'devbacklog': ('DevBacklog', 'scripts/validate_package.py'),
+}
+
+
 def main():
     repository = Path(__file__).resolve().parent.parent
-    source = repository / 'src'
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--plugin', choices=PACKAGES, default='tutor',
+                        help='plugin to package (default: tutor)')
     parser.add_argument(
         'output', nargs='?', type=Path,
-        default=repository / 'dist' / 'tutor.zip',
-        help='ZIP destination (default: <repository>/dist/tutor.zip)',
+        help='ZIP destination (default: <repository>/dist/<plugin>.zip)',
     )
-    output = parser.parse_args().output.resolve()
+    args = parser.parse_args()
+    package, validator = PACKAGES[args.plugin]
+    source = repository / package
+    output = (args.output or repository / 'dist' / f'{args.plugin}.zip').resolve()
     if output.suffix != '.zip':
         parser.error('output must have a .zip extension')
-    if source in output.parents:
-        parser.error('output must be outside src/')
+    for package, _ in PACKAGES.values():
+        if (repository / package).resolve() in output.parents:
+            parser.error(f'output must be outside plugin directories ({package}/)')
 
     validation = subprocess.run(
-        [sys.executable, '-B', 'skills/instructions/scripts/validate_package.py'],
+        [sys.executable, '-B', validator],
         cwd=source,
     )
     if validation.returncode:
