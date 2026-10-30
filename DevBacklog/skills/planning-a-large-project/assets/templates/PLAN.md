@@ -17,4 +17,4 @@ revision: 1 — initial plan
 | --- | --- | --- |
 | P0 | Preparation: an executable plan | validate passes and STATE leads to the first task |
 
-Queue and status: `tasks/index.json`; list startable tasks with `ledger.py query --next`.
+Queue and status: `tasks/index.json`; list startable tasks with `backlog.py query --next`.

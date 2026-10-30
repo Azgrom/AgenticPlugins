@@ -1,4 +1,4 @@
-"""Validation, query and cost behavior of ledger.py on directory-profile ledgers."""
+"""Validation, query and cost behavior of backlog.py on directory-profile backlogs."""
 from __future__ import annotations
 
 import json
@@ -9,12 +9,12 @@ import tempfile
 import unittest
 from pathlib import Path
 
-LEDGER_PY = Path(__file__).resolve().parents[1] / "ledger.py"
+BACKLOG_PY = Path(__file__).resolve().parents[1] / "backlog.py"
 
 
-def run_ledger(*args: str) -> subprocess.CompletedProcess:
+def run_backlog(*args: str) -> subprocess.CompletedProcess:
     env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1")
-    return subprocess.run([sys.executable, "-B", str(LEDGER_PY), *args], capture_output=True, text=True, env=env)
+    return subprocess.run([sys.executable, "-B", str(BACKLOG_PY), *args], capture_output=True, text=True, env=env)
 
 
 def task_text(task_id: str, requirements: str, owns: str) -> str:
@@ -39,7 +39,7 @@ def checkpoint_text(task_id: str, acceptance: str) -> str:
         f"Loaded when: reviewing or resuming {task_id}. Up: [STATE](../STATE.md)\n\n"
         "kind: accepted\n"
         f"task: {task_id} / {task_id}.1; plan revision 1; predecessor none; time 2026-10-09T00:00:00Z\n"
-        "artifact: code none; ledger uncommitted\n"
+        "artifact: code none; backlog uncommitted\n"
         "findings: none\n"
         "limits: none\n"
         f"acceptance: {acceptance}\n"
@@ -47,12 +47,12 @@ def checkpoint_text(task_id: str, acceptance: str) -> str:
     )
 
 
-class LedgerCase(unittest.TestCase):
+class BacklogCase(unittest.TestCase):
     def setUp(self) -> None:
         self.tmp = tempfile.TemporaryDirectory()
-        self.ledger = Path(self.tmp.name) / "ledger"
-        result = run_ledger(
-            "init", "--profile", "directory", "--name", "demo", "--path", str(self.ledger),
+        self.backlog = Path(self.tmp.name) / "backlog"
+        result = run_backlog(
+            "init", "--profile", "directory", "--name", "demo", "--path", str(self.backlog),
             "--objective", "demo objective",
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
@@ -61,10 +61,10 @@ class LedgerCase(unittest.TestCase):
         self.tmp.cleanup()
 
     def read(self, rel: str) -> str:
-        return (self.ledger / rel).read_text(encoding="utf-8")
+        return (self.backlog / rel).read_text(encoding="utf-8")
 
     def write(self, rel: str, text: str) -> None:
-        path = self.ledger / rel
+        path = self.backlog / rel
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text, encoding="utf-8")
 
@@ -96,7 +96,7 @@ class LedgerCase(unittest.TestCase):
         return rel
 
     def validate(self) -> subprocess.CompletedProcess:
-        return run_ledger("validate", "--ledger", str(self.ledger))
+        return run_backlog("validate", "--backlog", str(self.backlog))
 
     def assertFinding(self, result: subprocess.CompletedProcess, level: str, rule: str) -> None:
         self.assertIn(f"{level} {rule} ", result.stdout, result.stdout)
@@ -105,17 +105,17 @@ class LedgerCase(unittest.TestCase):
         self.assertNotIn(f" {rule} ", result.stdout, result.stdout)
 
 
-class SkeletonTests(LedgerCase):
-    def test_required_ledger_files_are_diagnosed(self) -> None:
+class SkeletonTests(BacklogCase):
+    def test_required_backlog_files_are_diagnosed(self) -> None:
         for rel, rule in (("STATE.md", "state.missing"), ("tasks/index.json", "index.missing"),
                           ("PROTOCOL.md", "protocol.missing"), ("PLAN.md", "plan.missing")):
             with self.subTest(file=rel):
                 text = self.read(rel)
-                (self.ledger / rel).unlink()
+                (self.backlog / rel).unlink()
                 self.assertFinding(self.validate(), "ERROR", rule)
                 self.write(rel, text)
 
-    def test_new_ledger_has_no_findings(self) -> None:
+    def test_new_backlog_has_no_findings(self) -> None:
         result = self.validate()
         self.assertEqual(result.returncode, 0, result.stdout)
         self.assertIn("validate: 0 errors, 0 warnings", result.stdout)
@@ -128,7 +128,7 @@ class SkeletonTests(LedgerCase):
         self.assertEqual(result.stdout.count("ERROR"), 1, result.stdout)
 
 
-class StateTests(LedgerCase):
+class StateTests(BacklogCase):
     def test_invalid_lifecycle(self) -> None:
         self.replace("STATE.md", "lifecycle: planning", "lifecycle: finished")
         self.assertFinding(self.validate(), "ERROR", "state.lifecycle")
@@ -182,7 +182,7 @@ class StateTests(LedgerCase):
         self.assertFinding(self.validate(), "ERROR", "state.read")
 
 
-class IndexTests(LedgerCase):
+class IndexTests(BacklogCase):
     def test_invalid_json_shape(self) -> None:
         for value in ("not json", "{}", "[1]"):
             with self.subTest(value=value):
@@ -263,7 +263,7 @@ class IndexTests(LedgerCase):
         self.assertEqual(result.returncode, 0, result.stdout)
 
 
-class CheckpointTests(LedgerCase):
+class CheckpointTests(BacklogCase):
     def test_missing_checkpoint_keys(self) -> None:
         self.write("checkpoints/T01.md", "acceptance: pending\n")
         self.assertFinding(self.validate(), "ERROR", "checkpoint.keys")
@@ -286,7 +286,7 @@ class CheckpointTests(LedgerCase):
         self.assertNoFinding(self.validate(), "checkpoint.acceptance")
 
 
-class TaskTests(LedgerCase):
+class TaskTests(BacklogCase):
     def test_owned_path_cannot_escape_dot_root(self) -> None:
         self.add_task("T01", owns="../outside/file", root=".")
         self.assertFinding(self.validate(), "ERROR", "task.owns")
@@ -314,7 +314,7 @@ class TaskTests(LedgerCase):
         self.assertFinding(self.validate(), "WARN", "task.index")
 
 
-class PlanTests(LedgerCase):
+class PlanTests(BacklogCase):
     def test_missing_phase_table_errors_after_planning(self) -> None:
         self.replace("PLAN.md", "## Phases", "## NotPhases")
         self.replace("STATE.md", "lifecycle: planning", "lifecycle: ready")
@@ -339,7 +339,7 @@ class PlanTests(LedgerCase):
         self.assertNoFinding(self.validate(), "plan.coverage")
 
 
-class ContentTests(LedgerCase):
+class ContentTests(BacklogCase):
     def test_protocol_needs_required_keys_and_a_stop_class(self) -> None:
         self.replace("PROTOCOL.md", "session:", "removed:")
         self.replace("PROTOCOL.md", "- boundary: every task boundary → continue after the reviewed checkpoint\n", "")
@@ -410,10 +410,10 @@ class ContentTests(LedgerCase):
         self.assertFinding(self.validate(), "ERROR", "files.bytecode")
 
 
-class QueryAndCostTests(LedgerCase):
+class QueryAndCostTests(BacklogCase):
     def test_query_malformed_index_returns_usage_error(self) -> None:
         self.save_index([{**self.index()[0], "id": []}])
-        result = run_ledger("query", "--ledger", str(self.ledger), "--next")
+        result = run_backlog("query", "--backlog", str(self.backlog), "--next")
         self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
         self.assertNotIn("Traceback", result.stderr)
 
@@ -424,26 +424,26 @@ class QueryAndCostTests(LedgerCase):
         self.save_index(rows)
         self.add_task("T01", deps=["PREP-01"])
         self.add_task("T02", deps=["T01"])
-        result = run_ledger("query", "--ledger", str(self.ledger), "--next")
+        result = run_backlog("query", "--backlog", str(self.backlog), "--next")
         self.assertIn("T01", result.stdout)
         self.assertNotIn("T02", result.stdout)
 
     def test_task_shows_dependency_status(self) -> None:
         self.add_task("T01")
         self.add_task("T02", deps=["T01"])
-        result = run_ledger("query", "--ledger", str(self.ledger), "--task", "T02")
+        result = run_backlog("query", "--backlog", str(self.backlog), "--task", "T02")
         self.assertIn("dependency T01: planned", result.stdout)
 
     def test_csv_filter(self) -> None:
         self.write("evidence/tests.csv", "project,test,basis,verified_by\na,t1,script,\nb,t2,script,\na,t3,script,\n")
-        result = run_ledger(
-            "query", "--ledger", str(self.ledger), "--csv", "evidence/tests.csv",
+        result = run_backlog(
+            "query", "--backlog", str(self.backlog), "--csv", "evidence/tests.csv",
             "--where", "project=a", "--columns", "test",
         )
         self.assertEqual(result.stdout.split(), ["test", "t1", "t3"])
 
     def test_cost_reports_resume_set(self) -> None:
-        result = run_ledger("cost", "--ledger", str(self.ledger))
+        result = run_backlog("cost", "--backlog", str(self.backlog))
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("resume set", result.stdout)
         self.assertIn("STATE.md", result.stdout)

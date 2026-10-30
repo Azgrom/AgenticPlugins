@@ -1,6 +1,6 @@
-"""Validation rules for a contract-3 ledger.
+"""Validation rules for a contract-3 backlog.
 
-validate() returns a Report of findings: ERROR means the ledger is not usable as it stands, WARN means it
+validate() returns a Report of findings: ERROR means the backlog is not usable as it stands, WARN means it
 works but wastes context or invites drift.
 """
 from __future__ import annotations
@@ -10,7 +10,7 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
-import ledger_model as model
+import backlog_model as model
 
 BUDGETS = {"STATE.md": 2048, "PROTOCOL.md": 4096, "PLAN.md": 8192}
 TASK_BUDGET = 4096
@@ -39,8 +39,8 @@ class Finding:
 
 
 class Report:
-    def __init__(self, ledger: Path) -> None:
-        self.ledger = ledger
+    def __init__(self, backlog: Path) -> None:
+        self.backlog = backlog
         self.findings: list[Finding] = []
 
     def error(self, rule: str, path: str, message: str) -> None:
@@ -54,25 +54,25 @@ class Report:
         return [finding for finding in self.findings if finding.level == "ERROR"]
 
     def rel(self, path: Path) -> str:
-        return path.relative_to(self.ledger).as_posix()
+        return path.relative_to(self.backlog).as_posix()
 
 
-def ledger_files(root: Path, pattern: str = "*") -> list[Path]:
+def backlog_files(root: Path, pattern: str = "*") -> list[Path]:
     return sorted(path for path in root.rglob(pattern) if ".git" not in path.relative_to(root).parts)
 
 
-def validate(ledger: Path, templates: Path) -> Report:
-    report = Report(ledger)
-    state_path = ledger / "STATE.md"
+def validate(backlog: Path, templates: Path) -> Report:
+    report = Report(backlog)
+    state_path = backlog / "STATE.md"
     if not state_path.is_file():
-        report.error("state.missing", "STATE.md", "no STATE.md here; pass the ledger root with --ledger")
+        report.error("state.missing", "STATE.md", "no STATE.md here; pass the backlog root with --backlog")
         return report
     state = model.parse_keys(model.read_text(state_path), stop_at_heading=False)
     version = model.contract_version(model.first(state, "contract") or "")
     if version != model.CONTRACT_VERSION:
         report.error(
             "state.contract", "STATE.md",
-            f"legacy ledger (contract {version or 'unknown'}); follow the contract's 'Legacy ledgers' section",
+            f"legacy backlog (contract {version or 'unknown'}); follow the contract's 'Legacy backlogs' section",
         )
         return report
     index = check_index(report)
@@ -89,11 +89,11 @@ def validate(ledger: Path, templates: Path) -> Report:
 
 def check_index(report: Report) -> list[dict] | None:
     where = "tasks/index.json"
-    if not (report.ledger / where).is_file():
+    if not (report.backlog / where).is_file():
         report.error("index.missing", where, "the task index is missing")
         return None
     try:
-        rows = model.load_index(report.ledger)
+        rows = model.load_index(report.backlog)
     except (ValueError, json.JSONDecodeError) as exc:
         report.error("index.json", where, str(exc))
         return None
@@ -128,7 +128,7 @@ def check_index(report: Report) -> list[dict] | None:
                     report.error("index.deps", where, f"{task_id}: dependency {dep} does not exist")
         if row["successor"] is not None and row["successor"] not in ids:
             report.error("index.successor", where, f"{task_id}: successor {row['successor']} does not exist")
-        if not (report.ledger / str(row["task"])).is_file():
+        if not (report.backlog / str(row["task"])).is_file():
             report.error("index.task", where, f"{task_id}: task file {row['task']} not found")
         check_index_checkpoint(report, row)
     cycle = find_cycle(valid)
@@ -143,8 +143,8 @@ def check_index_checkpoint(report: Report, row: dict) -> None:
         if row["status"] in ("done", "awaiting_acceptance"):
             report.error("index.checkpoint", where, f"{task_id}: status {row['status']} needs a checkpoint")
         return
-    path = report.ledger / checkpoint
-    checkpoint_root = report.ledger / "checkpoints"
+    path = report.backlog / checkpoint
+    checkpoint_root = report.backlog / "checkpoints"
     if not path.resolve().is_relative_to(checkpoint_root):
         report.error("index.checkpoint", where, f"{task_id}: checkpoint must be inside checkpoints/")
         return
@@ -206,10 +206,10 @@ def check_state(report: Report, state: dict[str, list[str]], index: list[dict] |
         check_cursor(report, cursor, index)
     for key in ("accepted", "recovery"):
         target = model.pointer(model.first(state, key))
-        if target and not (report.ledger / target).is_file():
+        if target and not (report.backlog / target).is_file():
             report.error(f"state.{key}", where, f"{target} not found")
     for target in model.split_list(model.first(state, "read") or ""):
-        path = report.ledger / target
+        path = report.backlog / target
         if not path.is_file():
             report.error("state.read", where, f"{target} not found")
         elif path.stat().st_size > LINK_LIMIT:
@@ -237,14 +237,14 @@ def check_cursor(report: Report, cursor: str, index: list[dict] | None) -> None:
     if row is not None:
         if row["phase"] != match["phase"]:
             report.error("state.cursor", where, f"cursor phase {match['phase']} differs from {row['phase']}")
-        path = report.ledger / row["task"]
+        path = report.backlog / row["task"]
         if path.is_file() and match["step"] not in model.step_ids(model.read_text(path)):
             report.error("state.cursor", where, f"step {match['step']} is absent from {row['task']}")
 
 
 def check_protocol(report: Report) -> dict[str, bool]:
     where = "PROTOCOL.md"
-    path = report.ledger / where
+    path = report.backlog / where
     if not path.is_file():
         report.error("protocol.missing", where, "PROTOCOL.md is missing")
         return {}
@@ -265,19 +265,19 @@ def check_protocol(report: Report) -> dict[str, bool]:
 
 def check_plan(report: Report, state: dict[str, list[str]], index: list[dict] | None) -> None:
     where = "PLAN.md"
-    path = report.ledger / where
+    path = report.backlog / where
     if not path.is_file():
         report.error("plan.missing", where, "PLAN.md is missing")
         return
     text = model.read_text(path)
-    phases_path = report.ledger / "phases.md"
+    phases_path = report.backlog / "phases.md"
     phase_text = text + ("\n" + model.read_text(phases_path) if phases_path.is_file() else "")
     requirements = model.table_first_column(text, "Requirements")
     phases = model.table_first_column(phase_text, "Phases")
     flag = report.warn if model.first(state, "lifecycle") == "planning" else report.error
     covered: set[str] = set()
     for row in index or []:
-        task_path = report.ledger / str(row["task"])
+        task_path = report.backlog / str(row["task"])
         if task_path.is_file():
             keys = model.parse_keys(model.read_text(task_path))
             covered.update(model.split_list(model.first(keys, "requirements") or ""))
@@ -289,11 +289,11 @@ def check_plan(report: Report, state: dict[str, list[str]], index: list[dict] | 
 
 
 def check_tasks(report: Report, index: list[dict] | None) -> None:
-    directory = report.ledger / "tasks"
+    directory = report.backlog / "tasks"
     if not directory.is_dir():
         return
     rows = {str(row["task"]): row for row in index or []}
-    for path in ledger_files(directory, "*.md"):
+    for path in backlog_files(directory, "*.md"):
         where = report.rel(path)
         text = model.read_text(path)
         keys = model.parse_keys(text)
@@ -315,10 +315,10 @@ def check_tasks(report: Report, index: list[dict] | None) -> None:
 
 
 def check_checkpoints(report: Report, classes: dict[str, bool]) -> None:
-    directory = report.ledger / "checkpoints"
+    directory = report.backlog / "checkpoints"
     if not directory.is_dir():
         return
-    for path in ledger_files(directory, "*.md"):
+    for path in backlog_files(directory, "*.md"):
         where = report.rel(path)
         keys = model.parse_keys(model.read_text(path), stop_at_heading=False)
         for key in model.CHECKPOINT_KEYS:
@@ -342,7 +342,7 @@ def check_checkpoints(report: Report, classes: dict[str, bool]) -> None:
 def check_markdown(report: Report, templates: Path) -> None:
     allowed_repeats = template_lines(templates)
     holders: dict[str, set[str]] = {}
-    for path in ledger_files(report.ledger, "*.md"):
+    for path in backlog_files(report.backlog, "*.md"):
         where = report.rel(path)
         data = path.read_bytes()
         text = data.decode("utf-8", errors="replace")
@@ -384,7 +384,7 @@ def check_size(report: Report, where: str, size: int) -> None:
 def check_links(report: Report, path: Path, where: str, text: str, strict: bool) -> None:
     for target in model.links(text):
         resolved = Path(target) if target.startswith("/") else path.parent / target
-        inside = is_inside(resolved, report.ledger)
+        inside = is_inside(resolved, report.backlog)
         if not resolved.exists():
             (report.error if inside else report.warn)("links.target", where, f"{target} not found")
             continue
@@ -394,7 +394,7 @@ def check_links(report: Report, path: Path, where: str, text: str, strict: bool)
         if size <= LINK_LIMIT:
             continue
         if where in BOOT_FILES:
-            report.error("links.boot", where, f"links {target} ({size} bytes); route it through ledger.py query")
+            report.error("links.boot", where, f"links {target} ({size} bytes); route it through backlog.py query")
         elif strict:
             report.warn("links.large", where, f"links {target} ({size} bytes); say how to read a slice of it")
 
@@ -416,7 +416,7 @@ def template_lines(templates: Path) -> set[str]:
 
 
 def check_tables(report: Report) -> None:
-    for path in ledger_files(report.ledger, "*.csv"):
+    for path in backlog_files(report.backlog, "*.csv"):
         where = report.rel(path)
         try:
             fields, rows = model.read_csv(path)
@@ -444,16 +444,16 @@ def check_tables(report: Report) -> None:
 
 
 def check_files(report: Report) -> None:
-    allowed = large_file_allowlist(report.ledger)
-    for path in ledger_files(report.ledger):
+    allowed = large_file_allowlist(report.backlog)
+    for path in backlog_files(report.backlog):
         where = report.rel(path)
         if path.is_dir():
             if path.name == "__pycache__":
-                report.error("files.bytecode", where, "remove it; run ledger scripts with python3 -B")
+                report.error("files.bytecode", where, "remove it; run backlog scripts with python3 -B")
             continue
         if path.suffix == ".pyc":
             if "__pycache__" not in path.parts:
-                report.error("files.bytecode", where, "remove it; run ledger scripts with python3 -B")
+                report.error("files.bytecode", where, "remove it; run backlog scripts with python3 -B")
             continue
         if where in allowed:
             continue
@@ -467,8 +467,8 @@ def check_files(report: Report) -> None:
             report.warn("files.large", where, f"{size} bytes")
 
 
-def large_file_allowlist(ledger: Path) -> set[str]:
-    path = ledger / "evidence" / "large-files.txt"
+def large_file_allowlist(backlog: Path) -> set[str]:
+    path = backlog / "evidence" / "large-files.txt"
     if not path.is_file():
         return set()
     entries: set[str] = set()

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Ledger helper for the planning-a-large-project contract, version 3.
+"""Backlog helper for the planning-a-large-project contract, version 3.
 
-Run it with `python3 -B` so it never writes bytecode into a ledger or repository.
+Run it with `python3 -B` so it never writes bytecode into a backlog or repository.
 Commands: init, sync, doctor, validate, query, cost.
 Exit codes: 0 ok, 1 checks failed, 2 usage or environment error.
 """
@@ -21,9 +21,9 @@ SKILL = SCRIPTS.parent
 if str(SCRIPTS) not in sys.path:
     sys.path.insert(0, str(SCRIPTS))
 
-import ledger_checks as checks  # noqa: E402
-import ledger_model as model  # noqa: E402
-import ledger_storage as storage  # noqa: E402
+import backlog_checks as checks  # noqa: E402
+import backlog_model as model  # noqa: E402
+import backlog_storage as storage  # noqa: E402
 
 TEMPLATES = SKILL / "assets" / "templates"
 CONTRACT = SKILL / "references" / "contract.md"
@@ -49,14 +49,14 @@ def fill(template: str, values: dict[str, str]) -> str:
     return template
 
 
-def write_skeleton(ledger: Path, name: str, objective: str, storage_line: str, code_line: str) -> None:
+def write_skeleton(backlog: Path, name: str, objective: str, storage_line: str, code_line: str) -> None:
     values = {
         "NAME": name,
         "OBJECTIVE": objective,
         "STORAGE": storage_line,
         "CODE": code_line,
         "CONTRACT_SHA": contract_sha(),
-        "TOOL": str(SCRIPTS / "ledger.py"),
+        "TOOL": str(SCRIPTS / "backlog.py"),
     }
     for source, target in (
         ("STATE.md", "STATE.md"),
@@ -64,13 +64,13 @@ def write_skeleton(ledger: Path, name: str, objective: str, storage_line: str, c
         ("PLAN.md", "PLAN.md"),
         ("prep-task.md", "tasks/PREP-01.md"),
     ):
-        atomic_write(ledger / target, fill(model.read_text(TEMPLATES / source), values))
+        atomic_write(backlog / target, fill(model.read_text(TEMPLATES / source), values))
     row = {
         "id": "PREP-01", "phase": "P0", "title": "Prepare the plan", "task": "tasks/PREP-01.md",
         "deps": [], "status": "in_progress", "successor": None, "checkpoint": None,
     }
-    atomic_write(ledger / "tasks" / "index.json", json.dumps([row], indent=2) + "\n")
-    atomic_write(ledger / ".gitignore", "__pycache__/\n*.pyc\n")
+    atomic_write(backlog / "tasks" / "index.json", json.dumps([row], indent=2) + "\n")
+    atomic_write(backlog / ".gitignore", "__pycache__/\n*.pyc\n")
 
 
 def print_report(report: checks.Report) -> int:
@@ -81,10 +81,10 @@ def print_report(report: checks.Report) -> int:
     return 1 if errors else 0
 
 
-def read_state(ledger: Path) -> tuple[str, dict[str, list[str]]]:
-    path = ledger / "STATE.md"
+def read_state(backlog: Path) -> tuple[str, dict[str, list[str]]]:
+    path = backlog / "STATE.md"
     if not path.is_file():
-        raise storage.StorageError(f"{path} not found; pass the ledger root with --ledger")
+        raise storage.StorageError(f"{path} not found; pass the backlog root with --backlog")
     text = model.read_text(path)
     return text, model.parse_keys(text, stop_at_heading=False)
 
@@ -92,34 +92,34 @@ def read_state(ledger: Path) -> tuple[str, dict[str, list[str]]]:
 def cmd_init(args: argparse.Namespace) -> int:
     objective = args.objective or "record the requested outcome"
     if not storage.NAME.match(args.name):
-        raise storage.StorageError(f"ledger name {args.name!r} must match {storage.NAME.pattern}")
+        raise storage.StorageError(f"backlog name {args.name!r} must match {storage.NAME.pattern}")
     if args.profile == "directory":
         if not args.path:
             raise storage.StorageError("--path is required for the directory profile")
-        ledger = Path(args.path).resolve()
-        if ledger.exists() and any(ledger.iterdir()):
-            raise storage.StorageError(f"{ledger} exists and is not empty")
-        ledger.mkdir(parents=True, exist_ok=True)
-        messages = [f"created directory ledger at {ledger}"]
-        storage_line, code_line = f"directory {ledger}", "none"
+        backlog = Path(args.path).resolve()
+        if backlog.exists() and any(backlog.iterdir()):
+            raise storage.StorageError(f"{backlog} exists and is not empty")
+        backlog.mkdir(parents=True, exist_ok=True)
+        messages = [f"created directory backlog at {backlog}"]
+        storage_line, code_line = f"directory {backlog}", "none"
     else:
         if not args.code:
             raise storage.StorageError("--code <repository> is required for the orphan-worktree profile")
         code = Path(args.code).resolve()
-        ledger, messages = storage.create_orphan_worktree(
+        backlog, messages = storage.create_orphan_worktree(
             code, args.name, Path(args.path) if args.path else None, HOOKS if args.install_hooks else None
         )
-        storage_line = f"orphan-worktree ledger/{args.name} at {ledger}"
+        storage_line = f"orphan-worktree backlog/{args.name} at {backlog}"
         code_line = storage.code_line(storage.code_identity(code))
-    write_skeleton(ledger, args.name, objective, storage_line, code_line)
+    write_skeleton(backlog, args.name, objective, storage_line, code_line)
     for message in messages:
         print(message)
-    return print_report(checks.validate(ledger, TEMPLATES))
+    return print_report(checks.validate(backlog, TEMPLATES))
 
 
 def cmd_sync(args: argparse.Namespace) -> int:
-    ledger = Path(args.ledger).resolve()
-    text, keys = read_state(ledger)
+    backlog = Path(args.backlog).resolve()
+    text, keys = read_state(backlog)
     code = args.code or model.code_path(keys)
     if not code:
         raise storage.StorageError("STATE's code: line names no code worktree; pass --code")
@@ -131,9 +131,9 @@ def cmd_sync(args: argparse.Namespace) -> int:
         if not any(entry.startswith("code:") for entry in lines):
             raise storage.StorageError("STATE.md has no 'code:' line to replace")
         updated = "".join(line + "\n" if entry.startswith("code:") else entry for entry in lines)
-        atomic_write(ledger / "STATE.md", updated)
+        atomic_write(backlog / "STATE.md", updated)
     if args.pin:
-        ref = storage.pin(Path(code), model.ledger_name(keys), args.pin, identity["sha"])
+        ref = storage.pin(Path(code), model.backlog_name(keys), args.pin, identity["sha"])
         print(f"pinned {ref} at {identity['sha'][:12]}")
         if identity["state"] != "clean":
             print("warning: the code worktree has uncommitted changes; the pin covers committed work only",
@@ -142,9 +142,9 @@ def cmd_sync(args: argparse.Namespace) -> int:
 
 
 def cmd_doctor(args: argparse.Namespace) -> int:
-    ledger = Path(args.ledger).resolve()
-    _, keys = read_state(ledger)
-    results = storage.doctor(ledger, model.first(keys, "storage") or "", model.code_path(keys), model.ledger_name(keys))
+    backlog = Path(args.backlog).resolve()
+    _, keys = read_state(backlog)
+    results = storage.doctor(backlog, model.first(keys, "storage") or "", model.code_path(keys), model.backlog_name(keys))
     for level, message in results:
         print(f"{level} doctor: {message}")
     errors = sum(1 for level, _ in results if level == "ERROR")
@@ -153,15 +153,15 @@ def cmd_doctor(args: argparse.Namespace) -> int:
 
 
 def cmd_validate(args: argparse.Namespace) -> int:
-    return print_report(checks.validate(Path(args.ledger).resolve(), TEMPLATES))
+    return print_report(checks.validate(Path(args.backlog).resolve(), TEMPLATES))
 
 
 def row_line(row: dict) -> str:
     return f"{row['id']}  {row['status']}  {row['phase']}  {row['title']}"
 
 
-def task_requirements(ledger: Path, row: dict) -> list[str]:
-    path = ledger / str(row["task"])
+def task_requirements(backlog: Path, row: dict) -> list[str]:
+    path = backlog / str(row["task"])
     if not path.is_file():
         return []
     return model.split_list(model.first(model.parse_keys(model.read_text(path)), "requirements") or "")
@@ -188,10 +188,10 @@ def query_csv(path: Path, where: list[str], columns: str | None) -> int:
 
 
 def cmd_query(args: argparse.Namespace) -> int:
-    ledger = Path(args.ledger).resolve()
+    backlog = Path(args.backlog).resolve()
     if args.csv:
-        return query_csv(ledger / args.csv, args.where or [], args.columns)
-    rows = model.load_index(ledger)
+        return query_csv(backlog / args.csv, args.where or [], args.columns)
+    rows = model.load_index(backlog)
     for row in rows:
         invalid = model.index_row_errors(row)
         if invalid:
@@ -220,17 +220,17 @@ def cmd_query(args: argparse.Namespace) -> int:
     elif args.project:
         selected = [row for row in rows if row.get("project") == args.project]
     else:
-        selected = [row for row in rows if args.requirement in task_requirements(ledger, row)]
+        selected = [row for row in rows if args.requirement in task_requirements(backlog, row)]
     for row in selected:
         print(row_line(row))
     return 0
 
 
 def cmd_cost(args: argparse.Namespace) -> int:
-    ledger = Path(args.ledger).resolve()
-    _, keys = read_state(ledger)
-    candidates = [EXECUTING_SKILL, CONTRACT, ledger / "STATE.md", ledger / "PROTOCOL.md"]
-    candidates += [ledger / item for item in model.split_list(model.first(keys, "read") or "")]
+    backlog = Path(args.backlog).resolve()
+    _, keys = read_state(backlog)
+    candidates = [EXECUTING_SKILL, CONTRACT, backlog / "STATE.md", backlog / "PROTOCOL.md"]
+    candidates += [backlog / item for item in model.split_list(model.first(keys, "read") or "")]
     files: list[Path] = []
     for path in candidates:
         resolved = path.resolve()
@@ -246,30 +246,30 @@ def cmd_cost(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="ledger.py", description="Ledger helper for contract version 3.")
+    parser = argparse.ArgumentParser(prog="backlog.py", description="Backlog helper for contract version 3.")
     commands = parser.add_subparsers(dest="command", required=True)
 
-    init = commands.add_parser("init", help="create a ledger from the templates")
-    init.add_argument("--name", required=True, help="ledger name; the branch becomes ledger/<name>")
+    init = commands.add_parser("init", help="create a backlog from the templates")
+    init.add_argument("--name", required=True, help="backlog name; the branch becomes backlog/<name>")
     init.add_argument("--code", help="code repository (orphan-worktree profile)")
-    init.add_argument("--path", help="ledger directory (default: <repo parent>/ledger-<name>)")
+    init.add_argument("--path", help="backlog directory (default: <repo parent>/backlog-<name>)")
     init.add_argument("--profile", choices=("orphan-worktree", "directory"), default="orphan-worktree")
     init.add_argument("--objective", default="", help="requested outcome, written into STATE and PLAN")
-    init.add_argument("--install-hooks", action="store_true", help="install the ledger-guard git hooks")
+    init.add_argument("--install-hooks", action="store_true", help="install the backlog-guard git hooks")
 
     for name, summary in (
         ("sync", "record the code worktree's identity"),
-        ("doctor", "check that the ledger and code stay separated"),
-        ("validate", "check the ledger against the contract"),
+        ("doctor", "check that the backlog and code stay separated"),
+        ("validate", "check the backlog against the contract"),
         ("query", "print selected index rows or bulk-table rows"),
         ("cost", "print the size of the resume set"),
     ):
         command = commands.add_parser(name, help=summary)
-        command.add_argument("--ledger", default=".", help="ledger root (default: current directory)")
+        command.add_argument("--backlog", default=".", help="backlog root (default: current directory)")
         if name == "sync":
             command.add_argument("--code", help="code worktree (default: from STATE's code: line)")
             command.add_argument("--write", action="store_true", help="replace STATE's code: line")
-            command.add_argument("--pin", metavar="TASK", help="create refs/ledger/<name>/<TASK> at HEAD")
+            command.add_argument("--pin", metavar="TASK", help="create refs/backlog/<name>/<TASK> at HEAD")
         if name == "query":
             group = command.add_mutually_exclusive_group(required=True)
             group.add_argument("--task", metavar="ID")
@@ -277,7 +277,7 @@ def build_parser() -> argparse.ArgumentParser:
             group.add_argument("--status", choices=model.STATUSES)
             group.add_argument("--project")
             group.add_argument("--requirement", metavar="ID")
-            group.add_argument("--csv", metavar="PATH", help="bulk table, relative to the ledger root")
+            group.add_argument("--csv", metavar="PATH", help="bulk table, relative to the backlog root")
             command.add_argument("--where", action="append", metavar="COLUMN=VALUE")
             command.add_argument("--columns", metavar="A,B")
     return parser

@@ -5,16 +5,16 @@ description: Use when reviewing a solution's unit or integration test adequacy, 
 
 # Reviewing and planning tests
 
-Produce evidence requirements and an executable remediation ledger, not a test count or a coverage score.
+Produce evidence requirements and an executable remediation backlog, not a test count or a coverage score.
 This skill reviews and plans; remediation runs separately through `executing-a-large-project`.
 
 ## Establish the review
 
-Use `planning-a-large-project` and its contract to create or resume the ledger. In a git project the ledger
-lives on its own orphan branch, so the code under review contains no ledger files. For an existing ledger,
+Use `planning-a-large-project` and its contract to create or resume the backlog. In a git project the backlog
+lives on its own orphan branch, so the code under review contains no backlog files. For an existing backlog,
 read STATE first and keep its progress. Record scope, authorization and the baseline identity
-(`ledger.py sync`). If a companion skill is unavailable, keep the findings, name the missing dependency and
-leave the ledger not ready.
+(`backlog.py sync`). If a companion skill is unavailable, keep the findings, name the missing dependency and
+leave the backlog not ready.
 
 ## Review every project
 
@@ -49,10 +49,10 @@ findings with their own remediation ownership and authorization.
 
 ## Emit and hand off
 
-Read [ledger output](references/ledger-output.md). Each project owns a phase. Each reviewable remediation
+Read [backlog output](references/backlog-output.md). Each project owns a phase. Each reviewable remediation
 result is one task, and internal commands are its steps. Add the `review` stop class to PROTOCOL so that the
 executor stops for human acceptance after every remediation task.
 
 Map findings and obligations to tasks and acceptance checks, verify the dependency order and the preservation
-of test discovery, and run `validate`. Write the planning checkpoint, then STATE, and report the ledger path,
+of test discovery, and run `validate`. Write the planning checkpoint, then STATE, and report the backlog path,
 the principal gaps and the next action. Planning readiness does not accept any future remediation task.

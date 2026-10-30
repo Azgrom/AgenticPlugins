@@ -1,4 +1,4 @@
 interface:
   display_name: "Review and Plan Tests"
   short_description: "Review test evidence and plan phased remediation"
-  default_prompt: "Use $reviewing-and-planning-tests to review this solution and create a test-remediation ledger with human review after every step."
+  default_prompt: "Use $reviewing-and-planning-tests to review this solution and create a test-remediation backlog with human review after every step."

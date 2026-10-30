@@ -4,7 +4,7 @@ Loaded when: reviewing or resuming {id}. Up: [STATE](../STATE.md)
 
 kind: {planning | accepted | recovery | replan | closeout}
 task: {id} / {step}; plan revision {n}; predecessor {path or none}; time {UTC ISO}
-artifact: code {sha12} {clean or dirty:hash12}; ledger {sha12 or uncommitted}
+artifact: code {sha12} {clean or dirty:hash12}; backlog {sha12 or uncommitted}
 
 | Check | Command | Expected | Observed | Evidence |
 | --- | --- | --- | --- | --- |

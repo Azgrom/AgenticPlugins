@@ -1,7 +1,7 @@
 # STATE — <<NAME>>
 
 contract: 3 sha256:<<CONTRACT_SHA>>
-ledger: <<NAME>> — <<OBJECTIVE>>
+backlog: <<NAME>> — <<OBJECTIVE>>
 lifecycle: planning
 storage: <<STORAGE>>
 code: <<CODE>>

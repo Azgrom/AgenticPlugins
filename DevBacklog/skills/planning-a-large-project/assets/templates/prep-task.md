@@ -6,9 +6,9 @@ outcome: PLAN, PROTOCOL, task contracts and index ready for the first executable
 requirements: none
 entry: the user's request, recorded under PROTOCOL's authorization
 owns: STATE.md, PLAN.md, PROTOCOL.md, tasks/, research/, evidence/, checkpoints/
-excludes: project artifacts outside the ledger
+excludes: project artifacts outside the backlog
 context: planning-a-large-project SKILL.md — preparation gates
-checks: python3 -B <<TOOL>> validate --ledger . → 0 errors
+checks: python3 -B <<TOOL>> validate --backlog . → 0 errors
 exit: checkpoint checkpoints/PREP-01.md; successor none
 
 ## Steps

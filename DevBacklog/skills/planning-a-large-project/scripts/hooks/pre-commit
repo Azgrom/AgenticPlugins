@@ -1,16 +1,16 @@
 #!/bin/sh
-# ledger-guard: installed by planning-a-large-project (scripts/ledger.py init --install-hooks).
-# Keeps ledger files out of commits on code branches and Python bytecode out of every commit.
+# backlog-guard: installed by planning-a-large-project (scripts/backlog.py init --install-hooks).
+# Keeps backlog files out of commits on code branches and Python bytecode out of every commit.
 branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null || echo "detached HEAD")
 if ! git diff --cached --quiet --diff-filter=ACMR -- ':(glob)**/__pycache__/**' ':(glob)**/*.pyc'; then
-  echo "ledger-guard: refusing Python bytecode on $branch; run ledger scripts with python3 -B." >&2
+  echo "backlog-guard: refusing Python bytecode on $branch; run backlog scripts with python3 -B." >&2
   exit 1
 fi
 case "$branch" in
-  ledger/*) ;;
+  backlog/*) ;;
   *)
-    if ! git diff --cached --quiet --diff-filter=ACMR -- ':(top).ledger'; then
-      echo "ledger-guard: refusing .ledger/ paths on $branch; use the separate ledger worktree." >&2
+    if ! git diff --cached --quiet --diff-filter=ACMR -- ':(top).backlog'; then
+      echo "backlog-guard: refusing .backlog/ paths on $branch; use the separate backlog worktree." >&2
       exit 1
     fi
     ;;

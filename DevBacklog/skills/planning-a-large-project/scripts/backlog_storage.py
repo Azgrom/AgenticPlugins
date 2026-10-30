@@ -1,4 +1,4 @@
-"""Git operations for ledger storage: orphan worktrees, code identity, pins, guards and separation checks."""
+"""Git operations for backlog storage: orphan worktrees, code identity, pins, guards and separation checks."""
 from __future__ import annotations
 
 import hashlib
@@ -9,7 +9,7 @@ import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
-HOOK_MARKER = "ledger-guard"
+HOOK_MARKER = "backlog-guard"
 HOOK_NAMES = ("pre-commit", "pre-push")
 MIN_GIT = (2, 42)
 NAME = re.compile(r"^[a-z0-9][a-z0-9._-]*$")
@@ -62,19 +62,19 @@ def require_git_version() -> None:
 
 def create_orphan_worktree(code: Path, name: str, path: Path | None,
                            hooks_source: Path | None) -> tuple[Path, list[str]]:
-    """Create branch ledger/<name> with no shared history, checked out in its own worktree."""
+    """Create branch backlog/<name> with no shared history, checked out in its own worktree."""
     if not NAME.match(name):
-        raise StorageError(f"ledger name {name!r} must match {NAME.pattern}")
+        raise StorageError(f"backlog name {name!r} must match {NAME.pattern}")
     require_git_version()
     top = toplevel(code)
-    branch = f"ledger/{name}"
+    branch = f"backlog/{name}"
     worktrees = git(top, "worktree", "list", "--porcelain").stdout.splitlines()
     if (f"branch refs/heads/{branch}" in worktrees
             or git(top, "rev-parse", "--verify", "--quiet", f"refs/heads/{branch}", check=False).returncode == 0):
         raise StorageError(f"branch {branch} already exists")
-    target = (path or top.parent / f"ledger-{name}").resolve()
+    target = (path or top.parent / f"backlog-{name}").resolve()
     if any(target.is_relative_to(root) for root in worktree_paths(top)):
-        raise StorageError(f"{target} is inside an existing worktree; choose a separate ledger directory")
+        raise StorageError(f"{target} is inside an existing worktree; choose a separate backlog directory")
     if target.exists() and any(target.iterdir()):
         raise StorageError(f"{target} exists and is not empty")
     if hooks_source is not None:
@@ -91,9 +91,9 @@ def ensure_exclude(top: Path) -> None:
     exclude = git_path(top, "info/exclude")
     exclude.parent.mkdir(parents=True, exist_ok=True)
     text = exclude.read_text(encoding="utf-8") if exclude.is_file() else ""
-    if "/.ledger/" not in text.splitlines():
+    if "/.backlog/" not in text.splitlines():
         separator = "" if not text or text.endswith("\n") else "\n"
-        exclude.write_text(text + separator + "/.ledger/\n", encoding="utf-8")
+        exclude.write_text(text + separator + "/.backlog/\n", encoding="utf-8")
 
 
 def check_hooks_installable(top: Path) -> None:
@@ -141,24 +141,24 @@ def code_line(identity: dict[str, str]) -> str:
 
 
 def pin(code: Path, name: str, task: str, sha: str) -> str:
-    ref = f"refs/ledger/{name}/{task}"
+    ref = f"refs/backlog/{name}/{task}"
     git(toplevel(code), "update-ref", ref, sha)
     return ref
 
 
-def doctor(ledger: Path, storage: str, code_path: str | None, name: str) -> list[tuple[str, str]]:
+def doctor(backlog: Path, storage: str, code_path: str | None, name: str) -> list[tuple[str, str]]:
     results: list[tuple[str, str]] = []
-    for path in sorted(ledger.rglob("*")):
+    for path in sorted(backlog.rglob("*")):
         if path.name == "__pycache__" or path.suffix == ".pyc":
-            results.append(("ERROR", f"bytecode in the ledger: {path}"))
+            results.append(("ERROR", f"bytecode in the backlog: {path}"))
     profile = storage.split()[0] if storage.split() else ""
     if profile != "orphan-worktree":
         results.append(("WARN", f"storage profile {profile or 'unknown'}: separation checks skipped"))
         return results
-    expected = f"ledger/{name}"
-    branch = git(ledger, "symbolic-ref", "--quiet", "--short", "HEAD", check=False).stdout.strip()
+    expected = f"backlog/{name}"
+    branch = git(backlog, "symbolic-ref", "--quiet", "--short", "HEAD", check=False).stdout.strip()
     if branch != expected:
-        results.append(("ERROR", f"the ledger worktree is on {branch or 'a detached HEAD'}, expected {expected}"))
+        results.append(("ERROR", f"the backlog worktree is on {branch or 'a detached HEAD'}, expected {expected}"))
     if not code_path:
         results.append(("ERROR", "STATE's code: line names no code worktree"))
         return results
@@ -166,42 +166,42 @@ def doctor(ledger: Path, storage: str, code_path: str | None, name: str) -> list
     if not code.is_dir():
         results.append(("ERROR", f"code worktree {code} not found"))
         return results
-    return results + separation(ledger, code, expected)
+    return results + separation(backlog, code, expected)
 
 
-def separation(ledger: Path, code: Path, expected: str) -> list[tuple[str, str]]:
+def separation(backlog: Path, code: Path, expected: str) -> list[tuple[str, str]]:
     results: list[tuple[str, str]] = []
     for root in worktree_paths(code):
-        if root != ledger.resolve() and ledger.resolve().is_relative_to(root):
-            results.append(("ERROR", f"the ledger directory {ledger} is inside worktree {root}"))
-    ledger_head = git(ledger, "rev-parse", "--verify", "--quiet", "HEAD", check=False).stdout.strip()
+        if root != backlog.resolve() and backlog.resolve().is_relative_to(root):
+            results.append(("ERROR", f"the backlog directory {backlog} is inside worktree {root}"))
+    backlog_head = git(backlog, "rev-parse", "--verify", "--quiet", "HEAD", check=False).stdout.strip()
     code_head = git(code, "rev-parse", "HEAD").stdout.strip()
-    if ledger_head:
-        base = git(code, "merge-base", ledger_head, code_head, check=False)
+    if backlog_head:
+        base = git(code, "merge-base", backlog_head, code_head, check=False)
         if base.returncode == 0:
-            results.append(("ERROR", f"the ledger branch shares history with code (merge base {base.stdout.strip()[:12]})"))
-    tracked = git(code, "ls-files", "--", ".ledger").stdout.splitlines()
+            results.append(("ERROR", f"the backlog branch shares history with code (merge base {base.stdout.strip()[:12]})"))
+    tracked = git(code, "ls-files", "--", ".backlog").stdout.splitlines()
     if tracked:
-        results.append(("ERROR", f"the code branch tracks {len(tracked)} path(s) under .ledger/"))
-    if (code / ".ledger").exists():
-        results.append(("ERROR", f"{code / '.ledger'} exists inside the code worktree"))
+        results.append(("ERROR", f"the code branch tracks {len(tracked)} path(s) under .backlog/"))
+    if (code / ".backlog").exists():
+        results.append(("ERROR", f"{code / '.backlog'} exists inside the code worktree"))
     for ref in git(code, "for-each-ref", "--format=%(refname:short)", "refs/heads").stdout.splitlines():
-        if ref.startswith("ledger/"):
+        if ref.startswith("backlog/"):
             continue
-        count = len(git(code, "ls-tree", "-r", "--name-only", ref, "--", ".ledger").stdout.splitlines())
+        count = len(git(code, "ls-tree", "-r", "--name-only", ref, "--", ".backlog").stdout.splitlines())
         if count:
-            results.append(("WARN", f"branch {ref} tracks {count} path(s) under .ledger/"))
-    for hooks in sorted({git_path(code, "hooks"), git_path(ledger, "hooks")}):
+            results.append(("WARN", f"branch {ref} tracks {count} path(s) under .backlog/"))
+    for hooks in sorted({git_path(code, "hooks"), git_path(backlog, "hooks")}):
         for name in HOOK_NAMES:
             target = hooks / name
             if (not target.is_file() or not os.access(target, os.X_OK)
                     or HOOK_MARKER not in target.read_text(encoding="utf-8", errors="replace")):
                 results.append(("WARN", f"the {name} hook is not installed or executable at {target}; use a shared hooks directory"))
     exclude = git_path(code, "info/exclude")
-    if not exclude.is_file() or "/.ledger/" not in exclude.read_text(encoding="utf-8").splitlines():
-        results.append(("WARN", "'/.ledger/' is missing from info/exclude"))
-    remote = git(ledger, "config", "--get", f"branch.{expected}.remote", check=False).stdout.strip()
-    allowed = git(code, "config", "--get", "ledger.allowedRemote", check=False).stdout.strip()
+    if not exclude.is_file() or "/.backlog/" not in exclude.read_text(encoding="utf-8").splitlines():
+        results.append(("WARN", "'/.backlog/' is missing from info/exclude"))
+    remote = git(backlog, "config", "--get", f"branch.{expected}.remote", check=False).stdout.strip()
+    allowed = git(code, "config", "--get", "backlog.allowedRemote", check=False).stdout.strip()
     if remote and remote != allowed:
-        results.append(("WARN", f"the ledger branch tracks remote {remote}, which is not ledger.allowedRemote"))
+        results.append(("WARN", f"the backlog branch tracks remote {remote}, which is not backlog.allowedRemote"))
     return results

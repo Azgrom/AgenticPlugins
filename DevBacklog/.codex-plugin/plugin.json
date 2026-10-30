@@ -18,8 +18,8 @@
       "skills"
     ],
     "defaultPrompt": [
-      "Plan this project as a phased execution ledger.",
-      "Resume work from the ledger checkpoint.",
+      "Plan this project as a phased execution backlog.",
+      "Resume work from the backlog checkpoint.",
       "Review the test evidence and plan remediation."
     ]
   }

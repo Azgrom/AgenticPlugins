@@ -1,6 +1,6 @@
-"""Read ledger files into plain Python values.
+"""Read backlog files into plain Python values.
 
-This module only parses. Decisions about what is valid live in ledger_checks.py.
+This module only parses. Decisions about what is valid live in backlog_checks.py.
 """
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ CONTRACT_VERSION = "3"
 STATUSES = ("planned", "ready", "in_progress", "review", "awaiting_acceptance", "done", "blocked", "needs_replan")
 LIFECYCLES = ("planning", "ready", "executing", "blocked", "complete", "archived")
 STATE_KEYS = (
-    "contract", "ledger", "lifecycle", "storage", "code", "plan", "cursor",
+    "contract", "backlog", "lifecycle", "storage", "code", "plan", "cursor",
     "accepted", "recovery", "pending", "operations", "next", "read",
 )
 TASK_KEYS = ("outcome", "entry", "owns", "checks", "exit")
@@ -36,7 +36,7 @@ def read_text(path: Path) -> str:
 
 
 def strip_fences(text: str) -> str:
-    """Blank out fenced code blocks so their contents are not read as ledger content."""
+    """Blank out fenced code blocks so their contents are not read as backlog content."""
     lines: list[str] = []
     inside = False
     for line in text.splitlines():
@@ -91,8 +91,8 @@ def contract_version(value: str) -> str:
     return parts[0] if parts else ""
 
 
-def ledger_name(keys: dict[str, list[str]]) -> str:
-    return (first(keys, "ledger") or "").split(" — ", 1)[0].strip()
+def backlog_name(keys: dict[str, list[str]]) -> str:
+    return (first(keys, "backlog") or "").split(" — ", 1)[0].strip()
 
 
 def code_path(keys: dict[str, list[str]]) -> str | None:
@@ -107,8 +107,8 @@ def pointer(value: str | None) -> str | None:
     return value.split(" (", 1)[0].strip()
 
 
-def load_index(ledger: Path) -> list[dict]:
-    data = json.loads(read_text(ledger / "tasks" / "index.json"))
+def load_index(backlog: Path) -> list[dict]:
+    data = json.loads(read_text(backlog / "tasks" / "index.json"))
     if not isinstance(data, list) or not all(isinstance(row, dict) for row in data):
         raise ValueError("tasks/index.json must be a JSON list of objects")
     return data

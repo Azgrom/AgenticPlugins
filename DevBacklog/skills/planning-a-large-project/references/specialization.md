@@ -1,4 +1,4 @@
-# Specializing the ledger
+# Specializing the backlog
 
 Read when planning work governed by domain knowledge, specialist skills or external contracts.
 
@@ -13,7 +13,7 @@ ownership, failure behavior and compatibility promises before dependent implemen
 
 The generic skills govern sequencing and persistence; specialist instructions govern domain correctness.
 Read a specialist's preparation guidance before marking its dependent tasks ready, and its execution guidance
-at those tasks. Record the paths actually used. If a needed skill is missing, the ledger either carries the
+at those tasks. Record the paths actually used. If a needed skill is missing, the backlog either carries the
 required contract and evidence itself or blocks that dependency.
 
 | Work | Domain-specific preparation and evidence |

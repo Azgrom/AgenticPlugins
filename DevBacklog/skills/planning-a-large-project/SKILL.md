@@ -1,25 +1,25 @@
 ---
 name: planning-a-large-project
-description: Use when a substantial project needs a researched, phased plan that can survive multiple sessions, when an existing project ledger needs replanning after requirements or dependencies change, or when an existing ledger must move out of a code branch.
+description: Use when a substantial project needs a researched, phased plan that can survive multiple sessions, when an existing project backlog needs replanning after requirements or dependencies change, or when an existing backlog must move out of a code branch.
 ---
 
 # Planning a large project
 
-Prepare a ledger that another session can execute without conversation history. Planning fixes the
+Prepare a backlog that another session can execute without conversation history. Planning fixes the
 evidence, task boundaries and sequence; execution follows `executing-a-large-project`.
 
 ## Start or resume
 
-1. Read the [contract](references/contract.md). For an existing ledger, read its `STATE.md` first and keep
+1. Read the [contract](references/contract.md). For an existing backlog, read its `STATE.md` first and keep
    its progress.
-2. For a new ledger in a git project, read [storage](references/storage.md) and create the ledger on its own
-   orphan branch: `python3 -B <skill dir>/scripts/ledger.py init --name <name> --code <repo> --objective "<outcome>"`,
+2. For a new backlog in a git project, read [storage](references/storage.md) and create the backlog on its own
+   orphan branch: `python3 -B <skill dir>/scripts/backlog.py init --name <name> --code <repo> --objective "<outcome>"`,
    where `<skill dir>` is this skill's directory. Ask the user before adding `--install-hooks`, because it
    writes into the repository's hooks. Outside git, use `--profile directory --path <dir>`.
 3. Record the requested outcome, exclusions and existing authorization in PROTOCOL. Ask only about decisions
    that change scope or correctness; record assumptions and blocked work.
 
-Analyze, build and test code only in the code worktree. Write ledger files only in the ledger directory.
+Analyze, build and test code only in the code worktree. Write backlog files only in the backlog directory.
 
 ## Preparation gates
 
@@ -42,10 +42,10 @@ inferred value is a hypothesis: the task that consumes it verifies it first.
 
 ## Finish planning
 
-1. Run `ledger.py validate --ledger <ledger>` until it reports no errors.
+1. Run `backlog.py validate --backlog <backlog>` until it reports no errors.
 2. Read STATE as a fresh session would: it must name one next action and the files needed for it.
 3. Write the planning checkpoint, update the index, then write STATE last with lifecycle `ready`.
-4. If execution was also requested, continue with `executing-a-large-project`; otherwise report the ledger
+4. If execution was also requested, continue with `executing-a-large-project`; otherwise report the backlog
    path and its next action.
 
 ## Common mistakes

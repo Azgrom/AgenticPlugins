@@ -51,16 +51,16 @@ class PackageTests(unittest.TestCase):
         validator = subprocess.run([sys.executable, '-B', str(unpacked / 'scripts/validate_package.py')],
                                    cwd=self.directory, capture_output=True, text=True)
         self.assertEqual(validator.returncode, 0, validator.stdout + validator.stderr)
-        ledger = unpacked / 'skills/planning-a-large-project/scripts/ledger.py'
+        backlog = unpacked / 'skills/planning-a-large-project/scripts/backlog.py'
         created = subprocess.run(
-            [sys.executable, '-B', str(ledger), 'init', '--profile', 'directory',
-             '--name', 'archive-check', '--path', str(self.directory / 'ledger'),
+            [sys.executable, '-B', str(backlog), 'init', '--profile', 'directory',
+             '--name', 'archive-check', '--path', str(self.directory / 'backlog'),
              '--objective', 'Verify the distributed package'],
             cwd=self.directory, capture_output=True, text=True,
         )
         self.assertEqual(created.returncode, 0, created.stdout + created.stderr)
-        protocol = (self.directory / 'ledger/PROTOCOL.md').read_text(encoding='utf-8')
-        self.assertIn(str(ledger), protocol)
+        protocol = (self.directory / 'backlog/PROTOCOL.md').read_text(encoding='utf-8')
+        self.assertIn(str(backlog), protocol)
         self.assertNotIn(str(REPOSITORY), protocol)
 
     def test_rejects_destinations_in_any_plugin_and_non_zip_outputs(self):

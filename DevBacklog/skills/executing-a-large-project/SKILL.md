@@ -1,6 +1,6 @@
 ---
 name: executing-a-large-project
-description: Use when continuing a substantial project with an existing phased ledger, resuming interrupted work from STATE.md, or handing a project task to another session.
+description: Use when continuing a substantial project with an existing phased backlog, resuming interrupted work from STATE.md, or handing a project task to another session.
 ---
 
 # Executing a large project
@@ -9,18 +9,18 @@ Advance one verified task boundary at a time.
 
 ## Start every session
 
-1. Read the ledger's `STATE.md`. If several candidates exist, establish the authoritative one first. If no
-   ledger exists, use `planning-a-large-project`.
+1. Read the backlog's `STATE.md`. If several candidates exist, establish the authoritative one first. If no
+   backlog exists, use `planning-a-large-project`.
 2. Read the [contract](../planning-a-large-project/references/contract.md), then the files on STATE's `read:`
    line. Read anything else only when the active task links it. Query the index and bulk tables with
-   `ledger.py query` instead of opening them.
-3. Run `python3 -B <tool> validate --ledger <ledger>`, where `<tool>` is the path on PROTOCOL's `authority:`
+   `backlog.py query` instead of opening them.
+3. Run `python3 -B <tool> validate --backlog <backlog>`, where `<tool>` is the path on PROTOCOL's `authority:`
    line, and also `doctor` when storage is `orphan-worktree`. Reconcile STATE, the task record and the actual
    artifacts before changing anything. Follow [recovery](references/recovery.md) when they disagree, after an
-   interruption, or for a legacy ledger.
+   interruption, or for a legacy backlog.
 
-Run code analysis, builds and tests in the code worktree named on STATE's `code:` line. Write ledger files
-only in the ledger directory. Never stage ledger files in the code worktree.
+Run code analysis, builds and tests in the code worktree named on STATE's `code:` line. Write backlog files
+only in the backlog directory. Never stage backlog files in the code worktree.
 
 ## Execute the task
 
@@ -34,7 +34,7 @@ only in the ledger directory. Never stage ledger files in the code worktree.
 At every task boundary:
 
 1. Record check results bound to the outputs being accepted; a result from before the last edit does not count.
-2. For Git code, run `ledger.py sync --ledger <ledger> --write`; add `--pin <task>` at acceptance.
+2. For Git code, run `backlog.py sync --backlog <backlog> --write`; add `--pin <task>` at acceptance.
    Otherwise record PROTOCOL's artifact revision, checksum or receipt.
 3. Write the checkpoint from `assets/templates/checkpoint.md`, and quote any human approval verbatim. When a
    stop class requires a human, the task stays `awaiting_acceptance` and work on it waits for the user's answer.
@@ -54,4 +54,4 @@ completion.
 ## Common mistakes
 
 - "The handoff says it is done": check the claim against artifacts and checkpoints first.
-- Opening a large evidence file to find one row: use `ledger.py query --csv <file> --where <column>=<value>`.
+- Opening a large evidence file to find one row: use `backlog.py query --csv <file> --where <column>=<value>`.

@@ -1,4 +1,4 @@
-# Test-review ledger output
+# Test-review backlog output
 
 Read when recording findings, decomposing remediation or checking readiness. The planner's contract owns the
 file structure, templates and acceptance format; this reference adds the test-specific records and policy.
@@ -16,7 +16,7 @@ Keep one owner per fact; reports link to records instead of copying them.
 | `research/coverage.md` | Tool and version, configuration, denominator, statement and branch results, exclusions and unmeasured parts |
 
 The judgment columns of `evidence/tests.csv` stay empty until the project's audit task fills them with
-`basis` `read`. Read a project's rows with `ledger.py query --csv evidence/tests.csv --where project=<name>`.
+`basis` `read`. Read a project's rows with `backlog.py query --csv evidence/tests.csv --where project=<name>`.
 
 A finding names the contract or circumstance, the observation or absence, the user impact, the project and
 surface, the remedy and owner, and the check that would discharge it. Keep these apart: an actual failing
@@ -58,7 +58,7 @@ acceptance. If the user later changes this policy, record the instruction and it
 
 ## Readiness and closeout
 
-Before marking the ledger ready, check both directions:
+Before marking the backlog ready, check both directions:
 - every finding and obligation has an owning task and check;
 - every task has inputs, permissions, owned outputs, checks and a successor.
 

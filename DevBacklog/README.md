@@ -1,7 +1,7 @@
 # DevBacklog
 
 DevBacklog reúne três habilidades para planejar projetos, retomar sua execução e
-revisar a suficiência dos testes. Os planos usam um ledger: um conjunto de
+revisar a suficiência dos testes. Os planos usam um backlog: um conjunto de
 arquivos com contratos de tarefas, evidências, pontos de controle e uma próxima
 ação explícita para outra sessão.
 
@@ -17,12 +17,12 @@ Após carregar este pacote em um hospedeiro com suporte a habilidades, solicite,
 por exemplo:
 
 - `Use $planning-a-large-project para planejar esta migração.`
-- `Use $executing-a-large-project para continuar o ledger indicado.`
+- `Use $executing-a-large-project para continuar o backlog indicado.`
 - `Use $reviewing-and-planning-tests para revisar os testes desta solução.`
 
 As habilidades são mantidas em inglês. Planejamento fornece o
 [contrato compartilhado](skills/planning-a-large-project/references/contract.md),
-os modelos e a CLI `ledger.py`. Execução e revisão usam esses mesmos arquivos;
+os modelos e a CLI `backlog.py`. Execução e revisão usam esses mesmos arquivos;
 as três habilidades devem permanecer juntas.
 
 ## Requisitos e armazenamento
@@ -34,7 +34,7 @@ O perfil `directory` atende projetos sem Git. Consulte as
 para criação, sincronização e recuperação.
 
 A instalação dos hooks de proteção é opcional e requer autorização do usuário.
-Instalar o plugin não cria um ledger nem instala esses hooks. A revisão de testes
+Instalar o plugin não cria um backlog nem instala esses hooks. A revisão de testes
 produz um plano de correção; a execução desse plano passa pela habilidade de
 execução e pela aceitação humana definida no protocolo.
 

@@ -1,8 +1,8 @@
-# Ledger contract — version 3
+# Backlog contract — version 3
 
 Read after STATE at the start of every session; the planning, executing and reviewing skills share it.
-`scripts/ledger.py` in this skill checks the mechanical rules. Run it as
-`python3 -B <skill dir>/scripts/ledger.py <command> --ledger <ledger>`.
+`scripts/backlog.py` in this skill checks the mechanical rules. Run it as
+`python3 -B <skill dir>/scripts/backlog.py <command> --backlog <backlog>`.
 
 ## Files and owners
 
@@ -13,12 +13,12 @@ Each fact has one owner; no file copies another file's facts.
 | `STATE.md` | Where work stands and the one next action | First, every session |
 | `PROTOCOL.md` | Authority, storage, authorization, delivery, stop classes, check profiles, session rules, user instructions | Before acting |
 | `PLAN.md` | Outcome, exclusions, requirements, phases | When selecting work or replanning |
-| `tasks/index.json` | Each task's phase, dependencies, status, successor and checkpoint | Through `ledger.py query` |
+| `tasks/index.json` | Each task's phase, dependencies, status, successor and checkpoint | Through `backlog.py query` |
 | `tasks/<ID>.md` | One task's contract, step checkboxes and resume record | For the active task |
 | `checkpoints/<ID>.md` | Review, check results and acceptance at one task boundary | Latest for the active task |
 | `research/`, `evidence/` | Domain records, bulk tables, check summaries, scripts | When a task or checkpoint links them |
 
-`ledger.py init` writes STATE, PROTOCOL, PLAN, the index and the preparation task from `assets/templates/`.
+`backlog.py init` writes STATE, PROTOCOL, PLAN, the index and the preparation task from `assets/templates/`.
 For new tasks and checkpoints, copy `task.md` and `checkpoint.md` from there. Requirement coverage comes from
 each task's `requirements:` line. When PLAN's phase table outgrows its budget, move it to `phases.md`.
 
@@ -29,9 +29,9 @@ STATE is the cursor, not a history. It holds exactly these lines, once each:
 | Key | Value |
 | --- | --- |
 | `contract` | `3 sha256:<12 hex>` of this file |
-| `ledger` | `<name> — <objective>` |
+| `backlog` | `<name> — <objective>` |
 | `lifecycle` | `planning`, `ready`, `executing`, `blocked`, `complete` or `archived` |
-| `storage` | `orphan-worktree ledger/<name> at <path>`, `directory <path>` or `external <where>` |
+| `storage` | `orphan-worktree backlog/<name> at <path>`, `directory <path>` or `external <where>` |
 | `code` | `<path> @ <branch> <sha12> clean` (or `dirty:<hash12>`), `observed <UTC time>`; `none` outside git |
 | `plan` | `revision <n>` |
 | `cursor` | `<phase> / <task> / <step> — <status>`, using the index's status |
@@ -84,10 +84,10 @@ accepted frontier.
 
 - Budgets: STATE 2 KB, PROTOCOL 4 KB, PLAN 8 KB, a task or checkpoint 4 KB, a line 400 characters. STATE,
   PROTOCOL and PLAN never link a file over 16 KB. A task that does says how to read a slice of it, such as
-  `ledger.py query --csv <file> --where <column>=<value>`.
+  `backlog.py query --csv <file> --where <column>=<value>`.
 - Write a sentence once. Text that several tasks share belongs in PROTOCOL or one linked record.
 - A check result is its command, exit code, counts and the sha256 of its full log; keep full logs only for
-  failures. Store reproducible data as generator, seed and hash. Never store ledger copies, older versions
+  failures. Store reproducible data as generator, seed and hash. Never store backlog copies, older versions
   or build output. A file over 1 MB needs a reason in `evidence/large-files.txt`.
 - Bulk tables are CSV. Above 20 rows they carry `basis` (`script`, `read`, `executed` or `inferred`) and
   `verified_by`. An `inferred` value is a hypothesis and never drives a change. A value that every row
@@ -98,14 +98,14 @@ accepted frontier.
 ## Scale, changes and completion
 
 Replanning keeps completed evidence, invalidates affected dependents, increments the plan revision and
-records why. New scope needs the user's authorization. A child ledger is recorded in its parent with its
+records why. New scope needs the user's authorization. A child backlog is recorded in its parent with its
 path, owner, input and output contract, and the parent waits for its accepted checkpoint. One session at
-a time writes a ledger's cursor; authorized parallel work splits task ownership and reconciles before
+a time writes a backlog's cursor; authorized parallel work splits task ownership and reconciles before
 acceptance. At closeout, verify phase and final gates and requirement coverage, move durable decisions
 to their maintained homes, and write a closeout checkpoint. Archive by default; delete only on explicit
 instruction, after every needed fact has another home.
 
-## Legacy ledgers
+## Legacy backlogs
 
 `validate` stops with `state.contract` when STATE names another contract version. Keep the files and their
 history, map their facts onto this contract, add only the cursor, index or checkpoint needed to resume, and

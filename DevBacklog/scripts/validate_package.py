@@ -14,10 +14,10 @@ SKILLS = (
     'reviewing-and-planning-tests',
 )
 PLANNING_FILES = (
-    'scripts/ledger.py',
-    'scripts/ledger_model.py',
-    'scripts/ledger_checks.py',
-    'scripts/ledger_storage.py',
+    'scripts/backlog.py',
+    'scripts/backlog_model.py',
+    'scripts/backlog_checks.py',
+    'scripts/backlog_storage.py',
     'scripts/hooks/pre-commit',
     'scripts/hooks/pre-push',
     'scripts/tests/test_checks.py',
@@ -87,7 +87,7 @@ def validate(root):
     require((root / 'LICENSE').is_file(), 'missing LICENSE')
     require((root / 'README.md').is_file(), 'missing README.md')
 
-    # Templates resolve against a generated ledger, which the CLI tests exercise.
+    # Templates resolve against a generated backlog, which the CLI tests exercise.
     templates = root / 'skills' / SKILLS[0] / 'assets/templates'
     for path in root.rglob('*.md'):
         if path.is_relative_to(templates):

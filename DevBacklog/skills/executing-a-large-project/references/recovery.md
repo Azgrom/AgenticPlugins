@@ -1,12 +1,12 @@
 # Recovery and session handoff
 
 Read when resuming after an interruption, when STATE disagrees with the task record or the artifacts, for a
-legacy ledger, or before ending a session.
+legacy backlog, or before ending a session.
 
 ## Reconcile before continuing
 
 Start from STATE, PROTOCOL, the active task and its latest checkpoints. Inspect the actual artifacts. In git,
-run `ledger.py sync` and compare its `code:` line with STATE's and the checkpoint's; a commit subject or a
+run `backlog.py sync` and compare its `code:` line with STATE's and the checkpoint's; a commit subject or a
 branch name does not establish completion. Outside git, use the revision, checksum or receipt method in
 PROTOCOL. Record what is observed, unknown and contradicted. An older check result still applies only if its
 inputs and outputs are demonstrably unchanged; otherwise rerun it.
@@ -18,8 +18,8 @@ inputs and outputs are demonstrably unchanged; otherwise rerun it.
 | A checkpoint newer than STATE | Validate it against the artifacts, then repair the index and STATE; do not redo accepted work. |
 | STATE says done but the checkpoint is missing or incomplete | Reopen the review, recover or rerun the checks, and write a correction checkpoint. |
 | Artifacts changed after acceptance | Reopen the affected checks and dependents; keep the earlier checkpoints. |
-| A handoff disagrees with the ledger | Trust artifacts and checkpoints; a handoff adds no authority. |
-| A child ledger or required file is missing | Recover it from durable storage, or block the dependent work. |
+| A handoff disagrees with the backlog | Trust artifacts and checkpoints; a handoff adds no authority. |
+| A child backlog or required file is missing | Recover it from durable storage, or block the dependent work. |
 | An operation's effect is unknown | Inspect its ID, service state and outputs before resuming, waiting or retrying. |
 | `validate` reports `state.contract` (legacy) | Follow the contract's legacy section; never rewrite history. |
 
@@ -40,7 +40,7 @@ unknown effects just because the old session ended; if its status cannot be obse
 Follow the write order: evidence, task record, checkpoint, index, STATE last. Run `validate`, then read back
 STATE and the checkpoint it names, and confirm that the files on `read:` exist.
 
-A handoff message, or an optional `HANDOFF.md` pointing to STATE, contains only: the ledger location and
+A handoff message, or an optional `HANDOFF.md` pointing to STATE, contains only: the backlog location and
 branch, the checkpoint and whether it is accepted or a recovery, the current task and step, one next action,
-and any pending checks, approvals or operations. Every fact in it must already be in the ledger. Never claim
-that another session started without observing it. Keep credentials out of the ledger and out of handoffs.
+and any pending checks, approvals or operations. Every fact in it must already be in the backlog. Never claim
+that another session started without observing it. Keep credentials out of the backlog and out of handoffs.
