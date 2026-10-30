@@ -13,7 +13,7 @@ de cada pacote.
 
 | Seleção | Raiz do pacote | Destino padrão |
 | --- | --- | --- |
-| `--plugin tutor` (padrão) | `src/` | `dist/tutor.zip` |
+| `--plugin tutor` (padrão) | `Tutor/` | `dist/tutor.zip` |
 | `--plugin devbacklog` | `DevBacklog/` | `dist/devbacklog.zip` |
 
 Cada arquivo contém todo o conteúdo de sua raiz de pacote, incluindo arquivos

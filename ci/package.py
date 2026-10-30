@@ -9,7 +9,7 @@ import sys
 
 
 PACKAGES = {
-    'tutor': ('src', 'skills/instructions/scripts/validate_package.py'),
+    'tutor': ('Tutor', 'skills/instructions/scripts/validate_package.py'),
     'devbacklog': ('DevBacklog', 'scripts/validate_package.py'),
 }
 

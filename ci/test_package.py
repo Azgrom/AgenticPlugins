@@ -33,7 +33,7 @@ class PackageTests(unittest.TestCase):
             self.assertIn('.codex-plugin/plugin.json', names)
             self.assertIn('skills/instructions/SKILL.md', names)
             self.assertNotIn('skills/planning-a-large-project/SKILL.md', names)
-            self.assertFalse(any(name.startswith(('src/', 'DevBacklog/', 'ci/')) for name in names))
+            self.assertFalse(any(name.startswith(('Tutor/', 'DevBacklog/', 'ci/')) for name in names))
 
     def test_devbacklog_archive_runs_without_the_source_installation(self):
         output = self.directory / 'devbacklog.zip'
@@ -46,7 +46,7 @@ class PackageTests(unittest.TestCase):
             self.assertEqual(manifest['name'], 'devbacklog')
             self.assertIn('plugin.json', names)
             self.assertNotIn('skills/instructions/SKILL.md', names)
-            self.assertFalse(any(name.startswith(('src/', 'DevBacklog/', 'ci/')) for name in names))
+            self.assertFalse(any(name.startswith(('Tutor/', 'DevBacklog/', 'ci/')) for name in names))
             archive.extractall(unpacked)
         validator = subprocess.run([sys.executable, '-B', str(unpacked / 'scripts/validate_package.py')],
                                    cwd=self.directory, capture_output=True, text=True)
@@ -65,9 +65,9 @@ class PackageTests(unittest.TestCase):
 
     def test_rejects_destinations_in_any_plugin_and_non_zip_outputs(self):
         cases = (
-            ('tutor', REPOSITORY / 'src/rejected.zip'),
+            ('tutor', REPOSITORY / 'Tutor/rejected.zip'),
             ('tutor', REPOSITORY / 'DevBacklog/rejected.zip'),
-            ('devbacklog', REPOSITORY / 'src/rejected.zip'),
+            ('devbacklog', REPOSITORY / 'Tutor/rejected.zip'),
             ('devbacklog', REPOSITORY / 'DevBacklog/rejected.zip'),
             ('devbacklog', self.directory / 'rejected.tar'),
         )

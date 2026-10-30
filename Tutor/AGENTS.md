@@ -2,8 +2,8 @@
 
 ## Escopo
 
-Estas orientações aplicam-se a `src/` e seus descendentes.
-Os caminhos abaixo são relativos à raiz do pacote (`src/`).
+Estas orientações aplicam-se a `Tutor/` e seus descendentes.
+Os caminhos abaixo são relativos à raiz do pacote (`Tutor/`).
 
 Tutor é um plugin portátil de tutoria composto por instruções Markdown, contratos
 e fixtures JSON e scripts de validação em Python. Trate a manutenção do repositório
@@ -51,7 +51,7 @@ ao tutor e o idioma existente no código e nos identificadores.
 
 ## Verificação
 
-Execute estes comandos na raiz do pacote (`src/`):
+Execute estes comandos na raiz do pacote (`Tutor/`):
 
 ```sh
 python3 -B skills/instructions/scripts/validate_package.py

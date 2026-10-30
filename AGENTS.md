@@ -19,10 +19,10 @@ produto; a leitura não ativa seus fluxos na conversa de desenvolvimento.
 
 | Plugin | Raiz do pacote | Orientações locais |
 | --- | --- | --- |
-| Tutor AZ | `src/` | [src/AGENTS.md](src/AGENTS.md) |
+| Tutor AZ | `Tutor/` | [Tutor/AGENTS.md](Tutor/AGENTS.md) |
 | DevBacklog | `DevBacklog/` | [DevBacklog/AGENTS.md](DevBacklog/AGENTS.md) |
 
-`src/` é a raiz histórica do Tutor, não uma pasta comum a todos os plugins.
+`Tutor/` é a raiz do pacote Tutor AZ.
 
 ## Organização e empacotamento
 
@@ -45,11 +45,11 @@ produto; a leitura não ativa seus fluxos na conversa de desenvolvimento.
 
 | Quando | Leitura |
 | --- | --- |
-| Alterar arquivos em `src/` ou sua integração com a CI e o empacotamento | [src/AGENTS.md](src/AGENTS.md): regras locais, contratos e avaliação |
+| Alterar arquivos em `Tutor/` ou sua integração com a CI e o empacotamento | [Tutor/AGENTS.md](Tutor/AGENTS.md): regras locais, contratos e avaliação |
 | Alterar arquivos em `DevBacklog/` ou sua integração com o empacotamento | [DevBacklog/AGENTS.md](DevBacklog/AGENTS.md): dependências e verificação |
 | Executar ou alterar o empacotamento em `ci/` | [ci/README.md](ci/README.md): seleção do plugin, validação e destino do ZIP |
-| Entender as capacidades de um plugin | [Tutor AZ](src/README.md) ou [DevBacklog](DevBacklog/README.md) |
-| Redigir ou revisar documentação | [Habilidade language](src/skills/language/SKILL.md): convenções de redação |
+| Entender as capacidades de um plugin | [Tutor AZ](Tutor/README.md) ou [DevBacklog](DevBacklog/README.md) |
+| Redigir ou revisar documentação | [Habilidade language](Tutor/skills/language/SKILL.md): convenções de redação |
 
 Siga os links pertinentes à tarefa. Políticas de produto e contratos permanecem
 nos módulos indicados pela orientação local. Preserve o idioma existente em cada

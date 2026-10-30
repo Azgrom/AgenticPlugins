@@ -5,7 +5,7 @@ validar e preparar seus arquivos de distribuição.
 
 | Plugin | Finalidade | Raiz do pacote |
 | --- | --- | --- |
-| [Tutor AZ](src/README.md) | Tutoria sob demanda e verificação do entendimento | `src/` |
+| [Tutor AZ](Tutor/README.md) | Tutoria sob demanda e verificação do entendimento | `Tutor/` |
 | [DevBacklog](DevBacklog/README.md) | Planejamento, execução de projetos e revisão de testes | `DevBacklog/` |
 
 Cada pacote contém seus manifestos, habilidades e arquivos de apoio. Consulte

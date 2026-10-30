@@ -119,7 +119,7 @@ contêm os detalhes normativos.
 ## Validação local
 
 Os scripts de validação usam Python 3 e sua biblioteca padrão. Na raiz do
-repositório, execute:
+pacote (`Tutor/`), execute:
 
 ```sh
 python3 -B skills/instructions/scripts/validate_package.py
