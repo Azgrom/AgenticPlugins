@@ -12,6 +12,14 @@ Cada pacote contém seus manifestos, habilidades e arquivos de apoio. Consulte
 [AGENTS.md](AGENTS.md) para manutenção e o README de cada plugin para uso e
 validação.
 
+## Instalação
+
+Para instalar as habilidades do repositório:
+
+```sh
+npx skills add Azgrom/AgenticPlugins
+```
+
 ## Preparar distribuição
 
 Na raiz do repositório, com Python 3:
